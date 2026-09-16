@@ -1,6 +1,6 @@
 # 杨雯捷 · Portfolio
 
-个人作品集网站，基于 [Vinod Jangid 的开源作品集模板](https://github.com/vinodjangid07/vinodjangid07.github.io) 修改。保留了原模板的分字母 Hero、悬浮导航、项目卡片和交互方式，替换为个人项目、经历和图片，并新增两个案例详情页。纯静态 HTML/CSS/JS，无需安装依赖。
+个人作品集网站，基于 [Vinod Jangid 的开源作品集模板](https://github.com/vinodjangid07/vinodjangid07.github.io) 修改。保留了原模板的分字母 Hero、悬浮导航、项目卡片和交互方式，替换为个人项目、经历和图片。首页的项目卡片分别进入 AI 灵感助手、PMAgent-Canvas 和更多项目详情页；项目板面按原作品集顺序展示，点击可查看原尺寸。纯静态 HTML/CSS/JS，无需安装依赖。
 
 ## 本地预览
 
@@ -18,8 +18,9 @@ python -m http.server 5501
 - `style.css`：Vinod 模板原始样式，保留 MIT 许可
 - `custom.css`：个人内容与视觉的适配样式
 - `main.js`：基于模板交互逻辑改写的导航、主题和鼠标效果
-- `projects/`：AI 灵感助手与 PMAgent-Canvas 案例
-- `assets/images/`：从个人作品集板面精选并压缩的 WebP 图片
+- `projects/`：AI 灵感助手、PMAgent-Canvas 和更多项目页面
+- `assets/images/boards/`：原作品集第 04–47 页的 WebP 图片，第 26 页使用 `26-修改.jpg`
+- `assets/images/profile.webp`：个人形象图片
 
 ## GitHub Pages 部署
 
@@ -33,5 +34,4 @@ python -m http.server 5501
 
 网站代码沿用原模板的 MIT License 和版权声明，见 [LICENSE](LICENSE)。个人文字、肖像及项目图片的版权归杨雯捷所有，不随网站代码的 MIT 许可开放授权。
 
-发布前请本人复核实习项目图片和外部链接是否适合公开。公开仓库仅应包含本目录，不要上传上一级求职材料文件夹。
-
+公开仓库仅应包含本目录，不要上传上一级求职材料文件夹。
