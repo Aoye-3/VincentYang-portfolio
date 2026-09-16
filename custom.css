@@ -71,8 +71,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--color-purple); 
 .about-info { width: 62%; gap: 15px; }
 .about-info p { font-size: 1.8rem; line-height: 1.85; color: #dcddd3; }
 .dp { width: 30%; min-width: 250px; }
-.dp img { width: min(100%, 300px); height: 380px; object-fit: cover; object-position: center top; border-radius: 22px; filter: grayscale(.15); }
-.dp::before, .dp::after { width: 280px; height: 380px; max-width: 100%; border-radius: 22px; }
+.dp img { width: min(100%, 320px); height: 320px; object-fit: cover; object-position: center; border-radius: 22px; }
+.dp::before, .dp::after { width: 320px; height: 320px; max-width: 100%; border-radius: 22px; }
 .dp::before { box-shadow: 2px 2px 0 inset var(--color-purple), -2px -2px 0 inset transparent; }
 .dp::after { box-shadow: 2px 2px 0 inset transparent, -2px -2px 0 inset var(--color-purple); }
 .resume-btn { display: inline-flex; align-self: flex-start; gap: 10px; width: auto; min-width: 170px; height: 46px; margin-top: 18px; padding: 0 16px; border: 1px solid var(--color-purple); border-radius: 7px; color: var(--color-purple); text-decoration: none; }
@@ -152,7 +152,9 @@ footer#footer { min-height: 360px; overflow: hidden; }
 .case-cover { overflow: hidden; border-radius: 20px; background: #eae7e2; }
 .case-cover img { display: block; width: 100%; height: auto; }
 .case-body { max-width: 1000px; }
+.gallery-note { margin: 32px 0 0; color: #aeb5a8; font: 1.25rem "Fira Code", monospace; }
 .case-section { display: grid; grid-template-columns: 65px minmax(0, 1fr); gap: 20px; padding-top: 76px; }
+.case-section[id] { scroll-margin-top: 100px; }
 .case-section-num { padding-top: 7px; color: var(--color-purple); font: 1.2rem "Fira Code", monospace; }
 .case-section h2 { margin: 0 0 22px; color: var(--color-white); font-size: clamp(2.5rem, 3vw, 3.8rem); }
 .case-section p { max-width: 800px; margin: 0 0 20px; color: #c1c6bb; font-size: 1.7rem; line-height: 1.85; }
@@ -163,6 +165,8 @@ footer#footer { min-height: 360px; overflow: hidden; }
 .case-point span { color: var(--color-white); font-size: 1.4rem; }
 .case-gallery { display: grid; gap: 28px; margin-top: 32px; }
 .case-figure { margin: 0; }
+.case-figure a { display: block; border-radius: 12px; }
+.case-figure a:focus-visible { outline: 2px solid var(--color-purple); outline-offset: 5px; }
 .case-figure img { display: block; width: 100%; height: auto; border-radius: 12px; background: #ece9e4; }
 .caption { margin-top: 8px; color: #aeb5a8; font: 1.2rem "Fira Code", monospace; }
 .case-outro { margin: 80px 0 90px; padding: 34px; border: 1px solid #d8ff4544; border-radius: 18px; background: #1a1f17; }
@@ -198,6 +202,7 @@ body.light-mode .footer-links a { color: #383e36; }
 body.light-mode .experience-list span:last-child,
 body.light-mode .tech-stack-box small,
 body.light-mode .caption,
+body.light-mode .gallery-note,
 body.light-mode .footer-bottom p,
 body.light-mode .case-page .site-footer { color: #596057; }
 body.light-mode .hero-scroll,
@@ -249,8 +254,8 @@ body.light-mode .mobile-navbar-tabs-ul a { color: #1d251b; }
   .about-info { width: 100%; }
   .about-info p { font-size: 1.6rem; }
   .dp { width: 100%; min-width: 0; justify-content: flex-start; }
-  .dp img { width: 210px; height: 270px; }
-  .dp::before, .dp::after { width: 210px; height: 270px; }
+  .dp img { width: 230px; height: 230px; }
+  .dp::before, .dp::after { width: 230px; height: 230px; }
   .experience-list { margin-top: 55px; }
   .experience-list > div { grid-template-columns: 1fr; gap: 4px; font-size: 1.3rem; }
   .tech-stack-wrapper { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
