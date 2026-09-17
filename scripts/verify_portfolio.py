@@ -101,6 +101,11 @@ with sync_playwright() as p:
         gallery = page.locator('.work-discovery')
         gallery.evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - 78,behavior:"instant"})')
         page.wait_for_function('document.querySelectorAll(".discovery-strip").length > 0 && [...document.querySelectorAll(".discovery-wall img")].every(img => img.complete && img.naturalWidth > 0)')
+        rows = gallery.locator('.discovery-strip').evaluate_all('(rows) => rows.map(row => ({category: row.dataset.galleryCategory, categories: [...new Set([...row.querySelectorAll("img")].map(img => img.dataset.galleryCategory))]}))')
+        assert [row['category'] for row in rows] == ['ux', 'creative', 'awards'] * 3
+        assert all(row['categories'] == [row['category']] for row in rows), 'Mixed categories within a gallery row'
+        images = gallery.locator('.discovery-wall img').evaluate_all('(images) => images.map(img => ({fit:getComputedStyle(img).objectFit, ratio:img.clientWidth/img.clientHeight, natural:img.naturalWidth/img.naturalHeight}))')
+        assert all(img['fit'] == 'contain' and abs(img['ratio'] - img['natural']) < .025 for img in images), 'Gallery image cropped or stretched'
         assert page.locator('.discovery-shade').evaluate('(el) => getComputedStyle(el).backgroundImage') != 'none'
         gallery_pause = page.locator('#gallery-motion-toggle')
         gallery_pause.click()
@@ -174,7 +179,7 @@ with sync_playwright() as p:
         report['viewports'].append({'width': width, 'height': height, 'overflow': False, 'errors': errors, 'failed_requests': failures, 'local_dom_ready_ms': timing})
         context.close()
 
-    report['interactions'].extend(['diagonal gallery: pause/resume, seamless loop, touch reveal, offscreen pause', 'sticky category toolbar', 'category filtering', 'keyboard disclosure', 'interest navigation auto-opens', 'mobile menu + Escape + focus', 'touch reveal', 'light theme'])
+    report['interactions'].extend(['gallery rows: UX / creative / awards in order; full image aspect ratios preserved', 'diagonal gallery: pause/resume, seamless loop, touch reveal, offscreen pause', 'sticky category toolbar', 'category filtering', 'keyboard disclosure', 'interest navigation auto-opens', 'mobile menu + Escape + focus', 'touch reveal', 'light theme'])
     for width in (1440, 390):
         context = browser.new_context(viewport={'width': width, 'height': 900}, has_touch=width < 500, is_mobile=width < 500)
         page = context.new_page()

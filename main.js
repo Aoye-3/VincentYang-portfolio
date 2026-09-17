@@ -151,11 +151,13 @@ if (hero) {
   document.addEventListener('visibilitychange', () => hero.classList.toggle('page-idle', document.hidden));
 }
 
-// Decorative discovery wall: one thumbnail source list, repeated in seamless strips.
+// 排布规则：每排只放一种类别，按 UX → 插画 / AIGC → 获奖证书循环。
+// 同类图片按 template 中的固定顺序展示；禁止随机混排或跨类别取图。
 const discovery = document.querySelector('.work-discovery');
 if (discovery) {
   const wall = discovery.querySelector('.discovery-wall');
-  const tiles = Array.from(document.getElementById('discovery-tiles').content.querySelectorAll('img'));
+  const tileSource = document.getElementById('discovery-tiles').content;
+  const categories = ['ux', 'creative', 'awards'];
   const pauseButton = document.getElementById('gallery-motion-toggle');
   let visible = false;
   function updateGalleryPlayback() {
@@ -163,14 +165,17 @@ if (discovery) {
   }
   function buildGallery() {
     if (wall.childElementCount) return;
-    for (let row = 0; row < 8; row++) {
+    for (let row = 0; row < 9; row++) {
+      const category = categories[row % categories.length];
+      const tiles = Array.from(tileSource.querySelectorAll(`[data-gallery-category="${category}"]`));
       const strip = document.createElement('div');
       strip.className = 'discovery-strip';
-      strip.style.animationDelay = (-row * 9) + 's';
+      strip.dataset.galleryCategory = category;
       const group = document.createElement('div');
       group.className = 'discovery-group';
-      for (let column = 0; column < 10; column++) {
-        const tile = tiles[(row * 7 + column) % tiles.length].cloneNode(true);
+      // Two complete ordered cycles provide overscan even for narrow portrait certificates.
+      for (let column = 0; column < tiles.length * 2; column++) {
+        const tile = tiles[column % tiles.length].cloneNode(true);
         tile.decoding = 'async';
         tile.fetchPriority = 'low';
         group.append(tile);
