@@ -3,190 +3,121 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11111b">
-  <meta name="description" content="杨雯捷的个人作品集：AI 产品体验、交互设计与设计工程。展示抖音创作者中心 AI 灵感助手、PMAgent-Canvas 等项目。">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="杨雯捷的个人作品集。用户体验设计、产品体验设计，以及 AI 影像与更多创作探索。">
   <meta property="og:type" content="website">
   <meta property="og:title" content="杨雯捷 / Wenjie Yang · Portfolio">
-  <meta property="og:description" content="从用户洞察到可交互的 AI 产品。">
-  <meta property="og:image" content="https://aoye-3.github.io/VincentYang-portfolio/assets/images/inspiration-cover.webp">
+  <meta property="og:description" content="以用户为起点，让想法成为可用的体验。">
+  <meta property="og:image" content="https://aoye-3.github.io/VincentYang-portfolio/assets/images/profile.webp">
   <title>杨雯捷 / Wenjie Yang · Portfolio</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script>document.documentElement.classList.add('js');</script>
   <link rel="stylesheet" href="custom.css">
   <script defer src="main.js"></script>
 </head>
-<body class="body">
-  <a class="skip-link" href="#home">跳转到主要内容</a>
-  <div class="cursor-inner" id="cursor-inner" aria-hidden="true"></div>
-  <div class="cursor-outer" id="cursor-outer" aria-hidden="true"></div>
-
-  <header>
-    <nav class="navbar" id="navbar" aria-label="主导航">
-      <a class="logo" href="#home" aria-label="返回首页"><span class="logo-top">YWJ<span class="logo-star">✳</span></span></a>
-      <div class="navbar-tabs">
-        <ul class="navbar-tabs-ul">
-          <li class="home activeThistab"><a href="#home">&lt;/Home&gt;</a></li>
-          <li class="about"><a href="#about">&lt;/About&gt;</a></li>
-          <li class="skills"><a href="#skills">&lt;/Skills&gt;</a></li>
-          <li class="projects"><a href="#projects">&lt;/Projects&gt;</a></li>
-          <li class="contact"><a href="#contact">&lt;/Contact&gt;</a></li>
-        </ul>
+<body class="portfolio-page">
+  <a class="skip-link" href="#main">跳转到主要内容</a>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="#home" aria-label="杨雯捷，返回首页">WY<span class="brand-star" aria-hidden="true">✳</span><span class="brand-name">杨雯捷</span></a>
+      <div class="nav-links" id="site-menu">
+        <a href="#projects">精选作品</a><a href="#about">关于我</a><a href="#interests">兴趣宇宙</a><a href="#contact">联系</a>
       </div>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">◐</button>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到浅色模式" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="打开菜单"><span></span><span></span></button>
+      </div>
     </nav>
   </header>
 
-  <button class="hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobiletogglemenu" aria-label="打开菜单">
-    <span class="burger-bar" id="burger-bar1"></span><span class="burger-bar" id="burger-bar2"></span><span class="burger-bar" id="burger-bar3"></span>
-  </button>
-  <nav class="mobiletogglemenu" id="mobiletogglemenu" aria-label="移动端导航">
-    <ul class="mobile-navbar-tabs-ul">
-      <li class="home"><a href="#home">&lt;/Home&gt;</a></li>
-      <li class="about"><a href="#about">&lt;/About&gt;</a></li>
-      <li class="skills"><a href="#skills">&lt;/Skills&gt;</a></li>
-      <li class="projects"><a href="#projects">&lt;/Projects&gt;</a></li>
-      <li class="contact"><a href="#contact">&lt;/Contact&gt;</a></li>
-    </ul>
-  </nav>
-
-  <main class="main">
-    <section class="landing-page-container" id="home">
-      <div class="blob" aria-hidden="true"></div>
-      <div class="text-content">
-        <p class="hero-index">PORTFOLIO / 2026 / UX × AI</p>
-        <div id="hello-friend" aria-label="你好，我是">
-          <p class="jello">H</p><p class="jello">e</p><p class="jello">l</p><p class="jello">l</p><p class="jello">o</p><p class="jello">,</p>&nbsp;
-          <p class="jello">I</p><p class="jello">'</p><p class="jello">m</p>
-        </div>
-        <h1 id="name" aria-label="Wenjie Yang">
-          <span class="jello">W</span><span class="jello">e</span><span class="jello">n</span><span class="jello">j</span><span class="jello">i</span><span class="jello">e</span>&nbsp;
-          <span class="jello">Y</span><span class="jello">a</span><span class="jello">n</span><span class="jello">g</span><span class="jello">.</span>
-        </h1>
-        <div id="work" aria-label="用户体验与 AI 产品设计">
-          <div><p class="jello">U</p><p class="jello">X</p></div>
-          <div><p class="jello">×</p></div>
-          <div><p class="jello">A</p><p class="jello">I</p></div>
-          <div><p class="jello">D</p><p class="jello">e</p><p class="jello">s</p><p class="jello">i</p><p class="jello">g</p><p class="jello">n</p><p class="jello">.</p></div>
-        </div>
-        <p id="info-para">你好，我是杨雯捷。<br>我在用户体验、AI 产品与创意技术的交叉处工作，把复杂能力转化为清晰、可用的创作流程。</p>
-        <div class="contact-btn-div">
-          <a class="letsTalkBtn" href="#projects"><span class="letsTalkBtn-text">浏览精选作品 ↘</span><span class="letsTalkBtn-BG" aria-hidden="true"></span></a>
-          <a class="hero-secondary" href="https://github.com/Aoye-3" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        </div>
+  <main id="main">
+    <section class="hero-stage" id="home" aria-labelledby="hero-title">
+      <div class="hero-gallery" aria-hidden="true">
+        <div class="floating-work float-one"><img src="assets/images/inspiration-cover.webp" alt="" width="1600" height="900"></div>
+        <div class="floating-work float-two"><img src="assets/images/boards/board-12.webp" alt="" width="1920" height="1080"></div>
+        <div class="floating-work float-three"><img src="assets/images/pmagent-cover.webp" alt="" width="1600" height="900"></div>
+        <div class="floating-work float-four"><img src="assets/images/boards/board-32.webp" alt="" width="1920" height="1080"></div>
       </div>
-      <div class="hero-side-note" aria-hidden="true"><span>DESIGN</span><span>RESEARCH</span><span>BUILD</span></div>
-      <div class="hero-scroll">SCROLL TO EXPLORE ↓</div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-content">
+        <div class="portrait-orbit" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><img src="assets/images/profile.webp" alt="" width="1905" height="1905" fetchpriority="high"></div>
+        <p class="hero-kicker">UX DESIGN <span>×</span> PRODUCT EXPERIENCE</p>
+        <h1 id="hero-title">Wenjie Yang<span>杨雯捷</span></h1>
+        <p class="hero-statement">让想法，成为<span class="gradient-text">更好的体验。</span></p>
+        <p class="hero-description">以用户为起点，在设计与技术之间探索。<br>专注用户体验设计与产品体验，保持对创作的好奇。</p>
+        <div class="hero-actions"><a class="button button-primary" data-magnetic href="#projects">探索我的作品 <span aria-hidden="true">↗</span></a><a class="text-link" href="#about">认识我 <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="hero-bottom"><span>PORTFOLIO — 2026</span><a href="#projects">向下探索 <span aria-hidden="true">↓</span></a><div class="hero-motion-controls"><span class="pointer-hint">移动鼠标，让作品显影</span><span class="touch-hint">轻触背景，点亮作品</span><button id="motion-toggle" type="button" aria-pressed="false" aria-label="暂停背景动效">暂停动效 <span aria-hidden="true">Ⅱ</span></button></div></div>
     </section>
 
-    <section class="about-section-container" id="about">
-      <div class="about-section">
-        <div class="section-heading"><h2 class="section-heading-article">&lt;/AboutMe&gt;</h2><p class="sectionHeadingP"></p></div>
-        <div class="info-dp-section">
-          <div class="about-info">
-            <p>我在伦敦大学金史密斯学院攻读用户体验工程硕士，拥有视觉传达设计背景。曾在字节跳动智能创作研发部参与创作者工具体验设计，也在金史密斯智能创新与认知实验室研究生成式 AI 辅助设计。</p>
-            <p>我喜欢把用户研究、功能架构、交互原型与可运行产品连在一起：从发现问题、测试方案，到亲手实现并观察真实使用。</p>
-            <a class="resume-btn" href="#projects"><span class="sign" aria-hidden="true">↗</span><span class="text">浏览项目案例</span></a>
-          </div>
-          <div class="dp"><img src="assets/images/profile.webp" alt="杨雯捷肖像" width="1905" height="1905" loading="lazy"></div>
+    <section class="work-section section-shell" id="projects" aria-labelledby="work-title">
+      <div class="work-discovery" data-spotlight>
+        <div class="discovery-wall" aria-hidden="true"></div>
+        <div class="discovery-shade" aria-hidden="true"></div>
+        <div class="section-intro" data-scroll-reveal>
+          <p class="eyebrow">SELECTED WORK</p>
+          <h2 id="work-title">从洞察出发。<br><span class="muted-heading">让体验发生。</span></h2>
+          <p>两条实践路径，同一个出发点：<br>理解真实的人，解决具体的问题。</p>
         </div>
-        <div class="experience-list" aria-label="经历">
-          <div><span>2026.04—05</span><strong>字节跳动</strong><span>用户体验设计师 · 智能创作研发部</span></div>
-          <div><span>2026.01—至今</span><strong>金史密斯智能创新与认知实验室</strong><span>实习研究员、TA 助教 · AIxDesign</span></div>
-          <div><span>2025—2026</span><strong>Goldsmiths, University of London</strong><span>用户体验工程 MSc</span></div>
+        <div class="discovery-controls">
+          <span><span class="discovery-mark" aria-hidden="true">✳</span><span class="pointer-hint">移动探索，让作品显影</span><span class="touch-hint">轻触或滑过，点亮作品</span></span>
+          <button id="gallery-motion-toggle" type="button" aria-pressed="false" aria-label="暂停图片墙滚动">暂停流动 <span aria-hidden="true">Ⅱ</span></button>
         </div>
+        <template id="discovery-tiles">
+          <img src="assets/images/discovery/ux-01.webp" data-gallery-category="ux" alt="" width="754" height="440">
+          <img src="assets/images/discovery/ux-02.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-03.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-04.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-05.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-06.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-07.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-08.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-09.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-10.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-11.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/awards-01.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-02.webp" data-gallery-category="awards" alt="" width="622" height="440">
+          <img src="assets/images/discovery/awards-03.webp" data-gallery-category="awards" alt="" width="622" height="440">
+          <img src="assets/images/discovery/awards-04.webp" data-gallery-category="awards" alt="" width="622" height="440">
+          <img src="assets/images/discovery/awards-05.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-06.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-07.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-08.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-09.webp" data-gallery-category="awards" alt="" width="314" height="440">
+          <img src="assets/images/discovery/awards-10.webp" data-gallery-category="awards" alt="" width="316" height="440">
+          <img src="assets/images/discovery/awards-11.webp" data-gallery-category="awards" alt="" width="315" height="440">
+          <img src="assets/images/discovery/awards-12.webp" data-gallery-category="awards" alt="" width="316" height="440">
+          <img src="assets/images/discovery/awards-13.webp" data-gallery-category="awards" alt="" width="313" height="440">
+          <img src="assets/images/discovery/awards-14.webp" data-gallery-category="awards" alt="" width="322" height="440">
+        </template>
       </div>
-    </section>
-
-    <section class="skills-section-container" id="skills">
-      <div class="skills-section">
-        <div class="section-heading"><h2 class="section-heading-article">&lt;/Skills&gt;</h2><p class="sectionHeadingP"></p></div>
-        <div class="frontend-dev-section">
-          <h3 class="frontend-dev-heading">What I Do</h3>
-          <ul class="tech-stack-wrapper">
-            <li class="tech-stack-box"><span class="skill-symbol">01</span><strong>用户研究</strong><small>Research</small></li>
-            <li class="tech-stack-box"><span class="skill-symbol">02</span><strong>交互设计</strong><small>Interaction</small></li>
-            <li class="tech-stack-box"><span class="skill-symbol">03</span><strong>产品原型</strong><small>Prototyping</small></li>
-            <li class="tech-stack-box"><span class="skill-symbol">04</span><strong>Agent 体验</strong><small>AI Workflow</small></li>
-            <li class="tech-stack-box"><span class="skill-symbol">05</span><strong>前端开发</strong><small>Build</small></li>
-            <li class="tech-stack-box"><span class="skill-symbol">06</span><strong>AIGC 影像</strong><small>Creative Tech</small></li>
-          </ul>
-        </div>
+      <div class="work-toolbar"><div class="project-filters" role="group" aria-label="筛选作品分类"><button type="button" data-filter="all" aria-pressed="true">全部作品</button><button type="button" data-filter="ux" aria-pressed="false">UX 设计</button><button type="button" data-filter="product" aria-pressed="false">产品体验设计</button></div><span class="work-count" id="work-count" aria-live="polite">02 个精选案例 / 01 个延伸项目</span></div>
+      <div class="project-list">
+        <article class="work-card work-ux" data-category="ux" data-scroll-reveal>
+          <div class="work-copy"><span class="work-category"><i></i> UX 设计 <span>01 / 2026</span></span><h3>AI 灵感助手</h3><p class="work-subtitle">抖音创作者中心</p><p class="work-description">让选题、脚本与文案不再是割裂的步骤。把 AI 建议接入创作者熟悉的工作流。</p><ul class="work-tags"><li>用户研究</li><li>交互设计</li><li>原型验证</li></ul><a class="work-link" href="projects/inspiration.html">进入案例 <span aria-hidden="true">↗</span></a></div>
+          <a class="work-visual" data-spotlight href="projects/inspiration.html" aria-label="查看 AI 灵感助手完整案例"><span class="visual-label">FROM INSPIRATION TO CREATION</span><img src="assets/images/inspiration-cover.webp" alt="AI 灵感助手项目的功能与界面概览" width="1600" height="900" loading="lazy"><span class="visual-caption">字节跳动 · 智能创作研发部 <span>UX CASE STUDY ↗</span></span><span class="case-cursor" aria-hidden="true">查看<br>案例 ↗</span></a>
+        </article>
+        <article class="work-card work-product" data-category="product" data-scroll-reveal>
+          <div class="work-copy"><span class="work-category"><i></i> 产品体验设计 <span>02 / 2026</span></span><h3>PMAgent<br>Canvas<span class="title-dot">.</span></h3><p class="work-subtitle">从想法到可运行的产品</p><p class="work-description">把提示词、参考素材、图像生成与分镜编辑，放进同一块自由画布。</p><ul class="work-tags"><li>工作流研究</li><li>产品原型</li><li>设计与开发</li></ul><a class="work-link" href="projects/pmagent.html">进入案例 <span aria-hidden="true">↗</span></a></div>
+          <a class="work-visual" data-spotlight href="projects/pmagent.html" aria-label="查看 PMAgent-Canvas 完整案例"><span class="visual-label">IDEAS DESERVE A CANVAS</span><img src="assets/images/pmagent-cover.webp" alt="PMAgent-Canvas 项目的自由画布与生成工作流" width="1600" height="900" loading="lazy"><span class="visual-caption">个人开源项目 · AI 创作工具 <span>PRODUCT CASE ↗</span></span><span class="case-cursor" aria-hidden="true">查看<br>案例 ↗</span></a>
+        </article>
+        <article class="side-project" data-category="product" data-scroll-reveal><span class="side-symbol" aria-hidden="true">≋</span><div><span class="eyebrow">ALSO BUILDING</span><h3>DubbingRoom</h3><p>音色、角色与情绪，连接成一条本地 AI 配音工作流。</p></div><a class="text-link" href="projects/other.html#dubbingroom">查看项目 <span aria-hidden="true">↗</span></a></article>
       </div>
     </section>
 
-    <section class="projects-section-container" id="projects">
-      <div class="projects-section-div">
-        <div class="section-heading"><h2 class="section-heading-article">&lt;/Projects&gt;</h2><p class="sectionHeadingP"></p></div>
-        <div class="project-boxes-div">
-          <article class="project-box-wrapper">
-            <div class="project-box project-box2">
-              <div class="info-div">
-                <span class="project-number">01 / UX CASE STUDY · 2026</span>
-                <h3 class="ProjectHeading">抖音创作者中心<br>AI 灵感助手</h3>
-                <p class="ProjectDescription">从选题推荐到脚本编辑与文案优化，让自然语言对话和可视化编辑融入创作者工作流。</p>
-                <div class="project-buttons"><a class="cta" href="projects/inspiration.html"><span>查看案例</span><svg viewBox="0 0 13 10" width="15" height="10" aria-hidden="true"><path d="M1 5h10"/><path d="m8 1 4 4-4 4"/></svg></a></div>
-              </div>
-              <a class="image-div" href="projects/inspiration.html" aria-label="查看 AI 灵感助手案例"><img src="assets/images/inspiration-cover.webp" alt="AI 灵感助手项目概览" width="1600" height="900" loading="lazy"></a>
-            </div>
-          </article>
-          <article class="project-box-wrapper">
-            <div class="project-box project-box2">
-              <div class="info-div">
-                <span class="project-number">02 / OPEN SOURCE PRODUCT · 2026</span>
-                <h3 class="ProjectHeading">PMAgent-Canvas</h3>
-                <p class="ProjectDescription">将提示词库、参考素材、图片生成和分镜编辑整合进一块自由画布。</p>
-                <div class="project-buttons"><a class="cta" href="projects/pmagent.html"><span>查看案例</span><svg viewBox="0 0 13 10" width="15" height="10" aria-hidden="true"><path d="M1 5h10"/><path d="m8 1 4 4-4 4"/></svg></a></div>
-              </div>
-              <a class="image-div" href="projects/pmagent.html" aria-label="查看 PMAgent-Canvas 案例"><img src="assets/images/pmagent-cover.webp" alt="PMAgent-Canvas 项目概览" width="1600" height="900" loading="lazy"></a>
-            </div>
-          </article>
-          <article class="project-box-wrapper">
-            <div class="project-box project-box2">
-              <div class="info-div">
-                <span class="project-number">03 / OPEN SOURCE · 2026</span>
-                <h3 class="ProjectHeading">DubbingRoom</h3>
-                <p class="ProjectDescription">串联音色设计、语音克隆与情绪控制的本地 AIGC 配音工作流。</p>
-                <div class="project-buttons"><a class="cta" href="projects/other.html#dubbingroom"><span>查看项目</span><svg viewBox="0 0 13 10" width="15" height="10" aria-hidden="true"><path d="M1 5h10"/><path d="m8 1 4 4-4 4"/></svg></a></div>
-              </div>
-              <div class="image-div project-art"><span>VOICE / CHARACTER / EMOTION</span><strong>DUBBING<br>ROOM<span>↗</span></strong></div>
-            </div>
-          </article>
-          <article class="project-box-wrapper">
-            <div class="project-box project-box2">
-              <div class="info-div">
-                <span class="project-number">04 / AIGC FILM · 2026</span>
-                <h3 class="ProjectHeading">江天黄鹤</h3>
-                <p class="ProjectDescription">参与分镜、视频生成、音效与剪辑；作品获计算机设计大赛省级二等奖和国家级三等奖。本人未署名。</p>
-                <div class="project-buttons"><a class="cta" href="projects/other.html#jiangtian"><span>查看项目</span><svg viewBox="0 0 13 10" width="15" height="10" aria-hidden="true"><path d="M1 5h10"/><path d="m8 1 4 4-4 4"/></svg></a></div>
-              </div>
-              <div class="image-div project-art film-art"><span>GENERATIVE FILM / 2026</span><strong>江天<br>黄鹤<span>↗</span></strong></div>
-            </div>
-          </article>
-        </div>
-      </div>
+    <section class="about-section section-shell" id="about" aria-labelledby="about-title">
+      <div class="about-portrait" data-scroll-reveal><img src="assets/images/profile.webp" alt="杨雯捷的个人形象照" width="1905" height="1905" loading="lazy"><span>STAY CURIOUS.</span></div>
+      <div class="about-copy" data-scroll-reveal><p class="eyebrow">A LITTLE ABOUT ME</p><h2 id="about-title">设计是我的视角。<br><span class="muted-heading">好奇是我的习惯。</span></h2><p>你好，我是杨雯捷。在伦敦大学金史密斯学院攻读用户体验工程硕士，拥有视觉传达设计背景。</p><p>我曾在字节跳动参与创作者工具体验设计，也在实验室探索生成式 AI 辅助设计。我喜欢从理解用户开始，一路做到可以被真实使用的原型与产品。</p><div class="role-note">关注方向 <strong>用户体验设计 / 产品经理 · 助理</strong></div></div>
+      <div class="experience-list" data-scroll-reveal><div><span>2026.04 — 05</span><strong>字节跳动</strong><p>用户体验设计师 · 智能创作研发部</p></div><div><span>2026.01 — 至今</span><strong>金史密斯智能创新与认知实验室</strong><p>实习研究员、TA 助教 · AIxDesign</p></div><div><span>2025 — 2026</span><strong>Goldsmiths, University of London</strong><p>用户体验工程 MSc</p></div></div>
+    </section>
+
+    <section class="method-section section-shell" id="skills" aria-labelledby="method-title"><div class="method-heading" data-scroll-reveal><p class="eyebrow">HOW I WORK</p><h2 id="method-title">从「为什么」，<br>走到「可以用了」。</h2></div><div class="method-list" data-scroll-reveal><a href="projects/inspiration.html#chapter-2"><span>01</span><div><h3>理解用户</h3><p>研究场景，找到体验中的真实断点。</p></div><b aria-hidden="true">↗</b></a><a href="projects/pmagent.html#chapter-2"><span>02</span><div><h3>定义问题</h3><p>梳理需求与工作流，判断先解决什么。</p></div><b aria-hidden="true">↗</b></a><a href="projects/inspiration.html#chapter-3"><span>03</span><div><h3>验证想法</h3><p>让原型可交互，让设计判断有依据。</p></div><b aria-hidden="true">↗</b></a><a href="projects/pmagent.html#chapter-3"><span>04</span><div><h3>推进实现</h3><p>从设计交付到动手开发，继续观察与迭代。</p></div><b aria-hidden="true">↗</b></a></div></section>
+
+    <section class="interest-section section-shell" id="interests" aria-labelledby="interest-title">
+      <details class="interest-disclosure" id="interest-disclosure"><summary><div><p class="eyebrow">THE OTHER SIDE OF ME</p><h2 id="interest-title">兴趣，也有<span class="gradient-text">引力。</span></h2><p class="interest-description">竞赛经历 / AIGC 视频创作 / 游戏策划 &amp; 开发</p></div><span class="interest-trigger"><span class="expand-label">点击探索</span><span class="collapse-label">收起探索</span><span class="plus" aria-hidden="true">+</span></span></summary><div class="interest-content"><a class="interest-card awards-card" href="projects/other.html#competitions"><span class="eyebrow">01 / COMPETITIONS</span><span class="interest-art award-art" aria-hidden="true">✳</span><h3>在挑战里，打开思路。</h3><p>竞赛经历与团队创作，记录作品之外的过程。</p><span class="text-link">竞赛经历 ↗</span></a><a class="interest-card film-card" href="projects/other.html#jiangtian"><span class="eyebrow">02 / AIGC FILM</span><span class="interest-art film-art" aria-hidden="true">江天<br>黄鹤</span><h3>让想象，长出画面。</h3><p>从分镜到生成，从音效到剪辑，探索影像的另一种语言。</p><span class="text-link">查看创作记录 ↗</span></a><div class="game-note"><span aria-hidden="true">✧</span><div><h3>游戏策划 &amp; 开发</h3><p>下一片探索的空间。更多创作记录，持续整理中。</p></div><span class="eyebrow">TO BE CONTINUED</span></div></div></details>
     </section>
   </main>
 
-  <footer id="footer">
-    <button id="backtotopbutton" type="button" aria-label="返回顶部"><span>↑ BACK TO TOP</span></button>
-    <div class="footer-background"><div class="footer-blob"></div></div>
-    <div class="footer-foreground">
-      <div class="footercontainer" id="contact">
-        <div class="two-words"><p>“用设计理解人，<br>用技术实现想法。”</p></div>
-        <div class="social-media-container">
-          <div class="getintouch-heading"><p>GetinTouch();</p></div>
-          <div class="footer-links">
-            <a href="https://github.com/Aoye-3" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            <a href="#projects">完整项目案例 ↗</a>
-          </div>
-        </div>
-        <div class="footer-bottom"><p>© 2026 杨雯捷 · 基于 <a href="https://github.com/vinodjangid07/vinodjangid07.github.io" target="_blank" rel="noopener noreferrer">Vinod Jangid Portfolio</a> 修改 · MIT</p></div>
-      </div>
-    </div>
-  </footer>
+  <footer class="site-footer home-footer" id="contact"><div class="section-shell"><p class="eyebrow">LET’S MAKE SOMETHING MEANINGFUL</p><h2>下一个好想法，<br><span class="gradient-text">从一次交流开始。</span></h2><a class="button button-primary" href="https://github.com/Aoye-3" target="_blank" rel="noopener noreferrer">在 GitHub 找到我 <span aria-hidden="true">↗</span></a><div class="footer-bottom"><span>© 2026 杨雯捷 / Wenjie Yang</span><span>基于 <a href="https://github.com/vinodjangid07/vinodjangid07.github.io" target="_blank" rel="noopener noreferrer">Vinod Jangid</a> 模板迭代 · MIT</span><a href="#home">回到顶部 ↑</a></div></div></footer>
 </body>
 </html>
