@@ -22,6 +22,14 @@ python -m http.server 5501
 - `assets/images/boards/`：原作品集第 04–47 页的 WebP 图片，第 26 页使用 `26-修改.jpg`
 - `assets/images/profile.webp`：个人形象图片
 
+## 设计与维护文档
+
+- [当前站点评估与结构地图](docs/01-site-audit.md)
+- [个性化体验方案：分类、案例与交互](docs/02-experience-blueprint.md)
+- [维护指南：文件入口、稳定链接与检查方法](docs/03-maintenance-guide.md)
+
+下一轮页面迭代按体验方案分阶段执行；这些文档记录现状与方案，当前页面结构和访问路径没有因文档更新而改变。
+
 ## GitHub Pages 部署
 
 目标仓库：[Aoye-3/VincentYang-portfolio](https://github.com/Aoye-3/VincentYang-portfolio)。预期访问地址：
