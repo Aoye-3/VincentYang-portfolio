@@ -39,7 +39,7 @@
 
 ## CodeGraph 的实际覆盖范围
 
-本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。本轮同步后的索引为 **2 个文件、72 个节点、111 条关系**，覆盖 `main.js` 和 Python 验收脚本。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
+本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。本轮同步后的索引为 **2 个文件、91 个节点、138 条关系**，覆盖 `main.js` 和 Python 验收脚本。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
 
 在本仓库目录内可运行：
 

@@ -21,7 +21,8 @@ python -m http.server 5501 --bind 127.0.0.1
 - `projects/`：AI 灵感助手、PMAgent-Canvas 和更多项目页面
 - `assets/images/boards/`：原作品集第 04–47 页的 WebP 图片，第 26 页使用 `26-修改.jpg`
 - `assets/images/profile.webp`：个人形象图片
-- `scripts/verify_portfolio.py`：浏览器验收脚本（需要本机 Python、Playwright 与 Edge）
+- `assets/images/discovery/`：精选作品引导区的 20 张压缩背景素材，来源见 `docs/discovery-assets.json`
+- `scripts/verify_portfolio.py`：浏览器验收脚本（需要本机 Python、Playwright、Pillow 与 Edge）
 - `.local/`：本地截图、验收报告和浏览器临时文件，已从 Git 排除
 
 ## 设计与维护文档

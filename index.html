@@ -51,7 +51,41 @@
     </section>
 
     <section class="work-section section-shell" id="projects" aria-labelledby="work-title">
-      <div class="section-intro" data-scroll-reveal><p class="eyebrow">SELECTED WORK</p><h2 id="work-title">从洞察出发。<br><span class="muted-heading">让体验发生。</span></h2><p>两条实践路径，同一个出发点：<br>理解真实的人，解决具体的问题。</p></div>
+      <div class="work-discovery" data-spotlight>
+        <div class="discovery-wall" aria-hidden="true"></div>
+        <div class="discovery-shade" aria-hidden="true"></div>
+        <div class="section-intro" data-scroll-reveal>
+          <p class="eyebrow">SELECTED WORK</p>
+          <h2 id="work-title">从洞察出发。<br><span class="muted-heading">让体验发生。</span></h2>
+          <p>两条实践路径，同一个出发点：<br>理解真实的人，解决具体的问题。</p>
+        </div>
+        <div class="discovery-controls">
+          <span><span class="discovery-mark" aria-hidden="true">✳</span><span class="pointer-hint">移动探索，让作品显影</span><span class="touch-hint">轻触或滑过，点亮作品</span></span>
+          <button id="gallery-motion-toggle" type="button" aria-pressed="false" aria-label="暂停图片墙滚动">暂停流动 <span aria-hidden="true">Ⅱ</span></button>
+        </div>
+        <template id="discovery-tiles">
+          <img src="assets/images/discovery/ux-product-04.webp" alt="">
+          <img src="assets/images/discovery/tiger-one.webp" alt="">
+          <img src="assets/images/discovery/vivo-film.webp" alt="">
+          <img src="assets/images/discovery/ux-product-25.webp" alt="">
+          <img src="assets/images/discovery/heaven-gate.webp" alt="">
+          <img src="assets/images/discovery/award-gold.webp" alt="" class="tile-contain">
+          <img src="assets/images/discovery/ux-product-12.webp" alt="">
+          <img src="assets/images/discovery/crane-film.webp" alt="">
+          <img src="assets/images/discovery/great-wall.webp" alt="">
+          <img src="assets/images/discovery/ux-product-32.webp" alt="">
+          <img src="assets/images/discovery/tiger-two.webp" alt="">
+          <img src="assets/images/discovery/ux-product-08.webp" alt="">
+          <img src="assets/images/discovery/heaven-gate-jacket.webp" alt="">
+          <img src="assets/images/discovery/award-milan.webp" alt="" class="tile-contain">
+          <img src="assets/images/discovery/ux-product-35.webp" alt="">
+          <img src="assets/images/discovery/great-wall-detail.webp" alt="">
+          <img src="assets/images/discovery/ux-product-19.webp" alt="">
+          <img src="assets/images/discovery/tiger-three.webp" alt="">
+          <img src="assets/images/discovery/heaven-gate-triptych.webp" alt="">
+          <img src="assets/images/discovery/ux-product-41.webp" alt="">
+        </template>
+      </div>
       <div class="work-toolbar"><div class="project-filters" role="group" aria-label="筛选作品分类"><button type="button" data-filter="all" aria-pressed="true">全部作品</button><button type="button" data-filter="ux" aria-pressed="false">UX 设计</button><button type="button" data-filter="product" aria-pressed="false">产品体验设计</button></div><span class="work-count" id="work-count" aria-live="polite">02 个精选案例 / 01 个延伸项目</span></div>
       <div class="project-list">
         <article class="work-card work-ux" data-category="ux" data-scroll-reveal>

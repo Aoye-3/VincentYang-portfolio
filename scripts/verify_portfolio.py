@@ -12,6 +12,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 os.environ['TEMP'] = os.environ['TMP'] = str(OUT)
 tempfile.tempdir = str(OUT)
 from playwright.sync_api import sync_playwright, expect
+from PIL import Image, ImageChops, ImageStat
 
 BASE = os.environ.get('PORTFOLIO_URL', 'http://127.0.0.1:5501/').rstrip('/') + '/'
 EDGE = os.environ.get('BROWSER_EXECUTABLE', r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe')
@@ -74,10 +75,12 @@ with sync_playwright() as p:
             assert page.locator('.hero-gallery .floating-work').first.evaluate('(el) => getComputedStyle(el).animationPlayState') == 'paused'
             page.locator('#motion-toggle').click()
             values = []
-            for _ in range(12):
+            for _ in range(32):
                 page.mouse.wheel(0, 100)
                 page.wait_for_timeout(90)
                 values.append(page.locator('.work-card').first.evaluate('(el) => Number(getComputedStyle(el).opacity)'))
+                if values[-1] == 1:
+                    break
             assert any(0 < value < 1 for value in values), f'No progressive reveal: {values}'
             assert values[-1] == 1
             report['interactions'].extend(['pointer reveal', 'pause/resume ambient motion', 'progressive scroll reveal'])
@@ -95,6 +98,50 @@ with sync_playwright() as p:
             page.touchscreen.tap(25, 215)
             expect(page.locator('.hero-stage')).to_have_class('hero-stage is-exploring')
 
+        gallery = page.locator('.work-discovery')
+        gallery.evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - 78,behavior:"instant"})')
+        page.wait_for_function('document.querySelectorAll(".discovery-strip").length > 0 && [...document.querySelectorAll(".discovery-wall img")].every(img => img.complete && img.naturalWidth > 0)')
+        assert page.locator('.discovery-shade').evaluate('(el) => getComputedStyle(el).backgroundImage') != 'none'
+        gallery_pause = page.locator('#gallery-motion-toggle')
+        gallery_pause.click()
+        expect(gallery_pause).to_have_attribute('aria-pressed', 'true')
+        strip = page.locator('.discovery-strip').first
+        assert strip.evaluate('(el) => getComputedStyle(el).animationPlayState') == 'paused'
+        before = strip.evaluate('(el) => getComputedStyle(el).transform')
+        page.wait_for_timeout(150)
+        assert before == strip.evaluate('(el) => getComputedStyle(el).transform')
+        page.mouse.move(15, 25)
+        page.wait_for_timeout(600)
+        if width == 1440:
+            gallery.screenshot(path=str(OUT / 'gallery-unlit.png'))
+        box = gallery.bounding_box()
+        x, y = box['x'] + width * .22, box['y'] + box['height'] * .49
+        if width < 500:
+            page.touchscreen.tap(x, y)
+        else:
+            page.mouse.move(x, y)
+        page.wait_for_timeout(600)
+        assert gallery.evaluate('(el) => el.classList.contains("is-exploring")')
+        gallery.screenshot(path=str(OUT / f'gallery-lit-{width}.png'))
+        if width == 1440:
+            # Compare the same frozen artwork under the pointer, not different frames.
+            region = (int(width*.22-40), int(box['height']*.49-40), int(width*.22+40), int(box['height']*.49+40))
+            dark = ImageStat.Stat(Image.open(OUT / 'gallery-unlit.png').convert('L').crop(region)).mean[0]
+            lit = ImageStat.Stat(Image.open(OUT / f'gallery-lit-{width}.png').convert('L').crop(region)).mean[0]
+            assert lit > max(25, dark * 5), (dark, lit)
+            report['interactions'].append({'gallery_spotlight': 'passed', 'unlit_luminance': round(dark, 2), 'lit_luminance': round(lit, 2)})
+            for offset, label in [(-1, 'before'), (1, 'after')]:
+                gallery.evaluate('(el, offset) => el.querySelectorAll(".discovery-strip").forEach(strip => { const animation = strip.getAnimations()[0]; const timing = animation.effect.getTiming(); animation.currentTime = timing.duration - timing.delay + offset; })', offset)
+                gallery.screenshot(path=str(OUT / f'gallery-loop-{label}.png'))
+            diff = ImageChops.difference(Image.open(OUT / 'gallery-loop-before.png'), Image.open(OUT / 'gallery-loop-after.png'))
+            assert max(ImageStat.Stat(diff).mean) < 1, 'Visible jump at gallery loop seam'
+        gallery_pause.click()
+        expect(gallery_pause).to_have_attribute('aria-pressed', 'false')
+        before = strip.evaluate('(el) => getComputedStyle(el).transform')
+        page.wait_for_timeout(180)
+        assert before != strip.evaluate('(el) => getComputedStyle(el).transform')
+        assert not page.evaluate('document.documentElement.scrollWidth > innerWidth'), f'Gallery overflow at {width}'
+
         page.locator('[data-filter="ux"]').click()
         assert page.locator('[data-category]:visible').count() == 1
         page.locator('[data-filter="product"]').click()
@@ -102,6 +149,9 @@ with sync_playwright() as p:
         page.locator('[data-filter="all"]').click()
         assert page.locator('[data-category]:visible').count() == 3
         page.locator('.work-link').first.focus()
+        page.locator('.work-toolbar').evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top) + 100,behavior:"instant"})')
+        page.wait_for_timeout(200)
+        assert page.locator('.work-toolbar').evaluate('(el) => Math.abs(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top))') < 2
         page.screenshot(path=str(OUT / f'work-{width}.png'))
         summary = page.locator('#interest-disclosure summary')
         summary.focus()
@@ -114,6 +164,7 @@ with sync_playwright() as p:
         page.locator('#site-menu a[href="#interests"]').click()
         assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
         page.wait_for_timeout(600)
+        assert strip.evaluate('(el) => getComputedStyle(el).animationPlayState') == 'paused'
         page.screenshot(path=str(OUT / f'interests-{width}.png'))
         page.locator('#theme-toggle').click()
         expect(page.locator('#theme-toggle')).to_have_attribute('aria-pressed', 'true')
@@ -123,7 +174,7 @@ with sync_playwright() as p:
         report['viewports'].append({'width': width, 'height': height, 'overflow': False, 'errors': errors, 'failed_requests': failures, 'local_dom_ready_ms': timing})
         context.close()
 
-    report['interactions'].extend(['category filtering', 'keyboard disclosure', 'interest navigation auto-opens', 'mobile menu + Escape + focus', 'touch reveal', 'light theme'])
+    report['interactions'].extend(['diagonal gallery: pause/resume, seamless loop, touch reveal, offscreen pause', 'sticky category toolbar', 'category filtering', 'keyboard disclosure', 'interest navigation auto-opens', 'mobile menu + Escape + focus', 'touch reveal', 'light theme'])
     for width in (1440, 390):
         context = browser.new_context(viewport={'width': width, 'height': 900}, has_touch=width < 500, is_mobile=width < 500)
         page = context.new_page()
@@ -165,6 +216,9 @@ with sync_playwright() as p:
     page.goto(BASE, wait_until='networkidle')
     assert page.locator('.hero-gallery .floating-work').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
     assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
+    page.locator('.work-discovery').scroll_into_view_if_needed()
+    assert page.locator('.discovery-strip').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
+    expect(page.locator('#gallery-motion-toggle')).not_to_be_visible()
     ambient_card = page.locator('.hero-gallery .floating-work').first
     page.emulate_media(reduced_motion='no-preference')
     assert ambient_card.evaluate('(el) => getComputedStyle(el).animationName') == 'float-work'

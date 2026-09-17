@@ -151,6 +151,57 @@ if (hero) {
   document.addEventListener('visibilitychange', () => hero.classList.toggle('page-idle', document.hidden));
 }
 
+// Decorative discovery wall: one thumbnail source list, repeated in seamless strips.
+const discovery = document.querySelector('.work-discovery');
+if (discovery) {
+  const wall = discovery.querySelector('.discovery-wall');
+  const tiles = Array.from(document.getElementById('discovery-tiles').content.querySelectorAll('img'));
+  const pauseButton = document.getElementById('gallery-motion-toggle');
+  let visible = false;
+  function updateGalleryPlayback() {
+    discovery.classList.toggle('gallery-idle', !visible || document.hidden);
+  }
+  function buildGallery() {
+    if (wall.childElementCount) return;
+    for (let row = 0; row < 8; row++) {
+      const strip = document.createElement('div');
+      strip.className = 'discovery-strip';
+      strip.style.animationDelay = (-row * 9) + 's';
+      const group = document.createElement('div');
+      group.className = 'discovery-group';
+      for (let column = 0; column < 10; column++) {
+        const tile = tiles[(row * 7 + column) % tiles.length].cloneNode(true);
+        tile.decoding = 'async';
+        tile.fetchPriority = 'low';
+        group.append(tile);
+      }
+      strip.append(group, group.cloneNode(true));
+      wall.append(strip);
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    const preload = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { buildGallery(); preload.disconnect(); }
+    }, { rootMargin: '300px' });
+    preload.observe(discovery);
+    new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      updateGalleryPlayback();
+    }).observe(discovery);
+  } else {
+    buildGallery();
+    visible = true;
+  }
+  updateGalleryPlayback();
+  document.addEventListener('visibilitychange', updateGalleryPlayback);
+  pauseButton.addEventListener('click', () => {
+    const paused = discovery.classList.toggle('gallery-paused');
+    pauseButton.setAttribute('aria-pressed', String(paused));
+    pauseButton.setAttribute('aria-label', paused ? '继续图片墙滚动' : '暂停图片墙滚动');
+    pauseButton.innerHTML = paused ? '继续流动 <span aria-hidden="true">▷</span>' : '暂停流动 <span aria-hidden="true">Ⅱ</span>';
+  });
+}
+
 // Pointer coordinates affect only the hovered region; no permanent animation loop.
 document.querySelectorAll('.hero-stage, [data-spotlight]').forEach(element => {
   let frame = 0;
@@ -191,6 +242,7 @@ motionPreference.addEventListener('change', () => {
   document.documentElement.classList.toggle('motion-ready', !motionPreference.matches);
   document.querySelectorAll('[data-magnetic]').forEach(button => { button.style.transform = ''; });
   hero?.classList.remove('is-exploring');
+  discovery?.classList.remove('is-exploring');
   scheduleScroll();
 });
 
