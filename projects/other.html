@@ -3,17 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11111b">
+  <meta name="theme-color" content="#000000">
   <meta name="description" content="杨雯捷的其他作品：DubbingRoom 本地 AIGC 配音工作流与《江天黄鹤》AIGC 影像。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="更多项目 · 杨雯捷作品集">
   <meta property="og:image" content="https://aoye-3.github.io/VincentYang-portfolio/assets/images/boards/board-47.webp">
   <title>更多项目 · 杨雯捷作品集</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add('js');</script>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../custom.css">
   <script defer src="../main.js"></script>
@@ -21,16 +17,15 @@
 <body class="case-page">
   <a class="skip-link" href="#main">跳转到主要内容</a>
   <header class="site-header">
-    <nav class="navbar" aria-label="主导航">
-      <a class="logo" href="../" aria-label="返回首页"><span class="logo-top">YWJ<span class="logo-star">✳</span></span></a>
-      <div class="navbar-tabs"><ul class="navbar-tabs-ul">
-        <li class="home"><a href="../#home">&lt;/Home&gt;</a></li>
-        <li class="about"><a href="../#about">&lt;/About&gt;</a></li>
-        <li class="skills"><a href="../#skills">&lt;/Skills&gt;</a></li>
-        <li class="projects activeThistab"><a href="../#projects">&lt;/Projects&gt;</a></li>
-        <li class="contact"><a href="../#contact">&lt;/Contact&gt;</a></li>
-      </ul></div>
-      <a class="case-nav-back" href="../#projects">← 作品</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="../#home" aria-label="杨雯捷，返回首页">WY<span class="brand-star" aria-hidden="true">✳</span><span class="brand-name">杨雯捷</span></a>
+      <div class="nav-links" id="site-menu">
+        <a href="../#projects" aria-current="page">精选作品</a><a href="../#about">关于我</a><a href="../#interests">兴趣宇宙</a><a href="../#contact">联系</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到浅色模式" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="打开菜单"><span></span><span></span></button>
+      </div>
     </nav>
   </header>
   <main id="main">
@@ -41,8 +36,9 @@
       <p class="case-summary">从本地配音工作流到 AIGC 影像实践，继续探索生成技术如何服务于真实创作。</p>
     </div>
     <div class="wrap case-cover"><a href="../assets/images/boards/board-47.webp" target="_blank" rel="noopener noreferrer" aria-label="放大查看其他项目与作品附件概览"><img src="../assets/images/boards/board-47.webp" alt="原作品集第 47 页：其他项目与作品附件" width="1920" height="1080" fetchpriority="high"></a></div>
+    <nav class="case-toc" aria-label="案例章节"><div class="case-toc-links"><a href="#dubbingroom">01 / DubbingRoom</a><a href="#jiangtian">02 / 江天黄鹤</a><a href="#competitions">03 / 竞赛经历与团队创作</a></div><span class="reading-progress" aria-hidden="true"></span></nav>
     <div class="wrap case-body">
-      <p class="gallery-note">点击板面可查看原尺寸 ↗</p>
+      <p class="gallery-note">点击板面放大阅读，也可打开原图。</p>
       <section class="case-section" id="dubbingroom">
         <span class="case-section-num">01 /</span>
         <div>
@@ -58,6 +54,10 @@
           <p>参与分镜、视频生成、音效与剪辑。作品获计算机设计大赛省级二等奖和国家级三等奖；本人未署名。</p>
           <p>完整影像作品可按需提供。</p>
         </div>
+      </section>
+      <section class="case-section" id="competitions">
+        <span class="case-section-num">03 /</span>
+        <div><h2>竞赛经历与团队创作</h2><p>在《江天黄鹤》的创作中，我参与分镜、视频生成、音效与剪辑。作品获得计算机设计大赛省级二等奖与国家级三等奖；本人未署名。</p><p>更多作品与附件见上方原作品集总览。竞赛结果属于作品与团队，个人贡献以具体参与内容为准。</p><a class="link-chip" href="#jiangtian">查看影像创作记录 ↗</a></div>
       </section>
       <a class="next-project" href="inspiration.html"><span>BACK TO CASE STUDY / 01 ↗</span><strong>抖音创作者中心 AI 灵感助手</strong></a>
     </div>

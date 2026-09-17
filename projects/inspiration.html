@@ -3,17 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11111b">
+  <meta name="theme-color" content="#000000">
   <meta name="description" content="杨雯捷的 AI 灵感助手案例：抖音创作者中心的选题推荐、脚本编辑与文案优化体验设计。">
   <meta property="og:type" content="article">
   <meta property="og:title" content="AI 灵感助手 · 杨雯捷作品集">
   <meta property="og:image" content="https://aoye-3.github.io/VincentYang-portfolio/assets/images/inspiration-cover.webp">
   <title>AI 灵感助手 · 杨雯捷作品集</title>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add('js');</script>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../custom.css">
   <script defer src="../main.js"></script>
@@ -21,16 +17,15 @@
 <body class="case-page">
   <a class="skip-link" href="#main">跳转到主要内容</a>
   <header class="site-header">
-    <nav class="navbar" aria-label="主导航">
-      <a class="logo" href="../" aria-label="返回首页"><span class="logo-top">YWJ<span class="logo-star">✳</span></span></a>
-      <div class="navbar-tabs"><ul class="navbar-tabs-ul">
-        <li class="home"><a href="../#home">&lt;/Home&gt;</a></li>
-        <li class="about"><a href="../#about">&lt;/About&gt;</a></li>
-        <li class="skills"><a href="../#skills">&lt;/Skills&gt;</a></li>
-        <li class="projects activeThistab"><a href="../#projects">&lt;/Projects&gt;</a></li>
-        <li class="contact"><a href="../#contact">&lt;/Contact&gt;</a></li>
-      </ul></div>
-      <a class="case-nav-back" href="../#projects">← 作品</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="../#home" aria-label="杨雯捷，返回首页">WY<span class="brand-star" aria-hidden="true">✳</span><span class="brand-name">杨雯捷</span></a>
+      <div class="nav-links" id="site-menu">
+        <a href="../#projects" aria-current="page">精选作品</a><a href="../#about">关于我</a><a href="../#interests">兴趣宇宙</a><a href="../#contact">联系</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到浅色模式" aria-pressed="false"><span aria-hidden="true">◐</span></button>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="打开菜单"><span></span><span></span></button>
+      </div>
     </nav>
   </header>
   <main id="main">
@@ -45,10 +40,11 @@
         <div><dt>范围</dt><dd>研究 · 流程 · 原型 · 交付</dd></div>
       </dl>
     </div>
-    <div class="wrap case-cover"><img src="../assets/images/boards/board-04.webp" alt="AI 灵感助手功能与界面概览" width="1920" height="1080" fetchpriority="high"></div>
+    <div class="wrap case-cover"><a href="../assets/images/boards/board-04.webp" target="_blank" rel="noopener noreferrer" aria-label="放大查看项目封面"><img src="../assets/images/boards/board-04.webp" alt="AI 灵感助手功能与界面概览" width="1920" height="1080" fetchpriority="high"></a></div>
+    <nav class="case-toc" aria-label="案例章节"><div class="case-toc-links"><a href="#chapter-1">01 / 项目概览</a><a href="#chapter-2">02 / 从痛点到设计策略</a><a href="#chapter-3">03 / 交互方案与落地</a><a href="#chapter-4">04 / 产出与反思</a></div><span class="reading-progress" aria-hidden="true"></span></nav>
     <div class="wrap case-body">
-      <p class="gallery-note">完整项目板面按原作品集顺序展示。点击图片可查看原尺寸 ↗</p>
-      <section class="case-section">
+      <p class="gallery-note">点击板面放大阅读，可切换上一张 / 下一张。也可按章节跳读。</p>
+      <section class="case-section" id="chapter-1">
         <span class="case-section-num">01 /</span>
         <div>
           <h2>项目概览</h2>
@@ -61,7 +57,7 @@
           </div>
         </div>
       </section>
-      <section class="case-section">
+      <section class="case-section" id="chapter-2">
         <span class="case-section-num">02 /</span>
         <div>
           <h2>从痛点到设计策略</h2>
@@ -77,7 +73,7 @@
           </div>
         </div>
       </section>
-      <section class="case-section">
+      <section class="case-section" id="chapter-3">
         <span class="case-section-num">03 /</span>
         <div>
           <h2>交互方案与落地</h2>
@@ -98,7 +94,7 @@
           </div>
         </div>
       </section>
-      <section class="case-section">
+      <section class="case-section" id="chapter-4">
         <span class="case-section-num">04 /</span>
         <div>
           <h2>产出与反思</h2>

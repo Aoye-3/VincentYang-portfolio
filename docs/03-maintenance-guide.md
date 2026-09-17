@@ -12,9 +12,10 @@
 | `projects/other.html` | DubbingRoom、江天黄鹤等的旧入口 | 保留 `#dubbingroom` 和 `#jiangtian`，即使未来拆成新页 |
 | `style.css` | Vinod 原模板样式 | 尽量保持原文件，便于识别上游规则与许可 |
 | `custom.css` | 本站品牌样式、响应式与项目页覆盖 | 新视觉和交互样式优先加在这里，避免重复选择器无限叠加 |
-| `main.js` | 移动导航、主题、滚动、入场、自定义光标 | 新交互应有明确区域、键盘和触屏处理，不再增加全局常驻效果 |
+| `main.js` | 导航、主题、分类、兴趣深链、鼠标显影、滚动渐入与板面阅读器 | 局部指针效果遵守减少动效；导航和原图链接保留无 JS 降级 |
 | `assets/images/` | 形象照、项目封面、板面 WebP | 图片使用相对路径、明确 `alt`；详情板面继续懒加载 |
 | `docs/` | 评估、体验方案、维护决策 | 大的结构调整后同步更新地图和分类表 |
+| `scripts/verify_portfolio.py` | 桌面、平板、手机与交互验收 | 新增板面后更新数量预期；截图和报告写入已忽略的 `.local/` |
 
 当前页面使用纯静态文件，GitHub Pages 可从仓库根目录发布；无需在 C 盘安装项目依赖或生成构建产物。原模板版权见根目录 `LICENSE`；个人文案、肖像和项目图另有版权说明。
 
@@ -30,12 +31,15 @@
 | `/projects/pmagent.html` | 产品体验主案例 |
 | `/projects/other.html#dubbingroom` | DubbingRoom 旧入口 |
 | `/projects/other.html#jiangtian` | 江天黄鹤旧入口 |
+| `/#interests` | 兴趣区，直接访问时自动展开 |
+| `/projects/other.html#competitions` | 竞赛经历与团队贡献 |
+| 两份主案例的 `#chapter-1` 至 `#chapter-4` | 章节目录；旧 `#board-NN` 板面锚点仍可使用 |
 
-新增兴趣区可使用 `#interests`，但不要删去 `#projects` 或把旧详情页直接改名。若未来拆出新的竞赛、视频或游戏页面，在旧地址放可见链接或等效跳转，并检查仓库内所有相对链接。GitHub Pages 项目站点有 `/VincentYang-portfolio/` 前缀，站内新链接继续使用相对路径，不要写死根路径 `/projects/...`。
+兴趣区已使用 `#interests`，不要删去 `#projects` 或把旧详情页直接改名。若未来拆出新的竞赛、视频或游戏页面，在旧地址放可见链接或等效跳转，并检查仓库内所有相对链接。GitHub Pages 项目站点有 `/VincentYang-portfolio/` 前缀，站内新链接继续使用相对路径，不要写死根路径 `/projects/...`。
 
 ## CodeGraph 的实际覆盖范围
 
-已在仓库内运行 `codegraph init .`，本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前索引为 **1 个 JavaScript 文件、14 个节点、21 条关系**；它适合查看 `main.js` 中函数与调用关系。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [站点评估](01-site-audit.md)、代码搜索及浏览器检查判断。
+本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。本轮同步后的索引为 **2 个文件、72 个节点、111 条关系**，覆盖 `main.js` 和 Python 验收脚本。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
 
 在本仓库目录内可运行：
 
@@ -66,8 +70,10 @@ rg -n 'id="(home|about|skills|projects|contact|interests)"|href="[^"]+"' index.h
 ```powershell
 node --check main.js
 git diff --check
-python -m http.server 5501
+python -m http.server 5501 --bind 127.0.0.1
 ```
+
+服务器启动后，在另一个终端运行 `python scripts/verify_portfolio.py`。本机需有 Python 的 Playwright 包及 Edge；可用 `BROWSER_EXECUTABLE` 指定已安装的 Chromium 浏览器路径，用 `PORTFOLIO_URL` 指定预览地址。脚本自动将临时目录设为项目内 `.local/acceptance/`，并检查相对链接、锚点、44 张板面、五种屏幕宽度、菜单、筛选、触屏显影、键盘展开、主题、详情目录、图片阅读器、减少动效和无 JS 阅读。
 
 用浏览器至少检查：首页 1440px 与约 390px 宽度；两份长案例的首屏、目录、原图查看；兴趣面板关闭/展开；Tab、Enter、Space 操作；触屏点击；`prefers-reduced-motion`；四页导航与所有稳定旧链接。若实现站内原图放大层，还需检查 Escape 关闭及焦点返回。测试结束后按预览需求决定是否保留本地服务器。新增 CSS 时查看手机端是否出现横向溢出，新增 JavaScript 时查看控制台错误。纯文档改动只需检查链接、路径和 `git diff --check`。
 
