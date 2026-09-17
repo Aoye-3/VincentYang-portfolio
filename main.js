@@ -151,13 +151,14 @@ if (hero) {
   document.addEventListener('visibilitychange', () => hero.classList.toggle('page-idle', document.hidden));
 }
 
-// 排布规则：每排只放一种类别，按 UX → 插画 / AIGC → 获奖证书循环。
+// 排布规则：每排只放一种类别，按 UX → UX → 获奖证书循环，UX 占三分之二。
+// 背景图片墙不使用插画 / AIGC 素材。
 // 同类图片按 template 中的固定顺序展示；禁止随机混排或跨类别取图。
 const discovery = document.querySelector('.work-discovery');
 if (discovery) {
   const wall = discovery.querySelector('.discovery-wall');
   const tileSource = document.getElementById('discovery-tiles').content;
-  const categories = ['ux', 'creative', 'awards'];
+  const categories = ['ux', 'ux', 'awards'];
   const pauseButton = document.getElementById('gallery-motion-toggle');
   let visible = false;
   function updateGalleryPlayback() {
@@ -173,9 +174,11 @@ if (discovery) {
       strip.dataset.galleryCategory = category;
       const group = document.createElement('div');
       group.className = 'discovery-group';
+      // 第二排 UX 固定错开半组起点，让相邻两排展示不同界面，仍保留原有顺序。
+      const offset = row % 3 === 1 ? Math.floor(tiles.length / 2) : 0;
       // Two complete ordered cycles provide overscan even for narrow portrait certificates.
       for (let column = 0; column < tiles.length * 2; column++) {
-        const tile = tiles[column % tiles.length].cloneNode(true);
+        const tile = tiles[(column + offset) % tiles.length].cloneNode(true);
         tile.decoding = 'async';
         tile.fetchPriority = 'low';
         group.append(tile);

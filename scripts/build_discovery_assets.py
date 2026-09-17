@@ -1,6 +1,7 @@
 """Build decorative thumbnails from 页面图片; run from this repository with Pillow.
 
-排布规则：UX → 插画 / AIGC → 获奖证书，各目录独立、文件名自然排序。
+素材规则：仅使用 UX 与获奖证书目录，不导入插画 / AIGC。各目录按文件名自然排序。
+页面按 UX → UX → 获奖证书循环，使 UX 占三分之二。
 只等比例缩小；横向长图保留横向完整内容，不旋转、不裁切，不强塞进竖框。
 """
 from pathlib import Path
@@ -12,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / 'assets/images/discovery'
 MANIFEST = ROOT / 'docs/discovery-assets.json'
-CATEGORIES = [('ux', 'UX界面'), ('creative', '插画＆AIGC'), ('awards', '获奖证书')]
+CATEGORIES = [('ux', 'UX界面'), ('awards', '获奖证书')]
 
 def natural_key(path):
     return [int(part) if part.isdigit() else part for part in re.split(r'(\d+)', path.name)]
