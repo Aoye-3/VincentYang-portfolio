@@ -32,6 +32,7 @@ python -m http.server 5501 --bind 127.0.0.1
 - [个性化体验方案：分类、案例与交互](docs/02-experience-blueprint.md)
 - [维护指南：文件入口、稳定链接与检查方法](docs/03-maintenance-guide.md)
 - [本轮实现与验收说明](docs/04-implementation.md)
+- [面向 UX 岗位的首屏文案与内容补充建议](docs/05-role-positioning.md)
 
 启动本地服务器后运行 `python scripts/verify_portfolio.py`。检查覆盖 360–1920px、键盘/触屏、分类筛选、图片阅读器、减少动效及无 JavaScript 浏览；报告写入 `.local/acceptance/`。当前页面实现以第 04 份文档为准，原详情页地址与板面文件名保持兼容。
 
