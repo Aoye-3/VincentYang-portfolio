@@ -50,7 +50,7 @@ assert len(list((ROOT / 'assets/images/boards').glob('*.webp'))) == 44
 report = {'static': {'pages': len(docs), 'board_assets': 44, 'links': 'passed'}, 'viewports': [], 'interactions': [], 'cases': []}
 with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=EDGE, headless=True)
-    for width, height in [(1440, 900), (1920, 1080), (768, 1024), (390, 844), (360, 740)]:
+    for width, height in [(1440, 900), (1920, 1080), (1024, 900), (768, 1024), (390, 844), (360, 740)]:
         context = browser.new_context(viewport={'width': width, 'height': height}, has_touch=width < 500, is_mobile=width < 500)
         page = context.new_page()
         errors = []
@@ -66,14 +66,11 @@ with sync_playwright() as p:
         timing = page.evaluate('Math.round(performance.getEntriesByType("navigation")[0].domContentLoadedEventEnd)')
 
         if width == 1440:
-            page.mouse.move(160, 330)
-            page.wait_for_timeout(800)
-            assert page.locator('.hero-lit').evaluate('(el) => Number(getComputedStyle(el).opacity)') > .8
-            page.screenshot(path=str(OUT / 'hero-pointer-reveal.png'))
-            page.locator('#motion-toggle').click()
-            expect(page.locator('#motion-toggle')).to_have_attribute('aria-pressed', 'true')
-            assert page.locator('.hero-gallery .floating-work').first.evaluate('(el) => getComputedStyle(el).animationPlayState') == 'paused'
-            page.locator('#motion-toggle').click()
+            expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
+            page.locator('[data-hero-action="play"]').click()
+            expect(page.locator('[data-hero-action="play"]')).to_have_attribute('aria-pressed', 'true')
+            expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
+            page.locator('[data-hero-action="play"]').click()
             values = []
             for _ in range(32):
                 page.mouse.wheel(0, 100)
@@ -83,7 +80,7 @@ with sync_playwright() as p:
                     break
             assert any(0 < value < 1 for value in values), f'No progressive reveal: {values}'
             assert values[-1] == 1
-            report['interactions'].extend(['pointer reveal', 'pause/resume ambient motion', 'progressive scroll reveal'])
+            report['interactions'].extend(['hero pause/resume', 'progressive scroll reveal'])
 
         if width < 500:
             menu = page.locator('#menu-toggle')
@@ -95,8 +92,7 @@ with sync_playwright() as p:
             page.keyboard.press('Escape')
             expect(menu).to_be_focused()
             expect(menu).to_have_attribute('aria-expanded', 'false')
-            page.touchscreen.tap(25, 215)
-            expect(page.locator('.hero-stage')).to_have_class('hero-stage is-exploring')
+            expect(page.locator('.hero-collection')).to_have_class('hero-collection is-ready is-static')
 
         gallery = page.locator('.work-discovery')
         gallery.evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - 78,behavior:"instant"})')
@@ -219,14 +215,13 @@ with sync_playwright() as p:
     context = browser.new_context(viewport={'width': 390, 'height': 844}, reduced_motion='reduce')
     page = context.new_page()
     page.goto(BASE, wait_until='networkidle')
-    assert page.locator('.hero-gallery .floating-work').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
+    expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
     assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
     page.locator('.work-discovery').scroll_into_view_if_needed()
     assert page.locator('.discovery-strip').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
     expect(page.locator('#gallery-motion-toggle')).not_to_be_visible()
-    ambient_card = page.locator('.hero-gallery .floating-work').first
     page.emulate_media(reduced_motion='no-preference')
-    assert ambient_card.evaluate('(el) => getComputedStyle(el).animationName') == 'float-work'
+    expect(page.locator('[data-hero-action=play]')).not_to_be_visible()  # mobile remains manual
     page.goto(BASE + '#interests', wait_until='networkidle')
     assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
     context.close()

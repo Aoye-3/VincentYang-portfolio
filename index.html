@@ -13,7 +13,9 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="custom.css">
+  <link rel="stylesheet" href="hero-gallery.css">
   <script defer src="main.js"></script>
+  <script defer src="hero-gallery.js"></script>
 </head>
 <body class="portfolio-page">
   <a class="skip-link" href="#main">跳转到主要内容</a>
@@ -32,22 +34,73 @@
 
   <main id="main">
     <section class="hero-stage" id="home" aria-labelledby="hero-title">
-      <div class="hero-gallery" aria-hidden="true">
-        <div class="floating-work float-one"><img src="assets/images/inspiration-cover.webp" alt="" width="1600" height="900"></div>
-        <div class="floating-work float-two"><img src="assets/images/boards/board-12.webp" alt="" width="1920" height="1080"></div>
-        <div class="floating-work float-three"><img src="assets/images/pmagent-cover.webp" alt="" width="1600" height="900"></div>
-        <div class="floating-work float-four"><img src="assets/images/boards/board-32.webp" alt="" width="1920" height="1080"></div>
-      </div>
-      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-layout">
       <div class="hero-content">
-        <div class="portrait-orbit" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><img src="assets/images/profile.webp" alt="" width="1905" height="1905" fetchpriority="high"></div>
+        <div class="portrait-orbit" aria-hidden="true"><img src="assets/images/profile.webp" alt="" width="1905" height="1905" fetchpriority="high"></div>
         <p class="hero-kicker">UX DESIGN <span>×</span> PRODUCT EXPERIENCE</p>
         <h1 id="hero-title">Wenjie Yang<span>杨雯捷</span></h1>
         <p class="hero-statement">让想法，成为<span class="gradient-text">更好的体验。</span></p>
         <p class="hero-description"><span>伦敦大学金史密斯学院用户体验工程硕士在读，预计 2027 年 1 月毕业。</span><span>拥有 2 年 UI 设计与 1 年 UX 经验，结合视觉审美、用户研究与交互设计。</span><span>以 AI 辅助设计，用 Vibe Coding 将想法做成交互原型与 MVP。</span></p>
         <div class="hero-actions"><a class="button button-primary" data-magnetic href="#projects">探索我的作品 <span aria-hidden="true">↗</span></a><a class="text-link" href="#about">认识我 <span aria-hidden="true">↗</span></a></div>
       </div>
-      <div class="hero-bottom"><span>PORTFOLIO — 2026</span><a href="#projects">向下探索 <span aria-hidden="true">↓</span></a><div class="hero-motion-controls"><span class="pointer-hint">移动鼠标，让作品显影</span><span class="touch-hint">轻触背景，点亮作品</span><button id="motion-toggle" type="button" aria-pressed="false" aria-label="暂停背景动效">暂停动效 <span aria-hidden="true">Ⅱ</span></button></div></div>
+      <section class="hero-collection" aria-label="作品收藏卡" aria-roledescription="轮播">
+        <div class="hero-collection-heading"><span>SELECTED OBJECTS</span><span>DESIGN &amp; BEYOND</span></div>
+        <div class="hero-collection-viewport">
+          <!-- 唯一内容源：新增项目只需复制一条 li，修改标识、颜色、链接、封面、标题和类别。
+               图片必须保持原始比例，宽图/竖图均完整展示，禁止拉伸和强制裁切。 -->
+          <ul class="hero-projects">
+            <li data-project="inspiration" style="--card-accent: #9dbdff">
+              <a href="projects/inspiration.html" class="hero-project-link">
+                <img src="assets/images/inspiration-cover.webp" alt="AI 灵感助手的功能与界面概览" decoding="async">
+                <span class="hero-project-category">UX DESIGN</span>
+                <h2 class="hero-project-title">AI 灵感助手</h2>
+              </a>
+            </li>
+            <li data-project="pmagent" style="--card-accent: #e8ba78">
+              <a href="projects/pmagent.html" class="hero-project-link">
+                <img src="assets/images/pmagent-cover.webp" alt="PMAgent-Canvas 自由画布与生成工作流" decoding="async">
+                <span class="hero-project-category">PRODUCT EXPERIENCE</span>
+                <h2 class="hero-project-title">PMAgent-Canvas</h2>
+              </a>
+            </li>
+            <li data-project="dubbingroom" style="--card-accent: #91d4bf">
+              <a href="projects/other.html#dubbingroom" class="hero-project-link">
+                <img src="assets/images/hero/dubbingroom.svg" alt="DubbingRoom 项目名称与抽象声波图形" decoding="async">
+                <span class="hero-project-category">CREATIVE TOOL</span>
+                <h2 class="hero-project-title">DubbingRoom</h2>
+              </a>
+            </li>
+            <li data-project="jiangtian" style="--card-accent: #d2bf92">
+              <a href="projects/other.html#jiangtian" class="hero-project-link">
+                <img src="assets/images/hero/jiangtian.webp" alt="江天黄鹤影像作品封面" decoding="async">
+                <span class="hero-project-category">AIGC FILM</span>
+                <h2 class="hero-project-title">江天黄鹤</h2>
+              </a>
+            </li>
+            <li data-project="vivo" style="--card-accent: #c3adf1">
+              <a href="projects/other.html#vivo" class="hero-project-link">
+                <img src="assets/images/hero/vivo.webp" alt="Vivo 创意广告作品封面" decoding="async">
+                <span class="hero-project-category">AIGC FILM</span>
+                <h2 class="hero-project-title">Vivo 创意广告</h2>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="hero-collection-controls" hidden>
+          <span class="hero-collection-counter" aria-live="off">01 / 05</span>
+          <button type="button" data-hero-action="previous" aria-label="上一个作品">←</button>
+          <button type="button" data-hero-action="next" aria-label="下一个作品">→</button>
+          <button type="button" data-hero-action="play" aria-pressed="false">暂停 Ⅱ</button>
+        </div>
+        <span class="hero-collection-status" role="status"></span>
+      </section>
+      </div>
+      <!-- 卡片外壳独立于内容；正面复用原链接，背面只装饰，不产生重复焦点。 -->
+      <template id="hero-card-shell">
+        <div class="hero-card-edge" aria-hidden="true"></div>
+        <div class="hero-card-back" aria-hidden="true"><span class="hero-card-edition">WENJIE YANG / COLLECTION</span><span class="hero-card-monogram">WY<span>✳</span></span><span class="hero-card-back-title"></span><span class="hero-card-back-number"></span></div>
+      </template>
+      <div class="hero-bottom"><span>PORTFOLIO — 2026</span><a href="#projects">向下探索 <span aria-hidden="true">↓</span></a><span>IDEAS INTO EXPERIENCES</span></div>
     </section>
 
     <section class="work-section section-shell" id="projects" aria-labelledby="work-title">

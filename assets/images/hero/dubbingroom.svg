@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#101c1b"/>
+  <g stroke="#b2e9d4" stroke-width="4" opacity=".45">
+    <path d="M65 335h230m610 0h230"/>
+    <path d="M315 305v60m25-100v140m25-190v240m25-290v340m25-390v440m25-480v520m25-490v460m25-410v360m25-310v260m25-210v160m25-115v70m25-90v110m25-155v200m25-250v300m25-340v380m25-400v420m25-385v350m25-300v250m25-200v150m25-110v70"/>
+  </g>
+  <rect x="345" y="240" width="510" height="180" rx="8" fill="#101c1b" opacity=".95"/>
+  <text x="600" y="325" text-anchor="middle" fill="#e8f2ed" font-family="Segoe UI,sans-serif" font-size="65" letter-spacing="-3">DubbingRoom</text>
+  <text x="600" y="375" text-anchor="middle" fill="#92c3ae" font-family="Segoe UI,sans-serif" font-size="16" letter-spacing="5">VOICE · CHARACTER · EMOTION</text>
+  <text x="60" y="68" fill="#91b0a7" font-family="Segoe UI,sans-serif" font-size="17" letter-spacing="3">LOCAL AI / CREATIVE TOOL</text>
+</svg>
