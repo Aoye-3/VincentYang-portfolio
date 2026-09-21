@@ -15,7 +15,7 @@
 | `main.js` | 导航、主题、分类、兴趣深链、鼠标显影、滚动渐入与板面阅读器 | 局部指针效果遵守减少动效；导航和原图链接保留无 JS 降级 |
 | `hero-gallery.css` / `hero-gallery.js` | 首屏左右布局、收藏卡外壳、翻转与鼠标倾斜 | 内容只从首页 `.hero-projects` 读取，与作品墙播放状态独立 |
 | `work-stack.css` / `work-stack.js` | 主案例随页面滚动逐张叠加 | 内容源 `.work-stack`；观察原筛选的 `hidden` 状态；高度不足时恢复普通列表，见 [叠卡维护](07-work-stack.md) |
-| `page-progress.css` / `page-progress.js` | 顶部固定的章节进度菜单、邮箱与返回 | 首页链接写在 `.page-progress-links`，详情复用 `.case-toc-links`，见 [菜单维护](08-page-progress.md) |
+| `page-progress.css` / `page-progress.js` | 底部固定的章节进度菜单、邮箱与返回 | 首页链接写在 `.page-progress-links`，详情复用 `.case-toc-links`，见 [菜单维护](08-page-progress.md) |
 | `scripts/verify_work_stack.py` | 叠卡位置、顺序、反向滚动、筛选与降级验收 | 输出 `.local/work-stack/`；与全站验收脚本配合使用 |
 | `scripts/verify_hero_gallery.py` | 首屏响应式、链接、输入方式、降级与完整播放 | 覆盖新增第六张、仅一张和空列表；输出 `.local/hero-collection/` |
 | `assets/images/` | 形象照、项目封面、板面 WebP | 图片使用相对路径、明确 `alt`；详情板面继续懒加载 |

@@ -10,7 +10,8 @@
   let active;
   function update() {
     frame = 0;
-    const threshold = Math.max(220, menu.getBoundingClientRect().bottom + 20);
+    // Reading position stays near the top even though the menu sits at the bottom.
+    const threshold = 220;
     const ordered = entries.map(item => ({ ...item, top: item.target.getBoundingClientRect().top })).sort((a, b) => a.top - b.top);
     let current = ordered[0];
     ordered.forEach(item => { if (item.top <= threshold) current = item; });

@@ -23,6 +23,7 @@ with sync_playwright() as p:
             expect(menu).to_be_visible()
             assert page.locator('.page-progress').count() == 1
             assert abs(initial['x'] + initial['width']/2 - width/2) < 1
+            assert 10 <= height - initial['y'] - initial['height'] <= 22
             links = menu.locator('.page-progress-links a')
             for link in links.all():
                 link.focus()  # browser reveals offscreen tabs in the grey track
@@ -32,7 +33,7 @@ with sync_playwright() as p:
                 assert abs(menu.bounding_box()['y'] - initial['y']) < 1
                 target = page.locator(link.get_attribute('href'))
                 if link.get_attribute('href') != '#home':
-                    assert target.bounding_box()['y'] >= initial['y'] + initial['height'] - 2, (width,path,link.get_attribute('href'),target.bounding_box(),initial)
+                    assert target.bounding_box()['y'] >= page.locator('.site-nav').bounding_box()['height'] - 2, (width,path,link.get_attribute('href'),target.bounding_box(),initial)
             if not path:
                 assert page.locator('#interest-disclosure').evaluate('(el)=>el.open')
                 page.evaluate('scrollTo({top:0,behavior:"instant"})')

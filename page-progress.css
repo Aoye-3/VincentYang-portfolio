@@ -1,8 +1,8 @@
-/* Context navigation: fixed under the site header, with a scrollable grey track
+/* Context navigation: fixed at the viewport bottom, with a scrollable grey track
    and an always-visible yellow action. Offsets also protect sticky work cards. */
-:root { --context-top: 90px; --context-clearance: 170px; }
-html { scroll-padding-top: var(--context-clearance); }
-.page-progress, .case-toc.page-progress { position: fixed; top: var(--context-top); left: 50%; transform: translateX(-50%); z-index: 90; width: max-content; max-width: calc(100% - 32px); display: flex; align-items: stretch; gap: 6px; padding: 6px; margin: 0; border: 1px solid #ffffff24; border-radius: 15px; background: #464646f5; color: #ededed; box-shadow: 0 8px 24px #0004; backdrop-filter: blur(16px); }
+html { scroll-padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
+body { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
+.page-progress, .case-toc.page-progress { position: fixed; top: auto; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); z-index: 90; width: max-content; max-width: calc(100% - 32px); display: flex; align-items: stretch; gap: 6px; padding: 6px; margin: 0; border: 1px solid #ffffff24; border-radius: 15px; background: #464646f5; color: #ededed; box-shadow: 0 8px 24px #0004; backdrop-filter: blur(16px); }
 .page-progress .page-progress-mark { display: grid; place-items: center; flex: 0 0 52px; border-radius: 10px; background: #242424; color: #ededed; font-size: 2rem; font-weight: 750; letter-spacing: -.08em; }
 .page-progress-links, .page-progress .case-toc-links { display: flex; min-width: 0; gap: 6px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; max-width: none; margin: 0; padding: 4px; border-radius: 11px; background: #393939; }
 .page-progress-links::-webkit-scrollbar { display: none; }
@@ -15,22 +15,16 @@ html { scroll-padding-top: var(--context-clearance); }
 .page-progress-action:hover { background: #fff49b; }
 .page-progress a:focus-visible, .page-progress button:focus-visible { outline: 2px solid #fff; outline-offset: -3px; }
 .page-progress .reading-progress { display: none; }
-.page-progress-status { position: absolute; top: calc(100% + 10px); right: 0; max-width: calc(100vw - 32px); padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink); font-size: 1.2rem; overflow-wrap: anywhere; }
+.page-progress-status { position: absolute; bottom: calc(100% + 10px); right: 0; max-width: calc(100vw - 32px); padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink); font-size: 1.2rem; overflow-wrap: anywhere; }
 .page-progress-status:empty { display: none; }
-.work-toolbar { top: var(--context-clearance); }
 /* Lazy insertion of the diagonal rows must not become a browser scroll anchor:
    otherwise the browser pulls the page back immediately after a chapter jump. */
 .work-discovery { overflow-anchor: none; }
-.hero-stage { padding-top: 190px; }
-.case-page .case-hero { padding-top: 150px; }
 @media (max-width: 760px) {
-  :root { --context-top: 76px; --context-clearance: 146px; }
-  .page-progress, .case-toc.page-progress { max-width: calc(100% - 16px); padding: 4px; gap: 4px; border-radius: 12px; }
+  .page-progress, .case-toc.page-progress { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); max-width: calc(100% - 16px); padding: 4px; gap: 4px; border-radius: 12px; }
   .page-progress .page-progress-mark { display: none; }
   .page-progress-links, .page-progress .case-toc-links { gap: 4px; padding: 2px; }
   .page-progress .page-progress-links a { padding: 0 12px; font-size: 1.15rem; }
   .page-progress .page-progress-action { min-height: 48px; padding: 0 12px; gap: 6px; font-size: 1.15rem; }
-  .hero-stage { padding-top: 165px; }
-  .case-page .case-hero { padding-top: 120px; }
 }
 @media (prefers-reduced-motion: reduce) { .page-progress .page-progress-links a { transition: none; } }

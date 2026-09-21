@@ -19,7 +19,7 @@ python -m http.server 5501 --bind 127.0.0.1
 - `custom.css`：个人内容与视觉的适配样式
 - `main.js`：导航、主题、局部显影、滚动渐入、分类筛选和板面阅读器
 - `work-stack.css` / `work-stack.js`：精选展示作品的滚动叠卡；高度不足时自动恢复普通列表
-- `page-progress.css` / `page-progress.js`：顶部固定的本页章节目录、进度、复制邮箱与详情返回
+- `page-progress.css` / `page-progress.js`：底部固定的本页章节目录、进度、复制邮箱与详情返回
 - `projects/`：AI 灵感助手、PMAgent-Canvas 和更多项目页面
 - `assets/images/boards/`：原作品集第 04–47 页的 WebP 图片，第 26 页使用 `26-修改.jpg`
 - `assets/images/profile.webp`：个人形象图片
