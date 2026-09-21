@@ -82,7 +82,8 @@ function updateScrollState() {
     else link.removeAttribute('aria-current');
   });
   let chapter = chapters[0]?.id;
-  chapters.forEach(section => { if (section.getBoundingClientRect().top <= 210) chapter = section.id; });
+  // Fixed context menu + chapter scroll margin land near 210px; allow rounding.
+  chapters.forEach(section => { if (section.getBoundingClientRect().top <= 220) chapter = section.id; });
   chapterLinks.forEach(link => {
     if (link.hash === '#' + chapter) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');

@@ -19,6 +19,7 @@ python -m http.server 5501 --bind 127.0.0.1
 - `custom.css`：个人内容与视觉的适配样式
 - `main.js`：导航、主题、局部显影、滚动渐入、分类筛选和板面阅读器
 - `work-stack.css` / `work-stack.js`：精选展示作品的滚动叠卡；高度不足时自动恢复普通列表
+- `page-progress.css` / `page-progress.js`：顶部固定的本页章节目录、进度、复制邮箱与详情返回
 - `projects/`：AI 灵感助手、PMAgent-Canvas 和更多项目页面
 - `assets/images/boards/`：原作品集第 04–47 页的 WebP 图片，第 26 页使用 `26-修改.jpg`
 - `assets/images/profile.webp`：个人形象图片
@@ -36,6 +37,7 @@ python -m http.server 5501 --bind 127.0.0.1
 - [面向 UX 岗位的首屏文案与内容补充建议](docs/05-role-positioning.md)
 - [首屏收藏卡：新增项目、封面规则与动效维护](docs/06-hero-gallery.md)
 - [精选展示作品：滚动叠卡与响应式降级](docs/07-work-stack.md)
+- [页面进度菜单：章节、邮箱与返回行为](docs/08-page-progress.md)
 
 首屏使用独立的 `hero-gallery.css` 和 `hero-gallery.js`，以首页 `.hero-projects` 列表为内容源。新增卡片无需修改动效代码。执行 `python scripts/verify_hero_gallery.py` 检查专属交互与两轮真实播放，报告和截图位于 `.local/hero-collection/`。
 

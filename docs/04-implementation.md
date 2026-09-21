@@ -32,6 +32,7 @@ flowchart TD
 
 | 效果 | 实现方式 | 维护入口 |
 | --- | --- | --- |
+| 页面进度菜单 | 顶栏下方固定灰色目录与黄色操作，当前块描边、段落进度、移动横滑 | `page-progress.css` / `page-progress.js`；[邮箱与返回配置](08-page-progress.md) |
 | 首屏循环动效 | 五张项目收藏卡连续向下翻转，中心不停顿；手机原单卡布局 | `hero-gallery.js` / `hero-gallery.css`；内容源 `.hero-projects` |
 | 首屏悬停 | 位移暂停，卡片随鼠标轻微倾斜并缓动归零 | 独立倾斜 RAF，减少动效时禁用 |
 | 触屏探索 | 轻触或滑动时更新局部光点；不阻止页面滚动 | `main.js` 的 pointer 事件 |

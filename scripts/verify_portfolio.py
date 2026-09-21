@@ -199,9 +199,9 @@ with sync_playwright() as p:
             page.keyboard.press('Escape')
             expect(page.locator('.board-dialog')).not_to_be_visible()
             expect(opener).to_be_focused()
-            page.locator('.case-toc a').nth(1).click()
+            page.locator('.case-toc-links a').nth(1).click()
             page.wait_for_timeout(650)
-            expect(page.locator('.case-toc a').nth(1)).to_have_attribute('aria-current', 'location')
+            expect(page.locator('.case-toc-links a').nth(1)).to_have_attribute('aria-current', 'location')
             assert not errors, errors
             report['cases'].append({'name': name, 'width': width, 'boards': count, 'reader_and_chapters': 'passed'})
         page.locator('#theme-toggle').click()

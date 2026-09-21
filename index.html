@@ -14,10 +14,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="custom.css?v=021f9bbac7">
   <link rel="stylesheet" href="hero-gallery.css?v=645588ee7f">
-  <script defer src="main.js?v=cef004e7d5"></script>
+  <script defer src="main.js?v=8b6545f9f1"></script>
   <script defer src="hero-gallery.js?v=4297b6dd0a"></script>
   <link rel="stylesheet" href="work-stack.css?v=5e61792c8b">
   <script defer src="work-stack.js?v=768f0e32f9"></script>
+  <link rel="stylesheet" href="page-progress.css?v=70149fd622">
+  <script defer src="page-progress.js?v=13e3a0d032"></script>
 </head>
 <body class="portfolio-page">
   <a class="skip-link" href="#main">跳转到主要内容</a>
@@ -33,6 +35,13 @@
       </div>
     </nav>
   </header>
+
+  <nav class="page-progress" aria-label="页面进度导航">
+    <a class="page-progress-mark" href="#home" aria-label="回到首页">W.</a>
+    <div class="page-progress-links"><a href="#home" aria-current="location">Home</a><a href="#honors-wall">荣誉墙</a><a href="#work-title">精选作品</a><a href="#interests">更多作品</a><a href="#about">个人简历</a><a href="#contact">联系我</a></div>
+    <button class="page-progress-action" type="button" data-copy-email="" aria-label="复制联系邮箱">Contact me <span aria-hidden="true">↗</span></button>
+    <span class="page-progress-status" role="status" aria-live="polite"></span>
+  </nav>
 
   <main id="main">
     <section class="hero-stage" id="home" aria-labelledby="hero-title">
@@ -107,7 +116,7 @@
     </section>
 
     <section class="work-section section-shell" id="projects" aria-labelledby="work-title">
-      <div class="work-discovery" data-spotlight>
+      <div id="honors-wall" class="work-discovery" data-spotlight>
         <div class="discovery-wall" aria-hidden="true"></div>
         <div class="discovery-shade" aria-hidden="true"></div>
         <div class="section-intro" data-scroll-reveal>
