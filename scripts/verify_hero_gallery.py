@@ -140,10 +140,13 @@ with sync_playwright() as p:
         if step: page.wait_for_timeout(max(0,(started+step*8-time.monotonic())*1000))
         active=int(page.locator('.hero-collection').get_attribute('data-active'))
         assert active==step%5, (step,active)
-        matrix=page.locator('.hero-projects > li').nth(active).evaluate('(e)=>{const m=new DOMMatrix(getComputedStyle(e).transform);return [m.m22,m.m42,m.m43]}')
-        assert abs(matrix[0]-1)<.015 and abs(matrix[1])<5, matrix
+        current=page.locator('.hero-projects > li').nth(active)
+        y_before=current.evaluate('(e)=>new DOMMatrix(getComputedStyle(e).transform).m42')
+        page.wait_for_timeout(120)
+        y_after=current.evaluate('(e)=>new DOMMatrix(getComputedStyle(e).transform).m42')
+        assert y_after-y_before>1, (y_before,y_after)  # no automatic pause at center
         page.screenshot(path=str(OUT/f'loop-{step:02}.png'))
-        report['loops'].append({'step':step,'active':active,'centered':True})
+        report['loops'].append({'step':step,'active':active,'flowing':True})
         print(f'Loop checkpoint {step}/10: card {active+1}',flush=True)
     page.close()
     browser.close()

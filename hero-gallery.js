@@ -85,11 +85,9 @@
     if (!canRun()) { frame = 0; return; }
     if (lastTime) elapsed += now - lastTime;
     lastTime = now;
-    const cycles = elapsed / PERIOD;
-    const fraction = cycles % 1;
-    // 1 second at each side of the boundary = 2 seconds centered; remaining 6 seconds flow.
-    const t = Math.max(0, Math.min(1, (fraction - .125) / .75));
-    phase = Math.floor(cycles) + t * t * (3 - 2 * t);
+    // Continuous downward travel: no center dwell or per-card easing plateau.
+    // Hover/focus still pauses the timeline through canRun(), preserving tilt feedback.
+    phase = elapsed / PERIOD;
     render();
     frame = requestAnimationFrame(tick);
   }
