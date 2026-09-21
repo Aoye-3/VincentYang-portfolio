@@ -67,10 +67,11 @@ with sync_playwright() as p:
 
         if width == 1440:
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
-            page.locator('[data-hero-action="play"]').click()
-            expect(page.locator('[data-hero-action="play"]')).to_have_attribute('aria-pressed', 'true')
+            assert page.locator('.hero-collection button').count() == 0
+            page.locator('.hero-collection-viewport').hover()
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
-            page.locator('[data-hero-action="play"]').click()
+            page.mouse.move(10, 100)
+            expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
             values = []
             for _ in range(32):
                 page.mouse.wheel(0, 100)
@@ -221,7 +222,7 @@ with sync_playwright() as p:
     assert page.locator('.discovery-strip').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
     expect(page.locator('#gallery-motion-toggle')).not_to_be_visible()
     page.emulate_media(reduced_motion='no-preference')
-    expect(page.locator('[data-hero-action=play]')).not_to_be_visible()  # mobile remains manual
+    assert page.locator('.hero-collection button').count() == 0  # mobile uses native swipe
     page.goto(BASE + '#interests', wait_until='networkidle')
     assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
     context.close()

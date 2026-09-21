@@ -9,9 +9,6 @@
   if (!count) { gallery.hidden = true; return; }
   const template = document.getElementById('hero-card-shell');
   const viewport = gallery.querySelector('.hero-collection-viewport');
-  const controls = gallery.querySelector('.hero-collection-controls');
-  const play = controls.querySelector('[data-hero-action="play"]');
-  const counter = gallery.querySelector('.hero-collection-counter');
   const status = gallery.querySelector('.hero-collection-status');
   const desktop = matchMedia('(min-width: 1024px)');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,11 +28,9 @@
     return link;
   });
   gallery.classList.add('is-ready');
-  controls.hidden = count < 2;
   let phase = 0;
   let elapsed = 0;
   let active = 0;
-  let userPaused = false;
   let hovered = false;
   let focused = false;
   let visible = false;
@@ -46,11 +41,10 @@
   const tilt = { x: 0, y: 0, targetX: 0, targetY: 0 };
   let cardHeight = list.getBoundingClientRect().height;
   const isStatic = () => !desktopMode || reduceMotion || count === 1;
-  const canRun = () => !isStatic() && !userPaused && !hovered && !focused && visible && !document.hidden;
+  const canRun = () => !isStatic() && !hovered && !focused && visible && !document.hidden;
 
   function render() {
     active = wrap(Math.round(phase));
-    counter.textContent = `${number(active)} / ${number(count - 1)}`;
     cards.forEach((card, index) => {
       // Positive phase moves the outgoing card DOWN; the following project enters from above.
       let offset = wrap(phase - index + count / 2) - count / 2;
@@ -59,7 +53,7 @@
       const staticMode = isStatic();
       const limit = Math.min(2.45, count / 2);
       // Fade before modular wrapping, so a recycled card never jumps in the visible area.
-      const opacity = staticMode ? Number(selected) : Math.min(1, Math.max(0, (limit - distance) / .4));
+      const opacity = staticMode ? 1 : Math.min(1, Math.max(0, (limit - distance) / .4));
       card.style.visibility = opacity > .001 ? 'visible' : 'hidden';
       const rotation = Math.sign(offset) * Math.min(distance * 112, 175);
       const y = offset * cardHeight * .82;
@@ -73,9 +67,9 @@
       card.style.zIndex = String(Math.round(100 - distance * 30));
       // Opacity on faces only: opacity on the 3D parent would flatten front/back geometry.
       [...card.children].forEach(face => { face.style.opacity = String(opacity); });
-      links[index].style.pointerEvents = opacity > .25 && (staticMode ? selected : Math.abs(rotation) < 85) ? 'auto' : 'none';
-      links[index].tabIndex = selected ? 0 : -1;
-      links[index].setAttribute('aria-hidden', String(!selected));
+      links[index].style.pointerEvents = opacity > .25 && (staticMode || Math.abs(rotation) < 85) ? 'auto' : 'none';
+      links[index].tabIndex = staticMode || selected ? 0 : -1;
+      links[index].setAttribute('aria-hidden', String(!staticMode && !selected));
       card.dataset.active = String(selected);
     });
     gallery.dataset.active = String(active);
@@ -97,10 +91,6 @@
   function syncPlayback() {
     const running = canRun();
     gallery.dataset.playing = String(running);
-    play.hidden = isStatic();
-    play.setAttribute('aria-pressed', String(userPaused));
-    play.setAttribute('aria-label', userPaused ? '播放作品卡片' : '暂停作品卡片');
-    play.textContent = userPaused ? '播放 ▷' : '暂停 Ⅱ';
     if (running && !frame) { lastTime = 0; frame = requestAnimationFrame(tick); }
     if (!running) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; }
   }
@@ -108,17 +98,21 @@
   function select(index, announce = true) {
     phase = wrap(index);
     elapsed = phase * PERIOD;
-    userPaused = true;
+    if (isStatic()) list.scrollTo({ left: cards[wrap(index)].offsetLeft, behavior: 'instant' });
     render();
     syncPlayback();
     if (announce) status.textContent = `${number(active)} / ${number(count - 1)}，${links[active].querySelector('h2').textContent}`;
   }
-  controls.addEventListener('click', event => {
-    const action = event.target.closest('[data-hero-action]')?.dataset.heroAction;
-    if (action === 'previous') select(active - 1);
-    if (action === 'next') select(active + 1);
-    if (action === 'play') { userPaused = !userPaused; syncPlayback(); }
-  });
+  // Touch uses the browser's horizontal scroll + snap, preserving vertical page scroll.
+  // All static cards remain focusable; there is no hidden button-only navigation path.
+  list.addEventListener('scroll', () => {
+    if (!isStatic()) return;
+    const index = cards.reduce((nearest, card, i) =>
+      Math.abs(card.offsetLeft - list.scrollLeft) < Math.abs(cards[nearest].offsetLeft - list.scrollLeft) ? i : nearest, 0);
+    phase = index;
+    elapsed = phase * PERIOD;
+    render();
+  }, { passive: true });
   viewport.addEventListener('pointerenter', () => { hovered = fine.matches; syncPlayback(); });
   // Hover has its own bounded RAF: autoplay can pause while the card still follows
   // the pointer. Exponential time-based damping gives the same feel at 60/120Hz.
@@ -147,8 +141,9 @@
   }, { passive: true });
   viewport.addEventListener('pointerleave', () => { hovered = false; setTilt(0, 0); syncPlayback(); });
   gallery.addEventListener('focusin', event => {
-    focused = Boolean(event.target.closest('.hero-project-link'));
-    if (focused) { phase = active; elapsed = phase * PERIOD; render(); }
+    const link = event.target.closest('.hero-project-link');
+    focused = Boolean(link);
+    if (focused) { phase = links.indexOf(link); elapsed = phase * PERIOD; render(); }
     syncPlayback();
   });
   gallery.addEventListener('focusout', () => queueMicrotask(() => {
@@ -167,6 +162,7 @@
     tiltFrame = 0;
     tilt.x = tilt.y = tilt.targetX = tilt.targetY = 0;
     gallery.classList.toggle('is-static', isStatic());
+    list.scrollTo({ left: isStatic() ? cards[active].offsetLeft : 0, behavior: 'instant' });
     phase = active;
     elapsed = phase * PERIOD;
     cardHeight = list.getBoundingClientRect().height;

@@ -49,14 +49,11 @@
 .hero-card-monogram > span { color: var(--card-accent); font-size: 4rem; margin-left: 10px; }
 .hero-card-back-title { color: #d0d0d8; font-size: 1.35rem; }
 .hero-card-back-number { position: absolute; bottom: 24px; right: 24px; color: var(--card-accent); font-size: 1rem; letter-spacing: .12em; }
-.hero-collection-controls { display: flex; gap: 8px; align-items: center; justify-content: flex-end; margin-top: 18px; padding: 0 12px; }
-.hero-collection-counter { margin-right: auto; color: #b5b5c3; font-size: 1.1rem; letter-spacing: .14em; font-variant-numeric: tabular-nums; }
-.hero-collection-controls button { min-width: 44px; height: 44px; border: 1px solid #ffffff29; border-radius: 50%; background: #111114; color: #d0d0dc; font-size: 1.7rem; }
-.hero-collection-controls button:hover { background: #24242b; border-color: #ffffff60; }
-.hero-collection-controls [data-hero-action="play"] { border-radius: 30px; font-size: 1.1rem; padding: 0 17px; min-width: 88px; }
 .hero-collection-status { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .hero-collection.is-static .hero-collection-viewport { height: auto; padding: 22px 0; }
-.hero-collection.is-static .hero-projects { position: relative; inset: auto; transform: none; width: min(94%, 440px); margin: auto; }
+.hero-collection.is-static .hero-projects { position: relative; inset: auto; transform: none; transform-style: flat; width: min(94%, 440px); margin: auto; aspect-ratio: auto; display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.hero-collection.is-static .hero-projects::-webkit-scrollbar { display: none; }
+.hero-collection.is-static .hero-projects > li { position: relative; flex: 0 0 100%; aspect-ratio: 1.4; scroll-snap-align: start; }
 .hero-collection.is-static .hero-collection-viewport::before,
 .hero-collection.is-static .hero-collection-viewport::after { display: none; }
 @media (max-width: 1023px) {
@@ -88,5 +85,4 @@
   .hero-collection.is-ready .hero-project-link::before { top: 11px; left: 14px; font-size: .75rem; }
   .hero-collection.is-ready .hero-project-category { font-size: .7rem; margin-top: 10px; }
   .hero-collection.is-ready .hero-project-title { font-size: 1.7rem; }
-  .hero-collection-controls { padding: 0; margin-top: 8px; }
 }
