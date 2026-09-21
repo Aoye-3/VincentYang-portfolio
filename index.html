@@ -12,10 +12,10 @@
   <title>杨雯捷 / Wenjie Yang · Portfolio</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="custom.css">
-  <link rel="stylesheet" href="hero-gallery.css">
-  <script defer src="main.js"></script>
-  <script defer src="hero-gallery.js"></script>
+  <link rel="stylesheet" href="custom.css?v=021f9bbac7">
+  <link rel="stylesheet" href="hero-gallery.css?v=645588ee7f">
+  <script defer src="main.js?v=cef004e7d5"></script>
+  <script defer src="hero-gallery.js?v=aed224f2dd"></script>
 </head>
 <body class="portfolio-page">
   <a class="skip-link" href="#main">跳转到主要内容</a>
@@ -85,6 +85,13 @@
               </a>
             </li>
           </ul>
+        </div>
+        <!-- Hidden compatibility markup for already-cached carousel scripts; never takes layout space. -->
+        <div class="hero-collection-controls" hidden inert aria-hidden="true">
+          <span class="hero-collection-counter" aria-live="off">01 / 05</span>
+          <button type="button" data-hero-action="previous" aria-label="上一个作品">←</button>
+          <button type="button" data-hero-action="next" aria-label="下一个作品">→</button>
+          <button type="button" data-hero-action="play" aria-pressed="false">暂停 Ⅱ</button>
         </div>
         <span class="hero-collection-status" role="status"></span>
       </section>

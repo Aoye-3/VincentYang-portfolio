@@ -42,7 +42,7 @@
 
 ## CodeGraph 的实际覆盖范围
 
-本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前覆盖 **5 个文件**：`main.js`、`hero-gallery.js`、两份 Python 验收脚本和素材生成脚本；节点与关系数量以 `codegraph status .` 的最新结果为准。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
+本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前覆盖 **6 个文件**：`main.js`、`hero-gallery.js`、两份 Python 验收脚本、缓存恢复回归脚本和素材生成脚本；节点与关系数量以 `codegraph status .` 的最新结果为准。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
 
 在本仓库目录内可运行：
 

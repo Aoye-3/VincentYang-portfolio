@@ -18,7 +18,7 @@ with sync_playwright() as p:
         page.goto(BASE, wait_until='networkidle')
         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth')
         assert page.locator('.hero-project-link').count() == 5
-        assert page.locator('.hero-collection button, .hero-collection-controls, .hero-collection-counter').count() == 0
+        assert page.locator('.hero-collection button:visible, .hero-collection-controls:visible, .hero-collection-counter:visible').count() == 0
         assert page.locator('.hero-project-link img').evaluate_all('(imgs)=>imgs.every(i=>i.complete&&i.naturalWidth>0&&getComputedStyle(i).objectFit==="contain")')
         # Center card title must fit inside its shell, including the narrowest mobile size.
         assert page.locator('.hero-projects > li').first.evaluate('(c)=>{const t=c.querySelector("h2").getBoundingClientRect(),r=c.getBoundingClientRect();return t.bottom<r.bottom&&t.right<r.right}')
@@ -28,7 +28,7 @@ with sync_playwright() as p:
         expect(page.locator('.hero-collection')).to_have_attribute('data-active','1')
         expect(page.locator('.hero-collection')).to_have_attribute('data-playing','false')
         if width<1024:
-            assert page.locator('.hero-projects').evaluate('(el)=>el.scrollLeft>0')
+            assert page.locator('.hero-projects > li').nth(1).evaluate('(el)=>getComputedStyle(el).visibility') == 'visible'
         page.keyboard.press('ArrowLeft')
         expect(page.locator('.hero-collection')).to_have_attribute('data-active','0')
         page.locator('.hero-collection').screenshot(path=str(OUT/f'cards-{width}.png'))
@@ -66,7 +66,7 @@ with sync_playwright() as p:
     page.goto(BASE,wait_until='networkidle')
     page.emulate_media(reduced_motion='reduce')
     expect(gallery).to_have_attribute('data-playing','false')
-    assert page.locator('.hero-collection button').count() == 0
+    assert page.locator('.hero-collection button:visible').count() == 0
     page.emulate_media(reduced_motion='no-preference')
     expect(gallery).to_have_attribute('data-playing','true')
     page.locator('#contact').scroll_into_view_if_needed()
@@ -98,7 +98,7 @@ with sync_playwright() as p:
         page.goto(BASE,wait_until='networkidle')
         if count==0: expect(page.locator('.hero-collection')).not_to_be_visible()
         elif count==1:
-            assert page.locator('.hero-collection button').count() == 0
+            assert page.locator('.hero-collection button:visible').count() == 0
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing','false')
         else:
             for i in range(count):

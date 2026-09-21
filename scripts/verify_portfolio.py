@@ -67,7 +67,7 @@ with sync_playwright() as p:
 
         if width == 1440:
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
-            assert page.locator('.hero-collection button').count() == 0
+            assert page.locator('.hero-collection button:visible').count() == 0
             page.locator('.hero-collection-viewport').hover()
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
             page.mouse.move(10, 100)
@@ -222,7 +222,7 @@ with sync_playwright() as p:
     assert page.locator('.discovery-strip').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
     expect(page.locator('#gallery-motion-toggle')).not_to_be_visible()
     page.emulate_media(reduced_motion='no-preference')
-    assert page.locator('.hero-collection button').count() == 0  # mobile uses native swipe
+    assert page.locator('.hero-collection button:visible').count() == 0  # mobile uses native swipe
     page.goto(BASE + '#interests', wait_until='networkidle')
     assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
     context.close()
