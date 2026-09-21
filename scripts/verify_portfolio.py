@@ -72,16 +72,12 @@ with sync_playwright() as p:
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
             page.mouse.move(10, 100)
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
-            values = []
-            for _ in range(32):
-                page.mouse.wheel(0, 100)
-                page.wait_for_timeout(90)
-                values.append(page.locator('.work-card').first.evaluate('(el) => Number(getComputedStyle(el).opacity)'))
-                if values[-1] == 1:
-                    break
-            assert any(0 < value < 1 for value in values), f'No progressive reveal: {values}'
-            assert values[-1] == 1
-            report['interactions'].extend(['hero pause/resume', 'progressive scroll reveal'])
+            expect(page.locator('#work-title')).to_contain_text('精选展示作品')
+            # Main cases now stack; their transform belongs to work-stack.js.
+            # Geometry, reverse scrolling and fallbacks: verify_work_stack.py.
+            assert page.locator('.work-stack > .work-card[data-scroll-reveal]').count() == 0
+            assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
+            report['interactions'].extend(['hero pause/resume', 'stacked work markup'])
 
         if width < 500:
             menu = page.locator('#menu-toggle')

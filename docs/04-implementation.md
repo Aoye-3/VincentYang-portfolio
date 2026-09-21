@@ -6,10 +6,12 @@
 
 ## 当前结构
 
+2026-09-21 作品区迭代：分类栏上方新增「精选展示作品」，两张主案例使用原生 sticky 滚动叠加，后一张上移覆盖、前一张缩小并露出顶边。DubbingRoom 延伸项目位于叠卡容器之后。首屏和斜向图片墙保留。高度不足或减少动效时恢复普通列表，详见 [叠卡维护与验收](07-work-stack.md)。
+
 ```mermaid
 flowchart TD
   H[首页 / 黑色动效舞台] --> E[从洞察出发 / 斜向聚光图片墙]
-  E --> W[精选作品 / 分类筛选]
+  E --> W[精选展示作品 / 分类筛选 / 滚动叠卡]
   W --> U[UX 设计 / AI 灵感助手]
   W --> P[产品体验 / PMAgent-Canvas]
   W --> D[DubbingRoom / 延伸项目]
@@ -34,7 +36,8 @@ flowchart TD
 | 首屏悬停 | 位移暂停，卡片随鼠标轻微倾斜并缓动归零 | 独立倾斜 RAF，减少动效时禁用 |
 | 触屏探索 | 轻触或滑动时更新局部光点；不阻止页面滚动 | `main.js` 的 pointer 事件 |
 | 动效暂停 | 首屏悬停/焦点暂停，离屏或后台暂停 | 首屏无控制栏；图片墙保留 `gallery-motion-toggle`，状态独立 |
-| 卡片渐入 | 原生滚动进度驱动透明度、轻微上移与缩放；首次完整出现后保持可读 | `[data-scroll-reveal]`；位移 65px、约 1/3 视口渐入 |
+| 主案例叠卡 | 原生 sticky 与滚动进度缩放，前卡露出 28px 顶边；反向滚动自然展开 | `work-stack.css` / `work-stack.js`；两张 `.work-card` 不再使用旧渐入属性 |
+| 其他内容渐入 | 原生滚动进度驱动透明度、轻微上移与缩放；首次完整出现后保持可读 | `[data-scroll-reveal]`；位移 65px、约 1/3 视口渐入 |
 | 分类筛选 | 全部 / UX / 产品；保持真实链接和屏幕阅读器状态 | `data-filter`、`data-category`、`aria-pressed` |
 | 局部悬浮 | 图片聚光、轻微抬升、局部「查看案例」提示；主 CTA 小幅磁吸 | `[data-spotlight]`、`[data-magnetic]` |
 | 兴趣展开 | 点击、Enter 或 Space；导航与直接访问 `#interests` 会展开 | `#interest-disclosure` |
