@@ -9,7 +9,9 @@ from playwright.sync_api import sync_playwright,expect
 BASE='http://127.0.0.1:5501/'
 baseline=subprocess.check_output(['git','show','HEAD:index.html'],cwd=ROOT).decode()
 current=(ROOT/'index.html').read_text(encoding='utf-8')
-def hero(source): return source[source.index('<section class="hero-stage"'):source.index('<section class="work-section')]
+def hero(source):
+    content = source[source.index('<section class="hero-stage"'):source.index('<section class="work-section')]
+    return content.replace('      <div class="hero-atmosphere" aria-hidden="true"><canvas></canvas></div>\n', '')
 assert hero(baseline)==hero(current),'Hero markup changed'
 report=[]
 with sync_playwright() as p:

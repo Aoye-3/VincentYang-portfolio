@@ -26,6 +26,8 @@
 
 板面映射：`board-04.webp` 至 `board-24.webp` 属于 AI 灵感助手，`board-25.webp` 至 `board-46.webp` 属于 PMAgent-Canvas，`board-47.webp` 是其他项目概览。共 44 张；第 26 页使用原稿的修改版。新增素材不要覆盖这些既有文件名，以免旧链接指向错误内容。
 
+首页粒子装饰与配色变量见 [背景维护](09-hero-atmosphere.md)；背景文件独立于收藏卡动效。
+
 ## 稳定路径与锚点
 
 | 路径 | 用途 |
@@ -45,7 +47,7 @@
 
 ## CodeGraph 的实际覆盖范围
 
-本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前覆盖 **10 个文件**：`main.js`、`hero-gallery.js`、`work-stack.js`、`page-progress.js`、四份 Python 验收脚本、缓存恢复回归脚本和素材生成脚本；节点与关系数量以 `codegraph status .` 的最新结果为准。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
+本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前覆盖 **12 个文件**：`main.js`、`hero-gallery.js`、`work-stack.js`、`page-progress.js`、`hero-atmosphere.js`、五份 Python 验收脚本、缓存恢复回归脚本和素材生成脚本；节点与关系数量以 `codegraph status .` 的最新结果为准。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
 
 在本仓库目录内可运行：
 

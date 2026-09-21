@@ -38,6 +38,7 @@ python -m http.server 5501 --bind 127.0.0.1
 - [首屏收藏卡：新增项目、封面规则与动效维护](docs/06-hero-gallery.md)
 - [精选展示作品：滚动叠卡与响应式降级](docs/07-work-stack.md)
 - [页面进度菜单：章节、邮箱与返回行为](docs/08-page-progress.md)
+- [首页粒子背景、配色变量与视频生成提示词](docs/09-hero-atmosphere.md)
 
 首屏使用独立的 `hero-gallery.css` 和 `hero-gallery.js`，以首页 `.hero-projects` 列表为内容源。新增卡片无需修改动效代码。执行 `python scripts/verify_hero_gallery.py` 检查专属交互与两轮真实播放，报告和截图位于 `.local/hero-collection/`。
 
