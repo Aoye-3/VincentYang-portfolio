@@ -15,9 +15,9 @@
   <link rel="stylesheet" href="custom.css?v=dd5b14fb87">
   <script defer src="experience.js?v=3999badbf5"></script>
   <link rel="stylesheet" href="experience.css?v=11eed225a0">
-  <link rel="stylesheet" href="hero-gallery.css?v=a1eda912fd">
+  <link rel="stylesheet" href="hero-gallery.css?v=b40d3f9d90">
   <script defer src="main.js?v=cd2269e1ba"></script>
-  <script defer src="hero-gallery.js?v=7041138f0f"></script>
+  <script defer src="hero-gallery.js?v=d05a9384fb"></script>
   <link rel="stylesheet" href="work-stack.css?v=2137c87b27">
   <script defer src="work-stack.js?v=768f0e32f9"></script>
   <link rel="stylesheet" href="page-progress.css?v=cb2bcc8b67">
@@ -117,7 +117,11 @@
       <!-- 卡片外壳独立于内容；正面复用原链接，背面只装饰，不产生重复焦点。 -->
       <template id="hero-card-shell">
         <div class="hero-card-edge" aria-hidden="true"></div>
-        <div class="hero-card-back" aria-hidden="true"><span class="hero-card-edition">WENJIE YANG / COLLECTION</span><span class="hero-card-monogram">WY<span>✳</span></span><span class="hero-card-back-title"></span><span class="hero-card-back-number"></span></div>
+        <div class="hero-card-back" aria-hidden="true">
+          <div class="hero-card-back-header"><span class="hero-card-edition">WENJIE YANG <span>作品选集</span></span><span class="hero-card-year">2026</span></div>
+          <div class="hero-card-back-art"><img class="hero-card-engraving" src="assets/images/hero/collection-engraving.svg" alt="" decoding="async"><span class="hero-card-seal">WY<span>✳</span></span></div>
+          <div class="hero-card-back-footer"><div><span class="hero-card-back-category"></span><span class="hero-card-back-title"></span></div><span class="hero-card-back-number"></span></div>
+        </div>
       </template>
       <div class="hero-bottom"><span>PORTFOLIO — 2026</span><a href="#projects">向下探索 <span aria-hidden="true">↓</span></a></div>
     </section>

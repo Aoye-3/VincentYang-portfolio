@@ -26,6 +26,7 @@
     link.dataset.number = number(index);
     const shell = template.content.cloneNode(true);
     shell.querySelector('.hero-card-back-title').textContent = link.querySelector('h2').textContent;
+    shell.querySelector('.hero-card-back-category').textContent = link.querySelector('.hero-project-category').textContent;
     shell.querySelector('.hero-card-back-number').textContent = number(index) + ' / ' + number(count - 1);
     card.prepend(shell);
     return link;

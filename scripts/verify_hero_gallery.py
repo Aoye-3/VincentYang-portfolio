@@ -42,9 +42,10 @@ with sync_playwright() as p:
     expect(gallery).to_have_attribute('data-playing','true')
     page.locator('.hero-collection-viewport').hover()
     expect(gallery).to_have_attribute('data-playing','false')
-    transform=page.locator('.hero-projects > li').first.get_attribute('style')
+    # Hover tilt may still settle while the autoplay travel is paused.
+    transform=page.locator('.hero-projects > li').first.evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42')
     page.wait_for_timeout(300)
-    assert transform==page.locator('.hero-projects > li').first.get_attribute('style')
+    assert abs(transform-page.locator('.hero-projects > li').first.evaluate('(el)=>new DOMMatrix(getComputedStyle(el).transform).m42'))<.1
     page.mouse.move(10,100)
     expect(gallery).to_have_attribute('data-playing','true')
     bounds=page.locator('.hero-projects').bounding_box()
