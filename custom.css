@@ -78,7 +78,8 @@ html:not(.js) .project-filters, html:not(.js) .theme-toggle { display: none; }
    HTML width/height 提前提供原图比例，加载前后轨道尺寸保持一致。 */
 .discovery-group img { display: block; flex: 0 0 auto; width: auto; max-width: none; height: var(--tile-height); object-fit: contain; border-radius: 8px; outline: 1px solid #ffffff30; outline-offset: -1px; background: #222; }
 @keyframes discovery-drift { to { transform: translateX(-50%); } }
-.discovery-shade { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(circle var(--spot-radius) at var(--spot-x) var(--spot-y), transparent 0 24%, #0007 50%, #000000f5 85%); }
+.discovery-shade { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(circle var(--spot-radius) at var(--spot-x) var(--spot-y), transparent 0 24%, #0006 50%, #000b 85%); }
+.work-discovery::before { content: ""; position: absolute; inset: 0; z-index: -4; pointer-events: none; opacity: .16; background: radial-gradient(circle, #a37ce8 1px, transparent 1.4px) 0 0 / 9px 9px; mask-image: linear-gradient(#000, transparent 55%); }
 .work-discovery::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(#000, transparent 18%, transparent 80%, #000), radial-gradient(ellipse 280px 250px at 50% 48%, #000c 15%, transparent 100%); }
 .work-discovery.is-exploring .discovery-wall { opacity: 1; }
 .work-discovery .section-intro { position: relative; margin: 0; pointer-events: none; text-shadow: 0 2px 24px #000, 0 0 50px #000; }
@@ -103,7 +104,7 @@ html:not(.js) .discovery-controls { display: none; }
   .discovery-controls button { padding-inline: 12px; font-size: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .work-discovery .discovery-wall { opacity: .16; }
+  .work-discovery .discovery-wall { opacity: .55; }
   .discovery-controls { display: none; }
 }
 .work-toolbar { position: sticky; top: 78px; z-index: 20; padding: 18px 0 22px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: var(--page); }
@@ -167,7 +168,17 @@ summary:hover .plus { background: var(--panel-soft); }
 .interest-disclosure[open] .plus { transform: rotate(45deg); }
 .collapse-label, .interest-disclosure[open] .expand-label { display: none; }
 .interest-disclosure[open] .collapse-label { display: inline; }
-.interest-content { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-bottom: 40px; }
+.interest-content { display: block; padding-bottom: 40px; }
+.creative-preview-root { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.creative-preview-root.is-enhanced { grid-template-columns: 1fr; gap: 0; }
+.creative-preview-item { display: grid; grid-template-columns: 160px minmax(0, 1fr) 32px; gap: 32px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.creative-thumbnail { width: 160px; height: 112px; object-fit: contain; background: var(--panel); border-radius: 10px; }
+.creative-preview-item .eyebrow { margin-bottom: 8px; }
+.creative-preview-item a.interest-card { display: inline-block; padding: 0; border: 0; border-radius: 0; overflow: visible; background: none; color: var(--ink); font-size: clamp(2rem, 2.4vw, 3rem); font-weight: 500; line-height: 1.5; text-decoration: none; }
+.creative-preview-item a.interest-card:hover { color: var(--accent); }
+.creative-description { max-width: 40em; margin-top: 10px; color: var(--muted); font-size: 1.4rem; line-height: 1.8; }
+.creative-arrow { color: var(--accent); font-size: 2.6rem; }
+.portrait-pixel-layer { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .interest-card { display: block; position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; padding: 30px; background: var(--panel); }
 .interest-art { position: relative; display: flex; align-items: center; justify-content: center; height: 220px; margin: 16px 0 26px; }
 .interest-art-label { transition: opacity .35s, transform .5s var(--ease); }
@@ -289,6 +300,7 @@ body.reader-open { overflow: hidden; }
   .project-list { gap: 25px; }
   .work-card { grid-template-columns: 1fr; min-height: 0; border-radius: 20px; }
   .work-copy { padding: 28px; }
+  .work-visual { grid-row: 1; }
   .work-copy h3 { margin-top: 28px; font-size: 3.5rem; }
   .work-description { max-width: 100%; margin: 18px 0; }
   .work-tags { margin-bottom: 23px; }
@@ -311,7 +323,11 @@ body.reader-open { overflow: hidden; }
   .interest-trigger { padding-top: 27px; }
   .expand-label, .collapse-label, .interest-disclosure[open] .collapse-label { display: none; }
   .plus { width: 48px; height: 48px; font-size: 2.7rem; }
-  .interest-content { grid-template-columns: 1fr; }
+  .creative-preview-root { grid-template-columns: 1fr; }
+  .creative-preview-item { grid-template-columns: 80px minmax(0, 1fr) 18px; gap: 16px; padding-block: 24px; }
+  .creative-thumbnail { width: 80px; height: 104px; }
+  .creative-preview-item a.interest-card { padding: 0; font-size: 2rem; }
+  .creative-description { font-size: 1.3rem; }
   .interest-card { padding: 26px; }
   .game-note { gap: 17px; flex-wrap: wrap; }
   .game-note > .eyebrow { margin-left: 40px; font-size: .9rem; }

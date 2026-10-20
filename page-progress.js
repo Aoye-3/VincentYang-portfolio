@@ -6,6 +6,17 @@
   const track = menu.querySelector('.page-progress-links');
   const entries = [...track.querySelectorAll('a')].map(link => ({ link, target: document.getElementById(link.hash.slice(1)) })).filter(item => item.target);
   const isCase = menu.classList.contains('case-toc');
+  const indicator = document.createElement('span');
+  indicator.className = 'page-progress-indicator';
+  indicator.setAttribute('aria-hidden', 'true');
+  track.prepend(indicator);
+  track.classList.add('has-indicator');
+  function positionIndicator() {
+    if (!active || !track.clientWidth) return;
+    indicator.style.width = active.offsetWidth + 'px';
+    indicator.style.height = active.offsetHeight + 'px';
+    indicator.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
+  }
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'page-progress-toggle';
@@ -24,6 +35,7 @@
     const expanded = menu.classList.toggle('is-expanded');
     toggle.setAttribute('aria-expanded', String(expanded));
     if (expanded) (active || entries[0]?.link)?.focus({ preventScroll: true });
+    if (expanded) positionIndicator();
   });
   track.addEventListener('click', event => {
     if (event.target.closest('a')) closeChapters(compact.matches);
@@ -65,6 +77,7 @@
       // Scroll only the grey track; never scroll the page to follow a tab.
       if (!compact.matches) track.scrollTo({ left: active.offsetLeft - track.offsetLeft - (track.clientWidth - active.offsetWidth) / 2, behavior: 'instant' });
     }
+    positionIndicator();
   }
   function schedule() { if (!frame) frame = requestAnimationFrame(update); }
   window.addEventListener('scroll', schedule, { passive: true });
@@ -73,6 +86,7 @@
   window.addEventListener('hashchange', schedule);
   document.querySelector('#interest-disclosure')?.addEventListener('toggle', schedule);
   new ResizeObserver(schedule).observe(document.body);
+  new ResizeObserver(positionIndicator).observe(track);
   update();
 
   const back = menu.querySelector('[data-context-back]');

@@ -7,3 +7,5 @@ node_modules/
 Reference/
 页面图片/
 tasks/
+.env.local
+.env.*.local

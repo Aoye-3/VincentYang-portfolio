@@ -2,14 +2,27 @@
   "name": "wenjie-portfolio-background",
   "private": true,
   "scripts": {
-    "build:background": "node scripts/build-hero-background.mjs"
+    "build:background": "node scripts/build-hero-background.mjs",
+    "build:interactions": "node scripts/build-portfolio-enhancements.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "clsx": "2.1.1",
+    "motion": "14.4.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
+    "tailwind-merge": "3.7.0",
     "three": "0.186.1"
   },
   "devDependencies": {
-    "esbuild": "0.28.2"
+    "@tailwindcss/cli": "4.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "esbuild": "0.28.2",
+    "shadcn": "4.22.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2"
   }
 }

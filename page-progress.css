@@ -18,6 +18,9 @@ body { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
 .page-progress-status { position: absolute; bottom: calc(100% + 10px); right: 0; max-width: calc(100vw - 32px); padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink); font-size: 1.2rem; overflow-wrap: anywhere; }
 .page-progress-status:empty { display: none; }
 .page-progress-toggle { display: none; }
+.page-progress-links { position: relative; }
+.page-progress-indicator { position: absolute; left: 0; top: 0; border: 1px solid var(--context-active); border-radius: 9px; background: var(--context-selected); pointer-events: none; transition: transform .24s var(--ease), width .24s var(--ease), height .24s var(--ease); }
+.page-progress .page-progress-links.has-indicator a[aria-current] { border-color: transparent; background: transparent; }
 /* Lazy insertion of the diagonal rows must not become a browser scroll anchor:
    otherwise the browser pulls the page back immediately after a chapter jump. */
 .work-discovery { overflow-anchor: none; }
@@ -39,4 +42,4 @@ body { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
   .js .page-progress .page-progress-links a { min-width: 0; padding: 12px 8px; font-size: 1.3rem; white-space: normal; text-align: center; }
   .js .page-progress .page-progress-action { padding-inline: 16px; font-size: 1.3rem; }
 }
-@media (prefers-reduced-motion: reduce) { .page-progress .page-progress-links a { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .page-progress .page-progress-links a, .page-progress-indicator { transition: none; } }

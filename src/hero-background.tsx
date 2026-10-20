@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import ChromaCurrent from "./backgrounds/chroma-current";
 
 const mount = document.getElementById("hero-chroma-root");
-const hero = mount?.closest(".hero-stage");
+const hero = mount?.closest<HTMLElement>(".hero-stage");
 
 if (mount && hero) {
   createRoot(mount).render(<ChromaCurrent />);
@@ -25,7 +25,7 @@ if (mount && hero) {
       bubbles: false,
     }));
   };
-  for (const type of ["pointermove", "pointerdown", "pointerup", "pointerleave", "pointercancel"]) {
+  for (const type of ["pointermove", "pointerdown", "pointerup", "pointerleave", "pointercancel"] as const) {
     hero.addEventListener(type, forwardPointer, { passive: true });
   }
 }

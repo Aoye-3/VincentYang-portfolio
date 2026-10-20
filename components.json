@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/reactbits.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/reactbits",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@reactbits-starter": {
+      "url": "https://proxy.collectui.pro/api/r/reactbits/starter/{name}.json",
+      "headers": { "Authorization": "Bearer ${REACTBITS_LICENSE_KEY}" }
+    },
+    "@reactbits-pro": {
+      "url": "https://proxy.collectui.pro/api/r/reactbits/pro/{name}.json",
+      "headers": { "Authorization": "Bearer ${REACTBITS_LICENSE_KEY}" }
+    }
+  }
+}
