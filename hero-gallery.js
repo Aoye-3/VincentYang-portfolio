@@ -45,6 +45,7 @@
   let tiltTime = 0;
   const tilt = { x: 0, y: 0, targetX: 0, targetY: 0 };
   let cardHeight = list.getBoundingClientRect().height;
+  let viewportHeight = viewport.clientHeight;
   const isStatic = () => !desktopMode || reduceMotion || count === 1;
   const canRun = () => !isStatic() && !userPaused && !hovered && !focused && visible && !document.hidden;
 
@@ -59,11 +60,17 @@
       const staticMode = isStatic();
       const limit = Math.min(2.45, count / 2);
       // Fade before modular wrapping, so a recycled card never jumps in the visible area.
-      const opacity = staticMode ? Number(selected) : Math.min(1, Math.max(0, (limit - distance) / .4));
-      card.style.visibility = opacity > .001 ? 'visible' : 'hidden';
       const rotation = Math.sign(offset) * Math.min(distance * 112, 175);
-      const y = offset * cardHeight * .82;
+      const travel = distance <= 1 ? distance * .82 : .82 + (distance - 1) * .25;
+      const y = Math.sign(offset) * cardHeight * travel;
       const z = -Math.min(distance, 2.5) * 150;
+      // Fade the faces before their projected edges leave the stage. The 3D
+      // ancestors stay unmasked, so the front/back geometry remains intact.
+      const projection = 1350 / (1350 - z);
+      const edge = (Math.abs(y) + Math.abs(Math.cos(rotation * Math.PI / 180)) * cardHeight / 2) * projection;
+      const boundaryFade = Math.min(1, Math.max(0, (viewportHeight / 2 - edge - 20) / 56));
+      const opacity = staticMode ? Number(selected) : Math.min(boundaryFade, Math.max(0, (limit - distance) / .4));
+      card.style.visibility = opacity > .001 ? 'visible' : 'hidden';
       // A restrained stagger follows the trajectory, never randomizes project order.
       // At center the face is front-facing with a slight -3deg in-plane rotation.
       const x = Math.sin(offset * 1.5) * 22;
@@ -167,13 +174,20 @@
     phase = active;
     elapsed = phase * PERIOD;
     cardHeight = list.getBoundingClientRect().height;
+    viewportHeight = viewport.clientHeight;
     render();
     syncPlayback();
   }
   // Cache media state on change rather than reading MediaQueryList in every animation frame.
   desktop.addEventListener('change', event => { desktopMode = event.matches; updateMode(); });
   reduced.addEventListener('change', event => { reduceMotion = event.matches; updateMode(); });
-  new ResizeObserver(() => { cardHeight = list.getBoundingClientRect().height; render(); }).observe(list);
+  const sizes = new ResizeObserver(() => {
+    cardHeight = list.getBoundingClientRect().height;
+    viewportHeight = viewport.clientHeight;
+    render();
+  });
+  sizes.observe(list);
+  sizes.observe(viewport);
   new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
     syncPlayback();

@@ -1,21 +1,23 @@
 /* Selected work only. Sticky cards share a parent so each stays underneath the
    next card until the end of the stack. Never put overflow:hidden on this parent. */
-.selected-work-heading { padding: 85px 0 34px; }
-.selected-work-heading h2 { font-size: clamp(3.8rem, 5.6vw, 8rem); line-height: 1.2; letter-spacing: -.05em; font-weight: 600; margin: 18px 0 0; }
+.selected-work-heading { padding: 64px 0 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.selected-work-heading h2 { font-size: clamp(3.8rem, 4.6vw, 6.4rem); line-height: 1.25; letter-spacing: -.04em; font-weight: 600; margin: 0; }
+.selected-work-note { max-width: 26em; padding-bottom: 8px; color: var(--muted); font-size: 1.4rem; line-height: 1.8; }
 .selected-work-heading h2 > span { color: var(--accent); }
 .work-stack { position: relative; display: grid; gap: 42px; }
 .work-stack.is-stacking { display: block; }
 /* A real trailing flow item extends the sticky containing block. Padding alone
    does not provide enough room for the earlier card's margin box to remain pinned. */
-.work-stack.is-stacking::after { content: ""; display: block; height: calc(24svh + 80px); }
-.work-stack.is-stacking > .work-card { position: sticky; top: calc(var(--stack-top) + var(--stack-index) * 28px); z-index: var(--stack-order); margin-bottom: 24svh; transform: scale(var(--stack-scale, 1)); transform-origin: center top; box-shadow: 0 -10px 45px #0003; border-color: #ffffff40; }
+.work-stack.is-stacking::after { content: ""; display: block; height: calc(18svh + 64px); }
+.work-stack.is-stacking > .work-card { position: sticky; top: calc(var(--stack-top) + var(--stack-index) * 28px); z-index: var(--stack-order); margin-bottom: 18svh; transform: scale(var(--stack-scale, 1)); transform-origin: center top; box-shadow: 0 -10px 45px #0003; border-color: #ffffff40; }
 .work-stack.is-stacking > .work-card:last-child { margin-bottom: 0; }
 /* Keyboard users can access an earlier case even when another card covers it.
    Mouse clicks must not pin an earlier card above the rest of the stack. */
 .work-stack.is-stacking > .work-card:has(:focus-visible) { z-index: 10; transform: scale(1); }
 .light-mode .work-stack.is-stacking > .work-card { border-color: #16162230; box-shadow: 0 -10px 45px #20203010; }
 @media (max-width: 760px) {
-  .selected-work-heading { padding: 45px 0 22px; }
+  .selected-work-heading { padding: 40px 0 18px; display: block; }
+  .selected-work-note { margin-top: 14px; padding-bottom: 0; }
   .selected-work-heading h2 { font-size: clamp(3.2rem, 8vw, 4.8rem); }
   .work-stack { gap: 25px; }
 }

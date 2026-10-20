@@ -11,8 +11,9 @@ baseline=subprocess.check_output(['git','show','HEAD:index.html'],cwd=ROOT).deco
 current=(ROOT/'index.html').read_text(encoding='utf-8')
 def hero(source):
     content = source[source.index('<section class="hero-stage"'):source.index('<section class="work-section')]
-    return content.replace('      <div class="hero-atmosphere" aria-hidden="true"><canvas></canvas></div>\n', '')
-assert hero(baseline)==hero(current),'Hero markup changed'
+    # The stage layout can change; preserve the actual projects and their links.
+    return content[content.index('<ul class="hero-projects">'):content.index('</ul>')]
+assert hero(baseline)==hero(current),'Hero project content or destinations changed'
 report=[]
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path=r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',headless=True)
@@ -21,7 +22,7 @@ with sync_playwright() as p:
         errors=[]
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.goto(BASE,wait_until='networkidle')
-        expect(page.locator('#work-title')).to_have_text('精选展示作品.')
+        expect(page.locator('#work-title')).to_have_text('精选作品。')
         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth')
         stack=page.locator('.work-stack')
         cards=stack.locator('.work-card')

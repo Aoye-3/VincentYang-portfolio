@@ -55,8 +55,8 @@ themeButton?.addEventListener('click', () => {
 
 const revealElements = Array.from(document.querySelectorAll('[data-scroll-reveal]'));
 const revealed = new WeakSet();
-const homeSections = Array.from(document.querySelectorAll('.portfolio-page main > section[id], .portfolio-page footer#contact'));
 const homeLinks = Array.from(document.querySelectorAll('.portfolio-page .nav-links a'));
+const homeSections = homeLinks.map(link => document.getElementById(link.hash.slice(1))).filter(Boolean);
 const chapters = Array.from(document.querySelectorAll('.case-section[id]'));
 const chapterLinks = Array.from(document.querySelectorAll('.case-toc a'));
 const progressBar = document.querySelector('.reading-progress');
@@ -170,11 +170,11 @@ if (discovery) {
   }
   if ('IntersectionObserver' in window) {
     const preload = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) { buildGallery(); preload.disconnect(); }
+      if (entries.some(entry => entry.isIntersecting)) { buildGallery(); preload.disconnect(); }
     }, { rootMargin: '300px' });
     preload.observe(discovery);
     new IntersectionObserver(entries => {
-      visible = entries[0].isIntersecting;
+      visible = entries[entries.length - 1].isIntersecting;
       updateGalleryPlayback();
     }).observe(discovery);
   } else {

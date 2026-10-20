@@ -2,6 +2,7 @@
 .hero-stage { background: #05080d; }
 .hero-layout, .hero-bottom { position: relative; z-index: 1; }
 .hero-atmosphere { position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: #05080d; }
+.hero-atmosphere::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, #05080dc7, #05080d60 45%, transparent 72%), linear-gradient(0deg, #000, transparent 24%); }
 /* Scoped equivalents of the supplied component's six Tailwind utilities.
    Keep its isolation/overflow inside the background sibling, never on cards. */
 #hero-chroma-root > div { position: relative; isolation: isolate; height: 100%; min-height: 320px; width: 100%; overflow: hidden; }

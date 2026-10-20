@@ -26,10 +26,16 @@ with sync_playwright() as p:
             assert 10 <= height - initial['y'] - initial['height'] <= 22
             links = menu.locator('.page-progress-links a')
             for link in links.all():
+                if width <= 760:
+                    menu.locator('.page-progress-toggle').click()
+                    expect(menu.locator('.page-progress-toggle')).to_have_attribute('aria-expanded', 'true')
                 link.focus()  # browser reveals offscreen tabs in the grey track
                 page.keyboard.press('Enter')
                 page.wait_for_timeout(160)
                 expect(link).to_have_attribute('aria-current', 'location')
+                if width <= 760:
+                    expect(menu.locator('.page-progress-toggle')).to_have_attribute('aria-expanded', 'false')
+                    expect(menu.locator('.page-progress-current')).to_have_text(link.inner_text())
                 assert abs(menu.bounding_box()['y'] - initial['y']) < 1
                 target = page.locator(link.get_attribute('href'))
                 if link.get_attribute('href') != '#home':

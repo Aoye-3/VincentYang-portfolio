@@ -51,6 +51,7 @@ report = {'static': {'pages': len(docs), 'board_assets': 44, 'links': 'passed'},
 with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=EDGE, headless=True)
     for width, height in [(1440, 900), (1920, 1080), (1024, 900), (768, 1024), (390, 844), (360, 740)]:
+        print(f'Portfolio viewport {width}x{height}', flush=True)
         context = browser.new_context(viewport={'width': width, 'height': height}, has_touch=width < 500, is_mobile=width < 500)
         page = context.new_page()
         errors = []
@@ -72,7 +73,7 @@ with sync_playwright() as p:
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
             page.mouse.move(10, 100)
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
-            expect(page.locator('#work-title')).to_contain_text('精选展示作品')
+            expect(page.locator('#work-title')).to_contain_text('精选作品')
             # Main cases now stack; their transform belongs to work-stack.js.
             # Geometry, reverse scrolling and fallbacks: verify_work_stack.py.
             assert page.locator('.work-stack > .work-card[data-scroll-reveal]').count() == 0
@@ -93,7 +94,13 @@ with sync_playwright() as p:
 
         gallery = page.locator('.work-discovery')
         gallery.evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - 78,behavior:"instant"})')
-        page.wait_for_function('document.querySelectorAll(".discovery-strip").length > 0 && [...document.querySelectorAll(".discovery-wall img")].every(img => img.complete && img.naturalWidth > 0)')
+        try:
+            page.wait_for_function('document.querySelectorAll(".discovery-strip").length > 0 && [...document.querySelectorAll(".discovery-wall img")].every(img => img.complete && img.naturalWidth > 0)')
+        except Exception:
+            print({'errors': errors, 'failed_requests': failures}, flush=True)
+            print(page.evaluate('''() => ({scrollY, rows:document.querySelectorAll('.discovery-strip').length, wall:document.querySelector('.work-discovery').getBoundingClientRect().toJSON(), unloaded:[...document.querySelectorAll('.discovery-wall img')].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src)})'''), flush=True)
+            page.screenshot(path=str(OUT / f'gallery-failure-{width}.png'))
+            raise
         rows = gallery.locator('.discovery-strip').evaluate_all('(rows) => rows.map(row => ({category: row.dataset.galleryCategory, categories: [...new Set([...row.querySelectorAll("img")].map(img => img.dataset.galleryCategory))]}))')
         assert [row['category'] for row in rows] == ['ux', 'ux', 'awards'] * 3
         assert all(row['categories'] == [row['category']] for row in rows), 'Mixed categories within a gallery row'
@@ -199,6 +206,8 @@ with sync_playwright() as p:
             page.keyboard.press('Escape')
             expect(page.locator('.board-dialog')).not_to_be_visible()
             expect(opener).to_be_focused()
+            if width <= 760:
+                page.locator('.page-progress-toggle').click()
             page.locator('.case-toc-links a').nth(1).click()
             page.wait_for_timeout(650)
             expect(page.locator('.case-toc-links a').nth(1)).to_have_attribute('aria-current', 'location')

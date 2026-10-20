@@ -1,6 +1,6 @@
 # 杨雯捷 · Portfolio
 
-杨雯捷的个人作品集，基于 [Vinod Jangid 的开源作品集模板](https://github.com/vinodjangid07/vinodjangid07.github.io) 迭代。首页采用纯黑背景、缓慢漂浮的作品画面与鼠标局部显影；向下滚动进入分类作品列表。UX 与产品体验案例优先展示，兴趣创作点击展开。三个详情页保留 44 张作品集板面，并提供章节导航和放大阅读器。网站仍为纯静态 HTML/CSS/JS，无需构建或安装运行依赖。
+杨雯捷的个人作品集，基于 [Vinod Jangid 的开源作品集模板](https://github.com/vinodjangid07/vinodjangid07.github.io) 迭代。首页以紫色点阵背景和竖向翻转作品卡片开场，向下连接探照灯作品墙、精选案例、个人经历、更多创作与联系渠道。两个核心展示交互保留，手机采用紧凑的章节目录。三个详情页保留 44 张作品集板面，并提供章节导航和放大阅读器。页面可直接以静态文件运行；现有 React / Three.js 背景已预先打包，只有修改背景源码时才需要安装构建依赖。
 
 ## 本地预览
 
@@ -39,10 +39,11 @@ python -m http.server 5501 --bind 127.0.0.1
 - [精选展示作品：滚动叠卡与响应式降级](docs/07-work-stack.md)
 - [页面进度菜单：章节、邮箱与返回行为](docs/08-page-progress.md)
 - [首页粒子背景、配色变量与视频生成提示词](docs/09-hero-atmosphere.md)
+- [连续页面改版：存档、保留交互与验收](docs/11-continuous-portfolio-redesign.md)
 
 首屏使用独立的 `hero-gallery.css` 和 `hero-gallery.js`，以首页 `.hero-projects` 列表为内容源。新增卡片无需修改动效代码。执行 `python scripts/verify_hero_gallery.py` 检查专属交互与两轮真实播放，报告和截图位于 `.local/hero-collection/`。
 
-启动本地服务器后运行 `python scripts/verify_portfolio.py`。检查覆盖 360–1920px、键盘/触屏、分类筛选、图片阅读器、减少动效及无 JavaScript 浏览；报告写入 `.local/acceptance/`。当前页面实现以第 04 份文档为准，原详情页地址与板面文件名保持兼容。
+启动本地服务器后运行 `python scripts/verify_portfolio.py`。检查覆盖 360–1920px、键盘/触屏、分类筛选、图片阅读器、减少动效及无 JavaScript 浏览；报告写入 `.local/acceptance/`。运行 `python scripts/verify_redesign.py` 另外检查 320–2048px 的布局、手机目录和经历展开，连续执行三轮。当前改版说明见第 11 份文档，原详情页地址与板面文件名保持兼容。
 
 ## GitHub Pages 部署
 

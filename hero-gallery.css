@@ -1,7 +1,7 @@
 /* Homepage only. Content list, card shell and motion controller are separate.
    No mask/filter/opacity on the 3D ancestors: these flatten preserve-3d. */
 .hero-stage { position: relative; background: #000; color: #f5f5f7; padding: 110px 5% 82px; overflow: hidden; }
-.hero-layout { max-width: 1440px; min-height: min(720px, calc(100svh - 192px)); margin: auto; display: grid; grid-template-columns: 55fr 45fr; gap: 28px; align-items: center; }
+.hero-layout { max-width: 1240px; min-height: min(860px, calc(100svh - 180px)); margin: auto; display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
 .hero-content { position: relative; z-index: 2; min-width: 0; padding-block: 40px; }
 .portrait-orbit { width: 58px; height: 58px; margin-bottom: 25px; }
 .portrait-orbit img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1px solid #ffffff38; }
@@ -11,7 +11,7 @@
 .hero-directions b { font-weight: 650; color: #f5f5f7; }
 .hero-directions > span { display: block; color: #9bc6ff; }
 .hero-statement { font-size: clamp(2rem, 2.25vw, 3.3rem); font-weight: 550; letter-spacing: -.035em; margin: 34px 0 0; }
-.hero-description { max-width: 570px; color: #a8a8b7; font-size: 1.35rem; line-height: 1.95; margin-top: 20px; }
+.hero-description { max-width: 540px; color: #c3cad5; font-size: 1.5rem; line-height: 1.85; margin-top: 20px; }
 .hero-description > span { display: block; margin-top: 6px; text-wrap: pretty; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 28px; margin-top: 30px; }
 .hero-bottom { max-width: 1440px; margin: 20px auto 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #92929f; font-size: .95rem; letter-spacing: .14em; }
@@ -20,7 +20,7 @@
 .light-mode .hero-stage .gradient-text { background-image: var(--brand-gradient); }
 .light-mode .hero-stage .button-primary { background: var(--action-bg); color: var(--action-ink); }
 .hero-collection { min-width: 0; position: relative; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
-.hero-collection-heading { display: flex; justify-content: space-between; gap: 10px; color: #96969f; letter-spacing: .16em; font-size: .85rem; padding: 0 12px 14px; }
+.hero-collection-heading { display: flex; justify-content: space-between; gap: 10px; color: #b9c5d6; letter-spacing: .06em; font-size: 1.1rem; padding: 0 12px 18px; }
 .hero-collection-viewport { position: relative; }
 .hero-projects { padding: 0; margin: 0; list-style: none; display: grid; gap: 24px; }
 .hero-projects > li { position: relative; min-width: 0; }
@@ -29,12 +29,12 @@
 .hero-project-link > img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #0b0b0e; }
 .hero-project-category { font-size: .85rem; letter-spacing: .16em; color: var(--card-accent); margin-top: 18px; }
 .hero-project-title { font-size: 2rem; line-height: 1.25; font-weight: 550; letter-spacing: -.025em; margin: 8px 40px 0 0; }
-.hero-collection.is-ready .hero-collection-viewport { height: clamp(540px, 68svh, 730px); perspective: 1350px; overflow: hidden; }
+.hero-collection.is-ready .hero-collection-viewport { height: clamp(640px, 88svh, 960px); perspective: 1350px; overflow: visible; }
 .hero-collection.is-ready .hero-collection-viewport::before,
 .hero-collection.is-ready .hero-collection-viewport::after { content: ""; position: absolute; z-index: 50; left: 0; right: 0; height: 65px; pointer-events: none; }
 .hero-collection.is-ready .hero-collection-viewport::before { top: 0; background: linear-gradient(#000, transparent); }
 .hero-collection.is-ready .hero-collection-viewport::after { bottom: 0; background: linear-gradient(transparent, #000); }
-.hero-collection.is-ready .hero-projects { position: absolute; top: 50%; left: 50%; width: min(76%, 360px); aspect-ratio: 1.4; transform: translate(-50%, -50%); transform-style: preserve-3d; display: block; }
+.hero-collection.is-ready .hero-projects { position: absolute; top: 50%; left: 50%; width: min(80%, 380px); aspect-ratio: 1.4; transform: translate(-50%, -50%); transform-style: preserve-3d; display: block; }
 .hero-collection.is-ready .hero-projects > li { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
 .hero-collection.is-ready .hero-project-link { position: absolute; inset: 0; padding: 35px 18px 16px; background: linear-gradient(130deg, #24242a, #101013 68%); backface-visibility: hidden; transform: translateZ(2px); box-shadow: inset 0 1px 0 #ffffff35, 0 18px 35px #0007; overflow: hidden; }
 .hero-collection.is-ready .hero-project-link::before { content: "WY ✳ / " attr(data-number); position: absolute; top: 15px; left: 18px; color: #c2c2cd; font-size: .85rem; letter-spacing: .14em; }
@@ -43,7 +43,7 @@
 .hero-collection.is-ready .hero-project-category { margin-top: 13px; font-size: .8rem; }
 .hero-collection.is-ready .hero-project-title { margin-top: 5px; font-size: clamp(1.5rem, 1.5vw, 2.2rem); }
 .hero-collection.is-ready .hero-project-link:focus-visible { outline: 2px solid var(--card-accent); outline-offset: -5px; }
-.hero-card-edge { position: absolute; inset: 1px; border-radius: 18px; background: #72727f; transform: translateZ(0); box-shadow: 0 0 0 1px #ffffff38; pointer-events: none; }
+.hero-card-edge { position: absolute; inset: 1px; border-radius: 18px; background: #38383f; transform: translateZ(0); box-shadow: 0 0 0 1px #ffffff12; pointer-events: none; }
 .hero-card-back { position: absolute; inset: 0; border-radius: 18px; padding: 24px; backface-visibility: hidden; transform: rotateX(180deg) translateZ(2px); background: radial-gradient(ellipse at 90% 90%, #ffffff0d, transparent 60%), #101013; border: 1px solid #ffffff35; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; overflow: hidden; }
 .hero-card-edition { color: #94949f; font-size: .85rem; letter-spacing: .18em; }
 .hero-card-monogram { align-self: center; font-size: 8rem; line-height: 1; font-weight: 750; letter-spacing: -.12em; color: #28282f; }
@@ -81,7 +81,7 @@
   .hero-actions { gap: 20px; }
   .hero-actions .button { font-size: 1.3rem; padding-inline: 22px; gap: 20px; }
   .hero-layout { gap: 45px; }
-  .hero-collection-heading { font-size: .75rem; padding-inline: 0; }
+  .hero-collection-heading { font-size: 1.05rem; padding-inline: 0; }
   .hero-collection.is-static .hero-projects { width: 100%; }
   .hero-collection.is-ready .hero-project-link { padding: 34px 14px 14px; }
   .hero-collection.is-ready .hero-project-link::before { top: 11px; left: 14px; font-size: .75rem; }
