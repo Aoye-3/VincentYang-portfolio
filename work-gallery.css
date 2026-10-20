@@ -1,4 +1,4 @@
-/* Editorial project index adapted to the site's existing typography and colours. */
+/* Native project list remains available when the Prism enhancement cannot run. */
 .selected-work-heading { padding: 64px 0 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
 .selected-work-heading h2 { font-size: clamp(3.8rem, 4.6vw, 6.4rem); line-height: 1.25; letter-spacing: -.04em; font-weight: 600; margin: 0; }
 .selected-work-heading h2 > span { color: var(--accent); }
@@ -10,6 +10,25 @@
 .project-filters button[aria-pressed="true"] { border-bottom-color: var(--accent); color: var(--ink); }
 .work-count { color: var(--muted); font: 1.2rem/1.6 var(--display); white-space: nowrap; }
 .project-list { display: grid; }
+.work-carousel-host { display: none; min-width: 0; }
+.project-list[data-enhanced="true"] > .work-card { display: none; }
+.project-list[data-enhanced="true"] > .work-carousel-host { display: block; }
+.work-carousel { padding: 26px 0 48px; border-bottom: 1px solid var(--line); }
+.work-carousel-stage { height: min(clamp(260px, calc(100svh - 576px), 450px), 36vw); }
+.work-prism { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 18px; }
+.work-prism:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.work-carousel-caption { max-width: 68em; min-height: 100px; margin: 20px auto 0; text-align: center; }
+.work-project-heading { display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px 16px; color: var(--ink); }
+.work-project-heading h3 { margin: 0; font: 550 clamp(2.4rem, 2.5vw, 3.4rem)/1.35 var(--display); letter-spacing: -.025em; }
+.work-keywords { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.work-keywords > span { padding: 4px 9px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 1.1rem; line-height: 1.5; }
+.work-project-arrow { font-size: 2rem; color: var(--accent); }
+.work-project-summary { display: block; max-width: 40em; margin: 12px auto 0; color: var(--muted); font-size: 1.5rem; line-height: 1.8; text-wrap: pretty; }
+.work-project-heading:hover, .work-project-summary:hover { color: var(--accent); }
+.work-carousel-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 12px; }
+.work-carousel-controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: var(--panel); color: var(--ink); font-size: 2rem; transition: background .2s, border-color .2s; }
+.work-carousel-controls button:hover { background: var(--page); border-color: var(--accent); }
+.work-carousel-counter { min-width: 64px; color: var(--muted); text-align: center; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
 .work-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr) auto; align-items: center; gap: clamp(24px, 4vw, 56px); padding: 32px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
 .work-card:focus-visible { outline-offset: 7px; border-radius: 2px; }
 .work-visual { aspect-ratio: 16 / 9; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
@@ -31,6 +50,13 @@
   .work-open { grid-column: 2; justify-self: end; margin-top: -12px; }
 }
 @media (max-width: 760px) {
+  .work-carousel { padding: 20px 0 32px; }
+  .work-carousel-stage { height: clamp(170px, 56vw, 350px); }
+  .work-carousel-caption { min-height: 130px; margin-top: 16px; }
+  .work-project-heading { gap: 8px 12px; }
+  .work-project-heading h3 { font-size: 2.4rem; }
+  .work-project-summary { font-size: 1.4rem; }
+  .work-carousel-controls { margin-top: 8px; }
   .selected-work-heading { display: block; padding: 40px 0 18px; }
   .selected-work-heading h2 { font-size: clamp(3.2rem, 8vw, 4.8rem); }
   .selected-work-note { margin-top: 14px; padding-bottom: 0; }
@@ -52,5 +78,5 @@
   .work-count { padding: 4px 0 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-filters button, .work-visual img { transition: none; }
+  .project-filters button, .work-visual img, .work-carousel-controls button { transition: none; }
 }

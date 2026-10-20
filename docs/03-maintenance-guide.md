@@ -1,6 +1,6 @@
 # 站点维护与迭代指南
 
-更新：2026-10-20。本文记录当前仓库中需要维护的文件、稳定链接及每次迭代的检查方法。设计目标和分阶段顺序见 [个性化体验方案](02-experience-blueprint.md)。首屏收藏卡最新规则见 [首屏组件维护](06-hero-gallery.md)，作品列表见 [当前列表维护](14-work-gallery.md)。
+更新：2026-10-20。本文记录当前仓库中需要维护的文件、稳定链接及每次迭代的检查方法。设计目标和分阶段顺序见 [个性化体验方案](02-experience-blueprint.md)。首屏收藏卡最新规则见 [首屏组件维护](06-hero-gallery.md)，精选作品见 [Prism 轮播维护](17-prism-selected-work.md)。
 
 ## 文件与职责
 
@@ -14,11 +14,11 @@
 | `custom.css` | 本站品牌样式、响应式与项目页覆盖 | 新视觉和交互样式优先加在这里，避免重复选择器无限叠加 |
 | `main.js` | 导航、主题、分类、兴趣深链、鼠标显影、滚动渐入与板面阅读器 | 局部指针效果遵守减少动效；导航和原图链接保留无 JS 降级 |
 | `hero-gallery.css` / `hero-gallery.js` | 首屏左右布局、收藏卡外壳、翻转与鼠标倾斜 | 内容只从首页 `.hero-projects` 读取，与作品墙播放状态独立 |
-| `work-gallery.css` / `components/showcase-7.tsx` | 精选作品的常显封面列表 | 内容源是首页 `#work-gallery-mount` 内的原生链接；分类为 all / ux / media，见 [列表维护](14-work-gallery.md) |
+| `work-gallery.css` / `src/selected-work.tsx` / `components/prism-carousel.tsx` | 精选作品的 Prism 轮播、标签与详情入口 | 内容源是首页 `#work-gallery-mount` 内的原生链接；分类为 all / ux / media，关键词映射在 `selected-work.tsx`，见 [轮播维护](17-prism-selected-work.md) |
 | `about-skills.css` / `components/features-10.tsx` | 关于我的头像与六项技能图谱 | 内容源是首页 `#about-orbit-mount`；保留真实简历依据和键盘/触屏选择，见 [技能图谱维护](15-about-skills.md) |
 | `work-universe.css` / `src/work-universe.tsx` / `components/infinite-gallery.tsx` | 主动进入的 3D 作品宇宙 | 默认不拦截页面滚动；5 个独立作品，新增与状态规则见 [作品宇宙维护](16-work-universe.md) |
 | `page-progress.css` / `page-progress.js` | 底部固定的章节进度菜单、邮箱与返回 | 首页链接写在 `.page-progress-links`，详情复用 `.case-toc-links`，见 [菜单维护](08-page-progress.md) |
-| `scripts/verify_work_gallery.py` | 列表顺序、分类、慢加载、键盘与原生回退验收 | 输出 `.local/work-gallery/`；与全站验收脚本配合使用 |
+| `scripts/verify_work_gallery.py` | Prism 分类、左右操作、详情跳转、慢加载与原生回退验收 | 输出 `.local/work-gallery/`；与全站验收脚本配合使用 |
 | `scripts/verify_hero_gallery.py` | 首屏响应式、链接、输入方式、降级与完整播放 | 覆盖新增第六张、仅一张和空列表；输出 `.local/hero-collection/` |
 | `assets/images/` | 形象照、项目封面、板面 WebP | 图片使用相对路径、明确 `alt`；详情板面继续懒加载 |
 | `docs/` | 评估、体验方案、维护决策 | 大的结构调整后同步更新地图和分类表 |

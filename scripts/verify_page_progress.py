@@ -67,7 +67,8 @@ with sync_playwright() as p:
     expect(page.locator('.page-progress-status')).to_contain_text('请手动复制邮箱：' + address)
 
     # Back navigation must leave the case even after multiple chapter jumps.
-    page.locator('.work-card').first.click()
+    page.locator('#work-title').scroll_into_view_if_needed()
+    page.locator('.work-project-heading').click()
     page.locator('.case-toc-links a').nth(1).click()
     page.locator('.case-toc-links a').nth(2).click()
     page.locator('[data-context-back]').click()

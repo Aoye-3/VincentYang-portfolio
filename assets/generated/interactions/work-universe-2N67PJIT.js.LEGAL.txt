@@ -22,14 +22,6 @@ use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.productio
    * LICENSE file in the root directory of this source tree.
    */
 
-three/build/three.core.js:
-three/build/three.module.js:
-  /**
-   * @license
-   * Copyright 2010-2026 Three.js Authors
-   * SPDX-License-Identifier: MIT
-   */
-
 @react-three/fiber/dist/events-e51d7528.esm.js:
   /**
    * @license React

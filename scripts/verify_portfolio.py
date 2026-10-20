@@ -74,10 +74,10 @@ with sync_playwright() as p:
             page.mouse.move(10, 100)
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
             expect(page.locator('#work-title')).to_contain_text('精选作品')
-            # The work index uses normal flow; projects must never overlap.
+            # The retired stack and custom cursor must not return.
             assert page.locator('.work-stack, .case-cursor').count() == 0
             assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
-            report['interactions'].extend(['hero pause/resume', 'editorial work index'])
+            report['interactions'].extend(['hero pause/resume', 'Prism work carousel'])
 
         if width < 500:
             menu = page.locator('#menu-toggle')
@@ -147,12 +147,13 @@ with sync_playwright() as p:
         assert not page.evaluate('document.documentElement.scrollWidth > innerWidth'), f'Gallery overflow at {width}'
 
         page.locator('[data-filter="ux"]').click()
-        assert page.locator('[data-category]:visible').count() == 2
+        expect(page.locator('#work-gallery-mount')).to_have_attribute('data-enhanced', 'true')
+        assert page.locator('[data-category]:not([hidden])').count() == 2
         page.locator('[data-filter="media"]').click()
-        assert page.locator('[data-category]:visible').count() == 3
+        assert page.locator('[data-category]:not([hidden])').count() == 3
         page.locator('[data-filter="all"]').click()
-        assert page.locator('[data-category]:visible').count() == 5
-        page.locator('.work-card').first.focus()
+        assert page.locator('[data-category]:not([hidden])').count() == 5
+        page.locator('.work-project-heading').focus()
         page.locator('.work-toolbar').evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top) + 100,behavior:"instant"})')
         page.wait_for_timeout(200)
         assert page.locator('.work-toolbar').evaluate('(el) => Math.abs(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top))') < 2

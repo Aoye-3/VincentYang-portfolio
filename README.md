@@ -1,6 +1,6 @@
 # 杨雯捷 · Portfolio
 
-杨雯捷的个人作品集，基于 [Vinod Jangid 的开源作品集模板](https://github.com/vinodjangid07/vinodjangid07.github.io) 迭代。首页以紫色点阵背景和竖向翻转作品卡片开场，向下连接 3D 作品宇宙、精选作品列表、个人经历、更多创作与联系渠道，探照灯作品墙位于联系区之后、版权栏之前。原有展示交互保留，手机采用紧凑的章节目录。三个详情页保留 44 张作品集板面，并提供章节导航和放大阅读器。页面可直接以静态文件运行；React / Three.js 背景与交互组件已预先打包，修改这些组件的源码后需要重新构建资源。
+杨雯捷的个人作品集，基于 [Vinod Jangid 的开源作品集模板](https://github.com/vinodjangid07/vinodjangid07.github.io) 迭代。首页以紫色点阵背景和竖向翻转作品卡片开场，向下连接 3D 作品宇宙、Prism 精选作品轮播、个人经历、更多创作与联系渠道，探照灯作品墙位于联系区之后、版权栏之前。原有展示交互保留，手机采用紧凑的章节目录。三个详情页保留 44 张作品集板面，并提供章节导航和放大阅读器。页面可直接以静态文件运行；React / Three.js 背景与交互组件已预先打包，修改这些组件的源码后需要重新构建资源。
 
 ## 本地预览
 
@@ -18,7 +18,7 @@ python -m http.server 5501 --bind 127.0.0.1
 - `style.css`：Vinod 模板原始样式，保留 MIT 许可
 - `custom.css`：个人内容与视觉的适配样式
 - `main.js`：导航、主题、局部显影、滚动渐入、分类筛选和板面阅读器
-- `work-gallery.css` / `components/showcase-7.tsx`：精选作品列表，基于 ReactBits Showcase7 适配；五个项目按「全部作品 / UI-UX设计 / AIGC媒体类」筛选，原生链接作为加载失败时的回退
+- `work-gallery.css` / `src/selected-work.tsx` / `components/prism-carousel.tsx`：精选作品 Prism 轮播；五个项目按「全部作品 / UI-UX设计 / AIGC媒体类」筛选，封面、标题与原简介进入详情，原生列表作为加载或 WebGL 失败时的回退
 - `work-universe.css` / `src/work-universe.tsx` / `components/infinite-gallery.tsx`：五作品 3D 画廊，默认自动漫游；点击探索后，仅在画廊内接管滚轮与触摸
 - `src/portfolio-enhancements.tsx`：作品列表、创作预览与头像技能图谱的 React 接入；修改后执行 `npm run typecheck` 和 `npm run build:interactions`
 - `about-skills.css` / `components/features-10.tsx`：「关于我」头像技能图谱，基于 ReactBits Features 10，支持鼠标、键盘与触屏探索
@@ -45,9 +45,10 @@ python -m http.server 5501 --bind 127.0.0.1
 - [连续页面改版：存档、保留交互与验收](docs/11-continuous-portfolio-redesign.md)
 - [ReactBits 接入、设计走查与交互探索](docs/12-reactbits-interaction-exploration.md)
 - [收藏卡正反面：材质、刻纹与交互验证](docs/13-collection-card-material.md)
-- [精选作品列表：ReactBits Showcase7、分类与原生回退](docs/14-work-gallery.md)
+- [历史方案：Showcase7 作品列表](docs/14-work-gallery.md)
 - [关于我：Features 10 头像技能图谱与简历依据](docs/15-about-skills.md)
 - [作品宇宙：Infinite Gallery、探索状态与底部作品墙](docs/16-work-universe.md)
+- [精选作品：Prism Carousel、关键词标签与详情入口](docs/17-prism-selected-work.md)
 
 首屏使用独立的 `hero-gallery.css` 和 `hero-gallery.js`，以首页 `.hero-projects` 列表为内容源。新增卡片无需修改动效代码。执行 `python scripts/verify_hero_gallery.py` 检查专属交互与两轮真实播放，报告和截图位于 `.local/hero-collection/`。
 
@@ -55,7 +56,7 @@ python -m http.server 5501 --bind 127.0.0.1
 
 「作品宇宙」使用 Infinite Gallery。运行 `python scripts/verify_infinite_gallery.py` 检查默认滚动、局部探索、Esc、自动漫游、暂停和原生入口，七种视口连续三轮；证据位于 `.local/infinite-gallery/`。当前有 5 个独立作品，新增规则与数量注释位置见第 16 份文档。
 
-启动本地服务器后运行 `python scripts/verify_portfolio.py`。检查覆盖 360–1920px、键盘/触屏、分类筛选、图片阅读器、减少动效及无 JavaScript 浏览；报告写入 `.local/acceptance/`。运行 `python scripts/verify_redesign.py` 另外检查 320–2048px 的布局、手机目录和经历展开，连续执行三轮。当前作品列表说明见第 14 份文档；`python scripts/verify_work_gallery.py` 覆盖七种视口、三轮分类切换，以及慢加载、键盘与无 JS 入口，报告位于 `.local/work-gallery/`。原详情页地址与板面文件名保持兼容。
+启动本地服务器后运行 `python scripts/verify_portfolio.py`。检查覆盖 360–1920px、键盘/触屏、分类筛选、图片阅读器、减少动效及无 JavaScript 浏览；报告写入 `.local/acceptance/`。运行 `python scripts/verify_redesign.py` 另外检查 320–2048px 的布局、手机目录和经历展开，连续执行三轮。当前精选作品说明见第 17 份文档；`python scripts/verify_work_gallery.py` 覆盖七种视口、分类切换、左右操作、详情跳转、慢加载和无 JS / WebGL 回退，报告位于 `.local/work-gallery/`。原详情页地址与板面文件名保持兼容。
 
 ## GitHub Pages 部署
 

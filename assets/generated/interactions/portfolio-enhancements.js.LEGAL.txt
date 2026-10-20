@@ -34,7 +34,6 @@ lucide-react/dist/esm/shared/src/utils/hasA11yProp.mjs:
 lucide-react/dist/esm/context.mjs:
 lucide-react/dist/esm/Icon.mjs:
 lucide-react/dist/esm/createLucideIcon.mjs:
-lucide-react/dist/esm/icons/arrow-up-right.mjs:
 lucide-react/dist/esm/icons/bot.mjs:
 lucide-react/dist/esm/icons/code-xml.mjs:
 lucide-react/dist/esm/icons/mouse-pointer-2.mjs:
