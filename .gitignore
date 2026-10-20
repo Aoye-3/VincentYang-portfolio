@@ -3,3 +3,7 @@ Thumbs.db
 *.log
 .codegraph/
 .local/
+node_modules/
+Reference/
+页面图片/
+tasks/

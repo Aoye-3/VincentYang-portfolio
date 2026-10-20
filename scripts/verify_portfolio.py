@@ -50,7 +50,7 @@ assert len(list((ROOT / 'assets/images/boards').glob('*.webp'))) == 44
 report = {'static': {'pages': len(docs), 'board_assets': 44, 'links': 'passed'}, 'viewports': [], 'interactions': [], 'cases': []}
 with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=EDGE, headless=True)
-    for width, height in [(1440, 900), (1920, 1080), (768, 1024), (390, 844), (360, 740)]:
+    for width, height in [(1440, 900), (1920, 1080), (1024, 900), (768, 1024), (390, 844), (360, 740)]:
         context = browser.new_context(viewport={'width': width, 'height': height}, has_touch=width < 500, is_mobile=width < 500)
         page = context.new_page()
         errors = []
@@ -66,24 +66,18 @@ with sync_playwright() as p:
         timing = page.evaluate('Math.round(performance.getEntriesByType("navigation")[0].domContentLoadedEventEnd)')
 
         if width == 1440:
-            page.mouse.move(160, 330)
-            page.wait_for_timeout(800)
-            assert page.locator('.hero-lit').evaluate('(el) => Number(getComputedStyle(el).opacity)') > .8
-            page.screenshot(path=str(OUT / 'hero-pointer-reveal.png'))
-            page.locator('#motion-toggle').click()
-            expect(page.locator('#motion-toggle')).to_have_attribute('aria-pressed', 'true')
-            assert page.locator('.hero-gallery .floating-work').first.evaluate('(el) => getComputedStyle(el).animationPlayState') == 'paused'
-            page.locator('#motion-toggle').click()
-            values = []
-            for _ in range(32):
-                page.mouse.wheel(0, 100)
-                page.wait_for_timeout(90)
-                values.append(page.locator('.work-card').first.evaluate('(el) => Number(getComputedStyle(el).opacity)'))
-                if values[-1] == 1:
-                    break
-            assert any(0 < value < 1 for value in values), f'No progressive reveal: {values}'
-            assert values[-1] == 1
-            report['interactions'].extend(['pointer reveal', 'pause/resume ambient motion', 'progressive scroll reveal'])
+            expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
+            assert page.locator('.hero-collection button:visible').count() == 0
+            page.locator('.hero-collection-viewport').hover()
+            expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
+            page.mouse.move(10, 100)
+            expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
+            expect(page.locator('#work-title')).to_contain_text('精选展示作品')
+            # Main cases now stack; their transform belongs to work-stack.js.
+            # Geometry, reverse scrolling and fallbacks: verify_work_stack.py.
+            assert page.locator('.work-stack > .work-card[data-scroll-reveal]').count() == 0
+            assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
+            report['interactions'].extend(['hero pause/resume', 'stacked work markup'])
 
         if width < 500:
             menu = page.locator('#menu-toggle')
@@ -95,8 +89,7 @@ with sync_playwright() as p:
             page.keyboard.press('Escape')
             expect(menu).to_be_focused()
             expect(menu).to_have_attribute('aria-expanded', 'false')
-            page.touchscreen.tap(25, 215)
-            expect(page.locator('.hero-stage')).to_have_class('hero-stage is-exploring')
+            expect(page.locator('.hero-collection')).to_have_class('hero-collection is-ready is-static')
 
         gallery = page.locator('.work-discovery')
         gallery.evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - 78,behavior:"instant"})')
@@ -206,9 +199,9 @@ with sync_playwright() as p:
             page.keyboard.press('Escape')
             expect(page.locator('.board-dialog')).not_to_be_visible()
             expect(opener).to_be_focused()
-            page.locator('.case-toc a').nth(1).click()
+            page.locator('.case-toc-links a').nth(1).click()
             page.wait_for_timeout(650)
-            expect(page.locator('.case-toc a').nth(1)).to_have_attribute('aria-current', 'location')
+            expect(page.locator('.case-toc-links a').nth(1)).to_have_attribute('aria-current', 'location')
             assert not errors, errors
             report['cases'].append({'name': name, 'width': width, 'boards': count, 'reader_and_chapters': 'passed'})
         page.locator('#theme-toggle').click()
@@ -219,14 +212,13 @@ with sync_playwright() as p:
     context = browser.new_context(viewport={'width': 390, 'height': 844}, reduced_motion='reduce')
     page = context.new_page()
     page.goto(BASE, wait_until='networkidle')
-    assert page.locator('.hero-gallery .floating-work').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
+    expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'false')
     assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
     page.locator('.work-discovery').scroll_into_view_if_needed()
     assert page.locator('.discovery-strip').first.evaluate('(el) => getComputedStyle(el).animationName') == 'none'
     expect(page.locator('#gallery-motion-toggle')).not_to_be_visible()
-    ambient_card = page.locator('.hero-gallery .floating-work').first
     page.emulate_media(reduced_motion='no-preference')
-    assert ambient_card.evaluate('(el) => getComputedStyle(el).animationName') == 'float-work'
+    assert page.locator('.hero-collection button:visible').count() == 0  # mobile uses native swipe
     page.goto(BASE + '#interests', wait_until='networkidle')
     assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
     context.close()

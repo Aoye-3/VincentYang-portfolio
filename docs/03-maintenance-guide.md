@@ -1,6 +1,6 @@
 # 站点维护与迭代指南
 
-更新：2026-09-17。本文记录当前仓库中需要维护的文件、稳定链接及每次迭代的检查方法。设计目标和分阶段顺序见 [个性化体验方案](02-experience-blueprint.md)。
+更新：2026-09-21。本文记录当前仓库中需要维护的文件、稳定链接及每次迭代的检查方法。设计目标和分阶段顺序见 [个性化体验方案](02-experience-blueprint.md)。首屏收藏卡最新规则见 [首屏组件维护](06-hero-gallery.md)。
 
 ## 文件与职责
 
@@ -13,6 +13,11 @@
 | `style.css` | Vinod 原模板样式 | 尽量保持原文件，便于识别上游规则与许可 |
 | `custom.css` | 本站品牌样式、响应式与项目页覆盖 | 新视觉和交互样式优先加在这里，避免重复选择器无限叠加 |
 | `main.js` | 导航、主题、分类、兴趣深链、鼠标显影、滚动渐入与板面阅读器 | 局部指针效果遵守减少动效；导航和原图链接保留无 JS 降级 |
+| `hero-gallery.css` / `hero-gallery.js` | 首屏左右布局、收藏卡外壳、翻转与鼠标倾斜 | 内容只从首页 `.hero-projects` 读取，与作品墙播放状态独立 |
+| `work-stack.css` / `work-stack.js` | 主案例随页面滚动逐张叠加 | 内容源 `.work-stack`；观察原筛选的 `hidden` 状态；高度不足时恢复普通列表，见 [叠卡维护](07-work-stack.md) |
+| `page-progress.css` / `page-progress.js` | 底部固定的章节进度菜单、邮箱与返回 | 首页链接写在 `.page-progress-links`，详情复用 `.case-toc-links`，见 [菜单维护](08-page-progress.md) |
+| `scripts/verify_work_stack.py` | 叠卡位置、顺序、反向滚动、筛选与降级验收 | 输出 `.local/work-stack/`；与全站验收脚本配合使用 |
+| `scripts/verify_hero_gallery.py` | 首屏响应式、链接、输入方式、降级与完整播放 | 覆盖新增第六张、仅一张和空列表；输出 `.local/hero-collection/` |
 | `assets/images/` | 形象照、项目封面、板面 WebP | 图片使用相对路径、明确 `alt`；详情板面继续懒加载 |
 | `docs/` | 评估、体验方案、维护决策 | 大的结构调整后同步更新地图和分类表 |
 | `scripts/verify_portfolio.py` | 桌面、平板、手机与交互验收 | 新增板面后更新数量预期；截图和报告写入已忽略的 `.local/` |
@@ -20,6 +25,8 @@
 当前页面使用纯静态文件，GitHub Pages 可从仓库根目录发布；无需在 C 盘安装项目依赖或生成构建产物。原模板版权见根目录 `LICENSE`；个人文案、肖像和项目图另有版权说明。
 
 板面映射：`board-04.webp` 至 `board-24.webp` 属于 AI 灵感助手，`board-25.webp` 至 `board-46.webp` 属于 PMAgent-Canvas，`board-47.webp` 是其他项目概览。共 44 张；第 26 页使用原稿的修改版。新增素材不要覆盖这些既有文件名，以免旧链接指向错误内容。
+
+首页粒子装饰与配色变量见 [背景维护](09-hero-atmosphere.md)；背景文件独立于收藏卡动效。
 
 ## 稳定路径与锚点
 
@@ -31,6 +38,7 @@
 | `/projects/pmagent.html` | 产品体验主案例 |
 | `/projects/other.html#dubbingroom` | DubbingRoom 旧入口 |
 | `/projects/other.html#jiangtian` | 江天黄鹤旧入口 |
+| `/projects/other.html#vivo` | Vivo 创意广告图文介绍 |
 | `/#interests` | 兴趣区，直接访问时自动展开 |
 | `/projects/other.html#competitions` | 竞赛经历与团队贡献 |
 | 两份主案例的 `#chapter-1` 至 `#chapter-4` | 章节目录；旧 `#board-NN` 板面锚点仍可使用 |
@@ -39,7 +47,7 @@
 
 ## CodeGraph 的实际覆盖范围
 
-本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。本轮同步后的索引为 **3 个文件、106 个节点、161 条关系**，覆盖 `main.js`、Python 验收脚本和素材生成脚本。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
+本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前覆盖 **12 个文件**：`main.js`、`hero-gallery.js`、`work-stack.js`、`page-progress.js`、`hero-atmosphere.js`、五份 Python 验收脚本、缓存恢复回归脚本和素材生成脚本；节点与关系数量以 `codegraph status .` 的最新结果为准。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
 
 在本仓库目录内可运行：
 

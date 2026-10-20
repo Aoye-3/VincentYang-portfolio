@@ -6,7 +6,6 @@ const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 const menuButton = document.getElementById('menu-toggle');
 const siteMenu = document.getElementById('site-menu');
 const themeButton = document.getElementById('theme-toggle');
-const hero = document.querySelector('.hero-stage');
 const interests = document.getElementById('interest-disclosure');
 
 function closeMenu(returnFocus = false) {
@@ -83,7 +82,8 @@ function updateScrollState() {
     else link.removeAttribute('aria-current');
   });
   let chapter = chapters[0]?.id;
-  chapters.forEach(section => { if (section.getBoundingClientRect().top <= 210) chapter = section.id; });
+  // Fixed context menu + chapter scroll margin land near 210px; allow rounding.
+  chapters.forEach(section => { if (section.getBoundingClientRect().top <= 220) chapter = section.id; });
   chapterLinks.forEach(link => {
     if (link.hash === '#' + chapter) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');
@@ -131,25 +131,6 @@ document.querySelectorAll('a[href="#interests"]').forEach(link => link.addEventL
 window.addEventListener('hashchange', openInterestFromHash);
 interests?.addEventListener('toggle', scheduleScroll);
 openInterestFromHash();
-
-if (hero) {
-  const litGallery = hero.querySelector('.hero-gallery').cloneNode(true);
-  litGallery.className = 'hero-lit';
-  hero.prepend(litGallery);
-  const pauseButton = document.getElementById('motion-toggle');
-  pauseButton?.addEventListener('click', () => {
-    const paused = document.body.classList.toggle('motion-paused');
-    pauseButton.setAttribute('aria-pressed', String(paused));
-    pauseButton.setAttribute('aria-label', paused ? '继续背景动效' : '暂停背景动效');
-    pauseButton.innerHTML = paused ? '继续动效 <span aria-hidden="true">▷</span>' : '暂停动效 <span aria-hidden="true">Ⅱ</span>';
-  });
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(entries => {
-      hero.classList.toggle('ambient-paused', !entries[0].isIntersecting);
-    }).observe(hero);
-  }
-  document.addEventListener('visibilitychange', () => hero.classList.toggle('page-idle', document.hidden));
-}
 
 // 排布规则：每排只放一种类别，按 UX → UX → 获奖证书循环，UX 占三分之二。
 // 背景图片墙不使用插画 / AIGC 素材。
@@ -211,7 +192,7 @@ if (discovery) {
 }
 
 // Pointer coordinates affect only the hovered region; no permanent animation loop.
-document.querySelectorAll('.hero-stage, [data-spotlight]').forEach(element => {
+document.querySelectorAll('[data-spotlight]').forEach(element => {
   let frame = 0;
   let latestPoint = null;
   function track(event) {
@@ -249,7 +230,6 @@ document.querySelectorAll('[data-magnetic]').forEach(button => {
 motionPreference.addEventListener('change', () => {
   document.documentElement.classList.toggle('motion-ready', !motionPreference.matches);
   document.querySelectorAll('[data-magnetic]').forEach(button => { button.style.transform = ''; });
-  hero?.classList.remove('is-exploring');
   discovery?.classList.remove('is-exploring');
   scheduleScroll();
 });
