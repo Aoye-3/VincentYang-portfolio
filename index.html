@@ -12,19 +12,20 @@
   <title>杨雯捷 / Wenjie Yang · Portfolio</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="custom.css?v=6cbcfe127f">
+  <link rel="stylesheet" href="custom.css?v=e02d28f253">
   <script defer src="experience.js?v=3999badbf5"></script>
   <link rel="stylesheet" href="experience.css?v=11eed225a0">
   <link rel="stylesheet" href="hero-gallery.css?v=b40d3f9d90">
   <script defer src="main.js?v=6a027766ea"></script>
   <script defer src="hero-gallery.js?v=d05a9384fb"></script>
   <link rel="stylesheet" href="work-gallery.css?v=8a4e2eb7ef">
+  <link rel="stylesheet" href="work-universe.css?v=42bebb6d1f">
   <link rel="stylesheet" href="about-skills.css?v=ff98862684">
   <link rel="stylesheet" href="page-progress.css?v=cb2bcc8b67">
   <script defer src="page-progress.js?v=7d0db0624b"></script>
   <link rel="stylesheet" href="hero-atmosphere.css?v=8aae73ecc3">
   <link rel="stylesheet" href="assets/generated/interactions/portfolio-enhancements.css?v=fc75315ee8">
-  <script type="module" src="assets/generated/interactions/portfolio-enhancements.js?v=3111dbf75c"></script>
+  <script type="module" src="assets/generated/interactions/portfolio-enhancements.js?v=daffe42bc5"></script>
   <script defer src="assets/generated/chroma-current.js?v=c603859ba9"></script>
 </head>
 <body class="portfolio-page">
@@ -33,7 +34,7 @@
     <nav class="site-nav" aria-label="主导航">
       <a class="brand" href="#home" aria-label="杨雯捷，返回首页">WY<span class="brand-star" aria-hidden="true">✳</span><span class="brand-name">杨雯捷</span></a>
       <div class="nav-links" id="site-menu">
-        <a href="#honors-wall">作品墙</a><a href="#work-title">精选作品</a><a href="#about">关于我</a><a href="#interests">更多创作</a><a href="#contact">联系</a>
+        <a href="#work-universe">作品宇宙</a><a href="#work-title">精选作品</a><a href="#about">关于我</a><a href="#interests">更多创作</a><a href="#contact">联系</a><a href="#honors-wall">作品墙</a>
       </div>
       <div class="nav-actions">
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换到浅色模式" aria-pressed="false"><span aria-hidden="true">◐</span></button>
@@ -44,7 +45,7 @@
 
   <nav class="page-progress" aria-label="页面进度导航">
     <a class="page-progress-mark" href="#home" aria-label="回到首页">W.</a>
-    <div class="page-progress-links"><a href="#home" aria-current="location">首页</a><a href="#honors-wall">作品墙</a><a href="#work-title">精选作品</a><a href="#about">关于我</a><a href="#interests">更多创作</a><a href="#contact">联系</a></div>
+    <div class="page-progress-links"><a href="#home" aria-current="location">首页</a><a href="#work-universe">作品宇宙</a><a href="#work-title">精选作品</a><a href="#about">关于我</a><a href="#interests">更多创作</a><a href="#contact">联系</a><a href="#honors-wall">作品墙</a></div>
     <button class="page-progress-action" type="button" data-copy-email="" aria-label="查看联系渠道">联系 <span aria-hidden="true">↓</span></button>
     <span class="page-progress-status" role="status" aria-live="polite"></span>
   </nav>
@@ -126,47 +127,37 @@
       <div class="hero-bottom"><span>PORTFOLIO — 2026</span><a href="#projects">向下探索 <span aria-hidden="true">↓</span></a></div>
     </section>
 
-    <section class="work-section section-shell" id="projects" aria-labelledby="work-title">
-      <div id="honors-wall" class="work-discovery" data-spotlight>
-        <div class="discovery-wall" aria-hidden="true"></div>
-        <div class="discovery-shade" aria-hidden="true"></div>
-        <div class="section-intro" data-scroll-reveal>
+    <section class="universe-section section-shell" id="work-universe" aria-labelledby="universe-title">
+      <div class="universe-layout">
+        <div class="universe-shell" id="work-universe-mount">
+          <!-- 当前 3D 画廊有 5 个独立作品；画廊内重复展示这些封面。新增时在这里添加封面，并同步右侧作品入口。 -->
+          <div class="universe-frame"><div class="universe-poster">
+            <a data-universe-project href="projects/inspiration.html"><img src="assets/images/inspiration-cover.webp" alt="AI 灵感助手" width="1600" height="900" loading="lazy"></a>
+            <a data-universe-project href="projects/pmagent.html"><img src="assets/images/pmagent-cover.webp" alt="PMAgent-Canvas" width="1600" height="900" loading="lazy"></a>
+            <a data-universe-project href="projects/other.html#dubbingroom"><img src="assets/images/hero/dubbingroom.svg" alt="DubbingRoom" width="1600" height="900" loading="lazy"></a>
+            <a data-universe-project href="projects/other.html#jiangtian"><img src="assets/images/hero/jiangtian.webp" alt="江天黄鹤" width="1200" height="675" loading="lazy"></a>
+            <a data-universe-project href="projects/other.html#vivo"><img src="assets/images/hero/vivo.webp" alt="Vivo 创意广告" width="1200" height="675" loading="lazy"></a>
+          </div></div>
+        </div>
+        <div class="universe-copy">
+          <div class="universe-intro">
           <p class="eyebrow">作品与实践</p>
-          <h2 id="discovery-title">从洞察出发。<br><span class="muted-heading">让体验发生。</span></h2>
-          <p>项目界面与获奖记录，在这里展开。</p>
+          <h2 id="universe-title">探索我的<br><span>作品宇宙。</span></h2>
+          <p class="universe-description">界面、工具与影像，在同一个空间相遇。从不同距离，发现五件作品。</p>
+          <p class="universe-help">点击开始探索，拖动浏览。画廊外可继续滚动。</p>
+          </div>
+          <ol class="universe-index" aria-label="画廊中的作品">
+            <li><a href="projects/inspiration.html"><span>01</span>AI 灵感助手<span aria-hidden="true">↗</span></a></li>
+            <li><a href="projects/pmagent.html"><span>02</span>PMAgent-Canvas<span aria-hidden="true">↗</span></a></li>
+            <li><a href="projects/other.html#dubbingroom"><span>03</span>DubbingRoom<span aria-hidden="true">↗</span></a></li>
+            <li><a href="projects/other.html#jiangtian"><span>04</span>江天黄鹤<span aria-hidden="true">↗</span></a></li>
+            <li><a href="projects/other.html#vivo"><span>05</span>Vivo 创意广告<span aria-hidden="true">↗</span></a></li>
+          </ol>
         </div>
-        <div class="discovery-controls">
-          <span><span class="discovery-mark" aria-hidden="true">✳</span><span class="pointer-hint">移动探索，让作品显影</span><span class="touch-hint">轻触或滑过，点亮作品</span></span>
-          <button id="gallery-motion-toggle" type="button" aria-pressed="false" aria-label="暂停图片墙滚动">暂停流动 <span aria-hidden="true">Ⅱ</span></button>
-        </div>
-        <template id="discovery-tiles">
-          <img src="assets/images/discovery/ux-01.webp" data-gallery-category="ux" alt="" width="754" height="440">
-          <img src="assets/images/discovery/ux-02.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-03.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-04.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-05.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-06.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-07.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-08.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-09.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-10.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/ux-11.webp" data-gallery-category="ux" alt="" width="782" height="440">
-          <img src="assets/images/discovery/awards-01.webp" data-gallery-category="awards" alt="" width="311" height="440">
-          <img src="assets/images/discovery/awards-02.webp" data-gallery-category="awards" alt="" width="622" height="440">
-          <img src="assets/images/discovery/awards-03.webp" data-gallery-category="awards" alt="" width="622" height="440">
-          <img src="assets/images/discovery/awards-04.webp" data-gallery-category="awards" alt="" width="622" height="440">
-          <img src="assets/images/discovery/awards-05.webp" data-gallery-category="awards" alt="" width="311" height="440">
-          <img src="assets/images/discovery/awards-06.webp" data-gallery-category="awards" alt="" width="311" height="440">
-          <img src="assets/images/discovery/awards-07.webp" data-gallery-category="awards" alt="" width="311" height="440">
-          <img src="assets/images/discovery/awards-08.webp" data-gallery-category="awards" alt="" width="311" height="440">
-          <img src="assets/images/discovery/awards-09.webp" data-gallery-category="awards" alt="" width="314" height="440">
-          <img src="assets/images/discovery/awards-10.webp" data-gallery-category="awards" alt="" width="316" height="440">
-          <img src="assets/images/discovery/awards-11.webp" data-gallery-category="awards" alt="" width="315" height="440">
-          <img src="assets/images/discovery/awards-12.webp" data-gallery-category="awards" alt="" width="316" height="440">
-          <img src="assets/images/discovery/awards-13.webp" data-gallery-category="awards" alt="" width="313" height="440">
-          <img src="assets/images/discovery/awards-14.webp" data-gallery-category="awards" alt="" width="322" height="440">
-        </template>
       </div>
+    </section>
+
+    <section class="work-section section-shell" id="projects" aria-labelledby="work-title">
       <div class="selected-work-heading"><h2 id="work-title">精选作品<span aria-hidden="true">。</span></h2><p class="selected-work-note">界面、产品与影像，持续的设计实践。</p></div>
       <div class="work-toolbar"><div class="project-filters" role="group" aria-label="筛选作品分类"><button type="button" data-filter="all" aria-pressed="true">全部作品</button><button type="button" data-filter="ux" aria-pressed="false">UI-UX设计</button><button type="button" data-filter="media" aria-pressed="false">AIGC媒体类</button></div><span class="work-count" id="work-count" aria-live="polite">05 件作品</span></div>
       <div class="project-list" id="work-gallery-mount" aria-label="作品列表">
@@ -323,6 +314,49 @@
     </section>
   </main>
 
-  <footer class="site-footer home-footer" id="contact"><div class="section-shell"><p class="eyebrow">保持联系</p><h2>下一个好想法，<br><span class="gradient-text">从一次交流开始。</span></h2><a class="button button-primary" href="https://github.com/Aoye-3" target="_blank" rel="noopener noreferrer">在 GitHub 找到我 <span aria-hidden="true">↗</span></a><div class="footer-bottom"><span>© 2026 杨雯捷 / Wenjie Yang</span><span>基于 <a href="https://github.com/vinodjangid07/vinodjangid07.github.io" target="_blank" rel="noopener noreferrer">Vinod Jangid</a> 模板迭代 · MIT</span><a href="#home">回到顶部 ↑</a></div></div></footer>
+  <footer class="site-footer home-footer" id="contact"><div class="section-shell contact-panel"><p class="eyebrow">保持联系</p><h2>下一个好想法，<br><span class="gradient-text">从一次交流开始。</span></h2><a class="button button-primary" href="https://github.com/Aoye-3" target="_blank" rel="noopener noreferrer">在 GitHub 找到我 <span aria-hidden="true">↗</span></a></div>
+    <section class="archive-section section-shell" aria-labelledby="discovery-title">
+      <div id="honors-wall" class="work-discovery" data-spotlight>
+        <div class="discovery-wall" aria-hidden="true"></div>
+        <div class="discovery-shade" aria-hidden="true"></div>
+        <div class="section-intro" data-scroll-reveal>
+          <p class="eyebrow">作品与实践</p>
+          <h2 id="discovery-title">从洞察出发。<br><span class="muted-heading">让体验发生。</span></h2>
+          <p>项目界面与获奖记录，在这里展开。</p>
+        </div>
+        <div class="discovery-controls">
+          <span><span class="discovery-mark" aria-hidden="true">✳</span><span class="pointer-hint">移动探索，让作品显影</span><span class="touch-hint">轻触或滑过，点亮作品</span></span>
+          <button id="gallery-motion-toggle" type="button" aria-pressed="false" aria-label="暂停图片墙滚动">暂停流动 <span aria-hidden="true">Ⅱ</span></button>
+        </div>
+        <template id="discovery-tiles">
+          <img src="assets/images/discovery/ux-01.webp" data-gallery-category="ux" alt="" width="754" height="440">
+          <img src="assets/images/discovery/ux-02.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-03.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-04.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-05.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-06.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-07.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-08.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-09.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-10.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/ux-11.webp" data-gallery-category="ux" alt="" width="782" height="440">
+          <img src="assets/images/discovery/awards-01.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-02.webp" data-gallery-category="awards" alt="" width="622" height="440">
+          <img src="assets/images/discovery/awards-03.webp" data-gallery-category="awards" alt="" width="622" height="440">
+          <img src="assets/images/discovery/awards-04.webp" data-gallery-category="awards" alt="" width="622" height="440">
+          <img src="assets/images/discovery/awards-05.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-06.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-07.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-08.webp" data-gallery-category="awards" alt="" width="311" height="440">
+          <img src="assets/images/discovery/awards-09.webp" data-gallery-category="awards" alt="" width="314" height="440">
+          <img src="assets/images/discovery/awards-10.webp" data-gallery-category="awards" alt="" width="316" height="440">
+          <img src="assets/images/discovery/awards-11.webp" data-gallery-category="awards" alt="" width="315" height="440">
+          <img src="assets/images/discovery/awards-12.webp" data-gallery-category="awards" alt="" width="316" height="440">
+          <img src="assets/images/discovery/awards-13.webp" data-gallery-category="awards" alt="" width="313" height="440">
+          <img src="assets/images/discovery/awards-14.webp" data-gallery-category="awards" alt="" width="322" height="440">
+        </template>
+      </div>
+    </section>
+    <div class="section-shell copyright-shell"><div class="footer-bottom"><span>© 2026 杨雯捷 / Wenjie Yang</span><span>基于 <a href="https://github.com/vinodjangid07/vinodjangid07.github.io" target="_blank" rel="noopener noreferrer">Vinod Jangid</a> 模板迭代 · MIT</span><a href="#home">回到顶部 ↑</a></div></div></footer>
 </body>
 </html>

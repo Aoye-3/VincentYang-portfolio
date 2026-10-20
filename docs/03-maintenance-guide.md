@@ -16,6 +16,7 @@
 | `hero-gallery.css` / `hero-gallery.js` | 首屏左右布局、收藏卡外壳、翻转与鼠标倾斜 | 内容只从首页 `.hero-projects` 读取，与作品墙播放状态独立 |
 | `work-gallery.css` / `components/showcase-7.tsx` | 精选作品的常显封面列表 | 内容源是首页 `#work-gallery-mount` 内的原生链接；分类为 all / ux / media，见 [列表维护](14-work-gallery.md) |
 | `about-skills.css` / `components/features-10.tsx` | 关于我的头像与六项技能图谱 | 内容源是首页 `#about-orbit-mount`；保留真实简历依据和键盘/触屏选择，见 [技能图谱维护](15-about-skills.md) |
+| `work-universe.css` / `src/work-universe.tsx` / `components/infinite-gallery.tsx` | 主动进入的 3D 作品宇宙 | 默认不拦截页面滚动；5 个独立作品，新增与状态规则见 [作品宇宙维护](16-work-universe.md) |
 | `page-progress.css` / `page-progress.js` | 底部固定的章节进度菜单、邮箱与返回 | 首页链接写在 `.page-progress-links`，详情复用 `.case-toc-links`，见 [菜单维护](08-page-progress.md) |
 | `scripts/verify_work_gallery.py` | 列表顺序、分类、慢加载、键盘与原生回退验收 | 输出 `.local/work-gallery/`；与全站验收脚本配合使用 |
 | `scripts/verify_hero_gallery.py` | 首屏响应式、链接、输入方式、降级与完整播放 | 覆盖新增第六张、仅一张和空列表；输出 `.local/hero-collection/` |

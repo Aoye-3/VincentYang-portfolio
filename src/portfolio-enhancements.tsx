@@ -8,6 +8,27 @@ import Features10, { type SkillNode } from "../components/features-10";
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const creativeMount = document.getElementById("creative-preview-root");
 const workMount = document.getElementById("work-gallery-mount");
+const universeMount = document.getElementById("work-universe-mount");
+
+if (universeMount) {
+  // 当前作品宇宙包含 5 个独立作品封面；空间会重复这些封面。
+  // 新增作品：在 index.html 的此挂载点添加 data-universe-project，并同步右侧作品入口。
+  const projects = [...universeMount.querySelectorAll<HTMLAnchorElement>("[data-universe-project]")].map((link) => {
+    const image = link.querySelector("img")!;
+    return { title: image.alt, href: link.getAttribute("href")!, url: image.getAttribute("src")!, width: Number(image.getAttribute("width")), height: Number(image.getAttribute("height")) };
+  });
+  const observer = new IntersectionObserver(async (entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    try {
+      const { default: WorkUniverse } = await import("./work-universe");
+      createRoot(universeMount).render(<WorkUniverse projects={projects} />);
+    } catch {
+      // Native cover links remain available if the 3D chunk cannot load.
+    }
+  }, { rootMargin: "300px" });
+  observer.observe(universeMount);
+}
 
 if (workMount) {
   const projects: WorkProject[] = [...workMount.querySelectorAll<HTMLAnchorElement>(".work-card")].map((link) => ({

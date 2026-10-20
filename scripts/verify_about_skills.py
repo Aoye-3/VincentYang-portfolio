@@ -15,7 +15,7 @@ BASE = 'http://127.0.0.1:5501/'
 EDGE = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
 baseline = subprocess.check_output(['git', 'show', 'HEAD:index.html'], cwd=ROOT).decode('utf-8')
 current = (ROOT / 'index.html').read_text(encoding='utf-8')
-start, end = '<section class="hero-stage"', '<section class="about-section'
+start, end = '<section class="about-section', '<section class="experience-section'
 assert baseline[baseline.index(start):baseline.index(end)] == current[current.index(start):current.index(end)], 'Preserved work displays changed'
 labels = ['界面视觉', '交互原型', '工程实现', 'AI 工作流', '产品规划', '用户研究']
 report = []

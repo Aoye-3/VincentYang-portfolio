@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import os
 import subprocess
+import re
 import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -15,9 +16,9 @@ BASE = 'http://127.0.0.1:5501/'
 EDGE = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
 baseline = subprocess.check_output(['git', 'show', 'HEAD:index.html'], cwd=ROOT).decode('utf-8')
 current = (ROOT / 'index.html').read_text(encoding='utf-8')
-for start, end in [('<section class="hero-stage"', '<section class="work-section'),
-                   ('<div id="honors-wall"', '<div class="selected-work-heading"')]:
-    assert baseline[baseline.index(start):baseline.index(end)] == current[current.index(start):current.index(end)], 'A preserved display changed'
+for pattern in [r'<section class="hero-stage"[\s\S]*?</section>',
+                r'<div id="honors-wall"[\s\S]*?</template>\s*</div>']:
+    assert re.search(pattern, baseline).group() == re.search(pattern, current).group(), 'A preserved display changed'
 
 report = []
 with sync_playwright() as p:
