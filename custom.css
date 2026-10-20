@@ -144,27 +144,14 @@ html:not(.js) .discovery-controls { display: none; }
 .side-project > a { margin-left: auto; white-space: nowrap; }
 .motion-ready [data-scroll-reveal] { opacity: var(--reveal, 1); transform: translateY(calc((1 - var(--reveal, 1)) * 65px)) scale(calc(.96 + var(--reveal, 1) * .04)); transform-origin: center top; }
 
-/* Biography and methods. */
+/* Biography. */
 .about-section { padding-block: 100px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px 100px; align-items: center; }
 .about-portrait { position: relative; aspect-ratio: 1; border-radius: 20px; overflow: hidden; }
 .about-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .about-portrait::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 60%, #0008); }
 .about-portrait > span { position: absolute; bottom: 22px; left: 26px; z-index: 1; color: #fff; font-size: 1rem; letter-spacing: .17em; }
-.about-copy h2, .method-heading h2 { font-size: clamp(2.8rem, 3.2vw, 4.4rem); letter-spacing: -.045em; line-height: 1.4; margin: 22px 0 26px; font-weight: 550; }
+.about-copy h2 { font-size: clamp(2.8rem, 3.2vw, 4.4rem); letter-spacing: -.045em; line-height: 1.4; margin: 22px 0 26px; font-weight: 550; }
 .about-copy > p:not(.eyebrow) { color: var(--muted); font-size: 1.5rem; margin: 15px 0; }
-.role-note { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 1.1rem; }
-.role-note strong { display: block; color: var(--ink); font-size: 1.3rem; font-weight: 500; margin-top: 7px; }
-.experience-list { grid-column: 1 / -1; border-top: 1px solid var(--line); }
-.experience-list > div { display: grid; grid-template-columns: 160px 1fr 1fr; gap: 20px; align-items: center; border-bottom: 1px solid var(--line); padding: 22px 0; font-size: 1.3rem; }
-.experience-list span, .experience-list p { color: var(--muted); font-size: 1.2rem; }
-.experience-list strong { font-weight: 500; }
-.method-section { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; padding: 70px 0 130px; }
-.method-list a { display: flex; align-items: center; gap: 25px; padding: 23px 0; border-bottom: 1px solid var(--line); transition: padding .3s var(--ease); }
-.method-list a:hover { padding-left: 12px; }
-.method-list a > span { color: var(--accent); font-size: 1.1rem; }
-.method-list h3 { font-size: 1.7rem; font-weight: 500; }
-.method-list p { color: var(--muted); font-size: 1.25rem; margin-top: 5px; }
-.method-list b { margin-left: auto; color: var(--muted); font-weight: 400; }
 
 /* Native disclosure: interests remain closed until explicitly opened. */
 .interest-section { padding-block: 40px 140px; }
@@ -267,7 +254,6 @@ body.reader-open { overflow: hidden; }
   .work-copy h3 { margin-top: 34px; }
   .visual-caption { flex-direction: column; gap: 4px; }
   .about-section { gap: 55px; }
-  .method-section { gap: 50px; }
 }
 @media (max-width: 760px) {
   .site-nav { height: 66px; padding-inline: 6%; gap: 12px; }
@@ -311,9 +297,6 @@ body.reader-open { overflow: hidden; }
   .about-section { grid-template-columns: 1fr; gap: 38px; padding-block: 65px; }
   .about-portrait { width: min(82%, 390px); justify-self: center; }
   .about-copy h2 { font-size: 3.1rem; }
-  .experience-list > div { grid-template-columns: 1fr; gap: 5px; padding-block: 20px; }
-  .method-section { grid-template-columns: 1fr; gap: 10px; padding-block: 45px 80px; }
-  .method-heading h2 { font-size: 3.1rem; }
   .interest-section { padding-bottom: 85px; }
   .interest-disclosure summary { align-items: flex-start; padding: 35px 0; gap: 10px; }
   .interest-disclosure h2 { font-size: 3.3rem; }
