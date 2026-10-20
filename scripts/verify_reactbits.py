@@ -24,12 +24,10 @@ with sync_playwright() as p:
             assert not page.evaluate('document.documentElement.scrollWidth > innerWidth')
             assert page.locator('.hero-project-link').count() == 5
             page.locator('#about').scroll_into_view_if_needed()
+            expect(page.locator('.skill-node')).to_have_count(6)
+            assert page.locator('.skills-avatar img').evaluate('(e)=>e.complete && e.naturalWidth > 0')
             if reduced:
-                assert page.locator('.portrait-pixel-layer').count() == 0
-            else:
-                expect(page.locator('.about-portrait')).to_have_attribute('data-pixel-reveal', 'complete')
-                assert page.locator('.portrait-pixel-layer').count() == 0, 'Completed WebGL layer must be released'
-            assert page.locator('.about-portrait > img').evaluate('(e)=>e.complete && e.naturalWidth > 0')
+                expect(page.locator('.skills-feature')).to_have_attribute('data-motion', 'paused')
 
             page.locator('#interest-disclosure').evaluate('(e)=>e.open=true')
             expect(page.locator('#creative-preview-root')).to_have_class('creative-preview-root is-enhanced')

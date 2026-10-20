@@ -3,6 +3,7 @@ import { flushSync } from "react-dom";
 import { animate } from "motion";
 import HoverPreview from "../components/hover-preview";
 import Showcase7, { type WorkProject } from "../components/showcase-7";
+import Features10, { type SkillNode } from "../components/features-10";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const creativeMount = document.getElementById("creative-preview-root");
@@ -71,40 +72,14 @@ document.querySelectorAll("[data-filter]").forEach((button) => button.addEventLi
   feedback = animate(content, { opacity: [0.6, 1] }, { duration: 0.24 });
 }));
 
-const portrait = document.querySelector<HTMLElement>(".about-portrait");
-if (portrait && !reduced.matches) {
-  const observer = new IntersectionObserver(async (entries) => {
-    if (!entries.some((entry) => entry.isIntersecting)) return;
-    observer.disconnect();
-    try {
-      const { default: PixelReveal } = await import("../components/pixel-reveal");
-      if (reduced.matches) return;
-      const image = portrait.querySelector("img")!;
-      const layer = document.createElement("div");
-      layer.className = "portrait-pixel-layer";
-      layer.setAttribute("aria-hidden", "true");
-      portrait.append(layer);
-      portrait.dataset.pixelReveal = "playing";
-      const root = createRoot(layer);
-      let finished = false;
-      const finish = (complete: boolean) => {
-        if (finished) return;
-        finished = true;
-        root.unmount();
-        layer.remove();
-        portrait.dataset.pixelReveal = complete ? "complete" : "fallback";
-        reduced.removeEventListener("change", stop);
-        clearTimeout(deadline);
-      };
-      // The native portrait underneath also covers WebGL/texture failure.
-      const stop = () => finish(false);
-      const deadline = setTimeout(stop, 2400);
-      reduced.addEventListener("change", stop);
-      root.render(<PixelReveal imageSrc={image.src} duration={0.9} gridSize={8} edgeHeight={0.12}
-        transitionColor="#0b0e16" triggerOnce onRevealComplete={() => finish(true)} />);
-    } catch {
-      portrait.dataset.pixelReveal = "fallback";
-    }
-  }, { threshold: 0.15 });
-  observer.observe(portrait);
+const aboutMount = document.getElementById("about-orbit-mount");
+if (aboutMount) {
+  const image = aboutMount.querySelector("img")!;
+  const skills: SkillNode[] = [...aboutMount.querySelectorAll<HTMLElement>("[data-skill-id]")].map((node) => ({
+    id: node.dataset.skillId!,
+    name: node.querySelector("strong")!.textContent!,
+    tools: node.querySelector("span")!.textContent!,
+    description: node.querySelector("p")!.textContent!,
+  }));
+  createRoot(aboutMount).render(<Features10 skills={skills} portrait={image.getAttribute("src")!} portraitAlt={image.alt} />);
 }
