@@ -74,11 +74,10 @@ with sync_playwright() as p:
             page.mouse.move(10, 100)
             expect(page.locator('.hero-collection')).to_have_attribute('data-playing', 'true')
             expect(page.locator('#work-title')).to_contain_text('精选作品')
-            # Main cases now stack; their transform belongs to work-stack.js.
-            # Geometry, reverse scrolling and fallbacks: verify_work_stack.py.
-            assert page.locator('.work-stack > .work-card[data-scroll-reveal]').count() == 0
+            # The work index uses normal flow; projects must never overlap.
+            assert page.locator('.work-stack, .case-cursor').count() == 0
             assert page.locator('.work-card').first.evaluate('(el) => getComputedStyle(el).opacity') == '1'
-            report['interactions'].extend(['hero pause/resume', 'stacked work markup'])
+            report['interactions'].extend(['hero pause/resume', 'editorial work index'])
 
         if width < 500:
             menu = page.locator('#menu-toggle')
@@ -148,12 +147,12 @@ with sync_playwright() as p:
         assert not page.evaluate('document.documentElement.scrollWidth > innerWidth'), f'Gallery overflow at {width}'
 
         page.locator('[data-filter="ux"]').click()
-        assert page.locator('[data-category]:visible').count() == 1
-        page.locator('[data-filter="product"]').click()
         assert page.locator('[data-category]:visible').count() == 2
-        page.locator('[data-filter="all"]').click()
+        page.locator('[data-filter="media"]').click()
         assert page.locator('[data-category]:visible').count() == 3
-        page.locator('.work-link').first.focus()
+        page.locator('[data-filter="all"]').click()
+        assert page.locator('[data-category]:visible').count() == 5
+        page.locator('.work-card').first.focus()
         page.locator('.work-toolbar').evaluate('(el) => window.scrollTo({top:scrollY + el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top) + 100,behavior:"instant"})')
         page.wait_for_timeout(200)
         assert page.locator('.work-toolbar').evaluate('(el) => Math.abs(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top))') < 2

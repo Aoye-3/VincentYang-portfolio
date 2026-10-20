@@ -1,6 +1,6 @@
 # 站点维护与迭代指南
 
-更新：2026-09-21。本文记录当前仓库中需要维护的文件、稳定链接及每次迭代的检查方法。设计目标和分阶段顺序见 [个性化体验方案](02-experience-blueprint.md)。首屏收藏卡最新规则见 [首屏组件维护](06-hero-gallery.md)。
+更新：2026-10-20。本文记录当前仓库中需要维护的文件、稳定链接及每次迭代的检查方法。设计目标和分阶段顺序见 [个性化体验方案](02-experience-blueprint.md)。首屏收藏卡最新规则见 [首屏组件维护](06-hero-gallery.md)，作品列表见 [当前列表维护](14-work-gallery.md)。
 
 ## 文件与职责
 
@@ -14,9 +14,9 @@
 | `custom.css` | 本站品牌样式、响应式与项目页覆盖 | 新视觉和交互样式优先加在这里，避免重复选择器无限叠加 |
 | `main.js` | 导航、主题、分类、兴趣深链、鼠标显影、滚动渐入与板面阅读器 | 局部指针效果遵守减少动效；导航和原图链接保留无 JS 降级 |
 | `hero-gallery.css` / `hero-gallery.js` | 首屏左右布局、收藏卡外壳、翻转与鼠标倾斜 | 内容只从首页 `.hero-projects` 读取，与作品墙播放状态独立 |
-| `work-stack.css` / `work-stack.js` | 主案例随页面滚动逐张叠加 | 内容源 `.work-stack`；观察原筛选的 `hidden` 状态；高度不足时恢复普通列表，见 [叠卡维护](07-work-stack.md) |
+| `work-gallery.css` / `components/showcase-7.tsx` | 精选作品的常显封面列表 | 内容源是首页 `#work-gallery-mount` 内的原生链接；分类为 all / ux / media，见 [列表维护](14-work-gallery.md) |
 | `page-progress.css` / `page-progress.js` | 底部固定的章节进度菜单、邮箱与返回 | 首页链接写在 `.page-progress-links`，详情复用 `.case-toc-links`，见 [菜单维护](08-page-progress.md) |
-| `scripts/verify_work_stack.py` | 叠卡位置、顺序、反向滚动、筛选与降级验收 | 输出 `.local/work-stack/`；与全站验收脚本配合使用 |
+| `scripts/verify_work_gallery.py` | 列表顺序、分类、慢加载、键盘与原生回退验收 | 输出 `.local/work-gallery/`；与全站验收脚本配合使用 |
 | `scripts/verify_hero_gallery.py` | 首屏响应式、链接、输入方式、降级与完整播放 | 覆盖新增第六张、仅一张和空列表；输出 `.local/hero-collection/` |
 | `assets/images/` | 形象照、项目封面、板面 WebP | 图片使用相对路径、明确 `alt`；详情板面继续懒加载 |
 | `docs/` | 评估、体验方案、维护决策 | 大的结构调整后同步更新地图和分类表 |
@@ -47,7 +47,7 @@
 
 ## CodeGraph 的实际覆盖范围
 
-本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。当前覆盖 **12 个文件**：`main.js`、`hero-gallery.js`、`work-stack.js`、`page-progress.js`、`hero-atmosphere.js`、五份 Python 验收脚本、缓存恢复回归脚本和素材生成脚本；节点与关系数量以 `codegraph status .` 的最新结果为准。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
+本地索引位于 `.codegraph/`，并被 `.gitignore` 排除。文件覆盖、节点与关系数量以 `codegraph status .` 的最新结果为准；删除的 `work-stack.js` 不再是当前入口。本站主要结构在 HTML/CSS，CodeGraph 当前不索引这两类文件；页面关系应结合 [当前实现地图](04-implementation.md)、代码搜索及浏览器检查判断。
 
 在本仓库目录内可运行：
 
@@ -63,7 +63,7 @@ rg -n 'id="(home|about|skills|projects|contact|interests)"|href="[^"]+"' index.h
 ## 内容更新流程
 
 1. **先确认分类与证据**：UX 或产品体验项目应有用户/场景、本人职责、设计决策、结果或验证；兴趣项目应有作品、时间、个人贡献与可公开的展示材料。
-2. **编辑首页入口**：在对应分类添加卡片。主案例优先只放 1–2 张高质量封面，避免把所有过程板面加载到首页。
+2. **编辑首页入口**：在 `#work-gallery-mount` 添加原生作品条目，按 UI-UX设计（ux）或 AIGC媒体类（media）分类；每个作品使用一张封面，避免把全部过程板面加载到首页。修改 React 组件后执行 `npm run typecheck` 和 `npm run build:interactions`。
 3. **更新详情页**：按「背景、我的角色、关键判断、方案、验证、复盘」组织摘要和章节；原板面可继续作为深读材料。
 4. **处理图片**：导出适合网页的 WebP，核对清晰度、体积和内容公开范围；详情图片用 `loading="lazy"`，给可理解的替代文字或邻近说明。
 5. **检查外部链接**：公开仓库里不要加入带提取码的私密网盘、未核实可公开的联系方式、未授权播放的视频或内部资料。
@@ -89,4 +89,4 @@ python -m http.server 5501 --bind 127.0.0.1
 
 当前公开仓库 [Aoye-3/VincentYang-portfolio](https://github.com/Aoye-3/VincentYang-portfolio) 的 `main` 已包含网站文件；GitHub Pages 是否已在 **Settings → Pages → Deploy from a branch → main / (root)** 启用，需要在仓库设置与实际地址再次确认。预期地址为 `https://aoye-3.github.io/VincentYang-portfolio/`。本地文档或分支并不会自动发布。
 
-仓库公开时，图片、视频、项目文字和历史提交都可能被访问。新增素材时只放已确认可公开的版本；上一级求职材料目录不能作为网站仓库内容上传。方案只参考 [React Bits](https://github.com/DavidHDev/react-bits) 的局部交互模式，当前没有引入其代码或依赖；若直接复用源码，先遵守其 [许可条款](https://github.com/DavidHDev/react-bits/blob/main/LICENSE.md)。
+仓库公开时，图片、视频、项目文字和历史提交都可能被访问。新增素材时只放已确认可公开的版本；上一级求职材料目录不能作为网站仓库内容上传。已通过用户提供的 registry 接入授权 ReactBits 组件，来源与适配记录见 [交互探索](12-reactbits-interaction-exploration.md) 和 [作品列表](14-work-gallery.md)。registry 凭据只保存在已忽略的 `.env.local`。

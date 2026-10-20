@@ -113,8 +113,8 @@ document.querySelectorAll('[data-filter]').forEach(button => {
     document.querySelectorAll('[data-category]').forEach(card => {
       card.hidden = filter !== 'all' && card.dataset.category !== filter;
     });
-    const descriptions = { all: '02 个精选案例 / 01 个延伸项目', ux: '01 个 UX 设计案例', product: '01 个产品案例 / 01 个延伸项目' };
-    document.getElementById('work-count').textContent = descriptions[filter];
+    const visibleCount = document.querySelectorAll('[data-category]:not([hidden])').length;
+    document.getElementById('work-count').textContent = String(visibleCount).padStart(2, '0') + ' 件作品';
     scheduleScroll();
   });
 });

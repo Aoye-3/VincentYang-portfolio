@@ -1,9 +1,31 @@
 import { createRoot } from "react-dom/client";
+import { flushSync } from "react-dom";
 import { animate } from "motion";
 import HoverPreview from "../components/hover-preview";
+import Showcase7, { type WorkProject } from "../components/showcase-7";
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const creativeMount = document.getElementById("creative-preview-root");
+const workMount = document.getElementById("work-gallery-mount");
+
+if (workMount) {
+  const projects: WorkProject[] = [...workMount.querySelectorAll<HTMLAnchorElement>(".work-card")].map((link) => ({
+    id: link.dataset.workId!,
+    title: link.querySelector("h3")!.textContent!,
+    category: link.dataset.category!,
+    categoryLabel: link.querySelector(".work-category")!.textContent!,
+    kind: link.querySelector(".work-kind")!.textContent!,
+    description: link.querySelector(".work-description")!.textContent!,
+    image: link.querySelector("img")!.getAttribute("src")!,
+    imageAlt: link.querySelector("img")!.alt,
+    href: link.getAttribute("href")!,
+    tags: [...link.querySelectorAll(".work-tags li")].map((tag) => tag.textContent!),
+  }));
+  // The native filter may already be selected while the island downloads.
+  flushSync(() => createRoot(workMount).render(<Showcase7 projects={projects} />));
+  workMount.dataset.enhanced = "true";
+  document.querySelector<HTMLButtonElement>('[data-filter][aria-pressed="true"]')?.click();
+}
 
 if (creativeMount) {
   // Keep native links and real thumbnails available before the island loads.
@@ -40,10 +62,10 @@ if (creativeMount) {
   creativeMount.classList.add("is-enhanced");
 }
 
-// Animate content feedback, leaving the existing sticky-card transforms alone.
+// Filtering stays immediate; a short fade acknowledges the new result set.
 let feedback: ReturnType<typeof animate> | undefined;
 document.querySelectorAll("[data-filter]").forEach((button) => button.addEventListener("click", () => {
-  feedback?.stop();
+  feedback?.complete();
   if (reduced.matches) return;
   const content = [...document.querySelectorAll<HTMLElement>("[data-category]:not([hidden]) .work-copy, [data-category]:not([hidden]) .work-visual")];
   feedback = animate(content, { opacity: [0.6, 1] }, { duration: 0.24 });
