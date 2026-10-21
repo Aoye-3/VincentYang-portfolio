@@ -5,6 +5,7 @@ const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 const menuButton = document.getElementById('menu-toggle');
 const siteMenu = document.getElementById('site-menu');
+const siteNav = document.querySelector('.site-nav');
 const themeButton = document.getElementById('theme-toggle');
 const interests = document.getElementById('interest-disclosure');
 
@@ -64,6 +65,7 @@ let scrollFrame = 0;
 
 function updateScrollState() {
   scrollFrame = 0;
+  siteNav?.classList.toggle('is-scrolled', window.scrollY > 24);
   const height = window.innerHeight;
   if (!motionPreference.matches) {
     revealElements.forEach(element => {

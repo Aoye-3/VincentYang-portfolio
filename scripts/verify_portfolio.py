@@ -164,9 +164,10 @@ with sync_playwright() as p:
         assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
         page.keyboard.press('Space')
         assert not page.locator('#interest-disclosure').evaluate('(el) => el.open')
-        if width < 500:
+        if width <= 760:
             page.locator('#menu-toggle').click()
-        page.locator('#site-menu a[href="#interests"]').click()
+        navigation = '#site-menu' if width <= 760 else '.page-progress-links'
+        page.locator(navigation + ' a[href="#interests"]').click()
         assert page.locator('#interest-disclosure').evaluate('(el) => el.open')
         page.wait_for_timeout(600)
         assert strip.evaluate('(el) => getComputedStyle(el).animationPlayState') == 'paused'
